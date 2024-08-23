@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('login') }}" id="loginForm">
                         @csrf
 
                         <div class="row mb-3">
@@ -53,7 +53,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="buton" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
 
@@ -70,4 +70,10 @@
         </div>
     </div>
 </div>
+@endsection
+@section('scripts')
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+ {!! JsValidator::formRequest('App\Http\Requests\auth\LoginRequest', '#loginForm') !!}
 @endsection
