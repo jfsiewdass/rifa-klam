@@ -699,7 +699,7 @@ textarea {
   font-size: 14px;
   border-radius: 6px;
   background-color: transparent;
-  border: 1px solid var(--n3);
+  border: 1px solid var(--n3) !important;
 }
 input::-moz-placeholder, textarea::-moz-placeholder {
   font-size: 16px;
@@ -9994,3 +9994,14 @@ iframe {
     font-size: 17px !important;
   }
 }/*# sourceMappingURL=style.css.map */
+
+.form-control {
+  padding: 12px 20px;
+}
+.form-check-input {
+  padding: 10px;
+  text-align: left;
+}
+label {
+  font-weight: bold;
+}

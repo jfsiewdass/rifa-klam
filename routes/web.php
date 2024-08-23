@@ -31,5 +31,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('rifas', RifaController::class);
-    Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+    // Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 });
