@@ -28,12 +28,12 @@
   --body-font: "Nunito Sans", sans-serif;
   --transition: all 0.5s ease-in-out;
   /* Color styles */
-  --p1: rgba(174, 254, 58, 1);
+  --p1: rgb(16, 152, 86);
   --p1-border: rgba(223, 255, 94, 0.3);
   --s1: rgba(85, 74, 255, 1);
   --act1: rgba(254, 68, 69, 1);
   --act2: rgba(19, 19, 19, 1);
-  --act3: rgba(254, 201, 47, 1);
+  --act3: rgb(16, 152, 86);
   --act4: rgba(255, 101, 14, 1);
   --act5: rgba(14, 14, 14, 1);
   --nw1: rgba(255, 255, 255, 1);
