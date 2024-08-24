@@ -3,10 +3,10 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-tb">
-        <div class="pull-left">
+        <div class="float-left">
             <h2>Create New User</h2>
         </div>
-        <div class="pull-right">
+        <div class="float-right">
             <a class="btn btn-primary btn-sm mb-2" href="{{ route('users.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
         </div>
     </div>
@@ -68,5 +68,5 @@
     </div>
 </form>
 
-<p class="text-center text-primary"><small>Tutorial by ItSolutionStuff.com</small></p>
+<p class="text-center text-primary"><small></small></p>
 @endsection

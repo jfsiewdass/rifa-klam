@@ -1,0 +1,321 @@
+
+.lottery-single {
+    background-color: #5a4bcc;
+    position: relative;
+}
+
+.lottery-single:hover .lottery-single__close {
+    opacity: 1;
+    visibility: 1;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+}
+
+.lottery-single__close {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #5a4bcc;
+    color: #ffffff;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: -15px;
+    right: -15px;
+    opacity: 0;
+    visibility: 0;
+    -webkit-transform: scale(0.5);
+    -ms-transform: scale(0.5);
+    transform: scale(0.5);
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.lottery-single__header {
+    background-color: #4939c1;
+    padding: 20px 20px;
+}
+
+.lottery-single__header .titcket-number {
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.lottery-single__header .top {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #6d62c7;
+}
+
+.lottery-single__header .top .titcket-number {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.lottery-single__header .top ul {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.lottery-single__header .top ul li button {
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+}
+
+.lottery-single__header .top ul li button span {
+    color: #ffffff;
+}
+
+.lottery-single__header .top ul li button i {
+    font-size: 28px;
+    color: #ffffff;
+}
+
+.lottery-single__selected-number {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: -3px;
+}
+
+.lottery-single__selected-number li {
+    width: 36px;
+    height: 36px;
+    background-image: -moz-linear-gradient(135deg, rgb(177, 34, 230) 0%, rgb(255, 99, 222) 100%);
+    background-image: -webkit-linear-gradient(135deg, rgb(177, 34, 230) 0%, rgb(255, 99, 222) 100%);
+    background-image: -ms-linear-gradient(135deg, rgb(177, 34, 230) 0%, rgb(255, 99, 222) 100%);
+    box-shadow: 0px 19px 56px 0px rgba(0, 0, 0, 0.2);
+    color: rgba(255, 255, 255, 0.4);
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    margin: 3px;
+}
+
+.lottery-single__selected-number li.active {
+    background-image: -moz-linear-gradient(86deg, rgb(236, 3, 139) 0%, rgb(251, 100, 104) 44%, rgb(251, 185, 54) 100%);
+    background-image: -webkit-linear-gradient(86deg, rgb(236, 3, 139) 0%, rgb(251, 100, 104) 44%, rgb(251, 185, 54) 100%);
+    background-image: -ms-linear-gradient(86deg, rgb(236, 3, 139) 0%, rgb(251, 100, 104) 44%, rgb(251, 185, 54) 100%);
+    box-shadow: 0px 17px 40px 0px rgba(124, 78, 25, 0.35);
+    border: none;
+    color: #ffffff;
+}
+
+.lottery-single__number {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: -3px;
+    justify-content: center;
+}
+
+.lottery-single__number li {
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    cursor: pointer;
+    margin: 4px 3px;
+}
+
+.lottery-single__number li.active {
+    background-image: -moz-linear-gradient(86deg, rgb(236, 3, 139) 0%, rgb(251, 100, 104) 44%, rgb(251, 185, 54) 100%);
+    background-image: -webkit-linear-gradient(86deg, rgb(236, 3, 139) 0%, rgb(251, 100, 104) 44%, rgb(251, 185, 54) 100%);
+    background-image: -ms-linear-gradient(86deg, rgb(236, 3, 139) 0%, rgb(251, 100, 104) 44%, rgb(251, 185, 54) 100%);
+    box-shadow: 0px 17px 40px 0px rgba(124, 78, 25, 0.35);
+    border: none;
+}
+
+.lottery-single__body {
+    padding: 20px 20px;
+}
+
+.lottery-single__footer {
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 20px 0 30px 0;
+    border-top: 1px solid #7d73cd;
+}
+
+.lottery-single.style--two .lottery-single__number {
+    justify-content: flex-start;
+    margin: -4px;
+}
+
+@media (max-width: 575px) {
+    .lottery-single.style--two .lottery-single__number {
+        justify-content: center;
+    }
+}
+
+.lottery-single.style--two .lottery-single__number li {
+    margin: 4px 4px;
+}
+
+.buy-lottery-ticket {
+    border: 1px solid #201456;
+    padding: 30px 30px;
+    border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.buy-lottery-ticket .left {
+    width: 35%;
+}
+
+@media (max-width: 991px) {
+    .buy-lottery-ticket .left {
+        width: 60%;
+    }
+}
+
+@media (max-width: 767px) {
+    .buy-lottery-ticket .left {
+        width: 100%;
+    }
+}
+
+.buy-lottery-ticket .right {
+    width: 65%;
+    text-align: right;
+}
+
+@media (max-width: 991px) {
+    .buy-lottery-ticket .right {
+        width: 40%;
+    }
+}
+
+@media (max-width: 767px) {
+    .buy-lottery-ticket .right {
+        width: 100%;
+        margin-top: 30px;
+        text-align: center;
+    }
+}
+
+.buy-lottery-ticket .sub-total-price, .buy-lottery-ticket .total-price {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.buy-lottery-ticket .sub-total-price span, .buy-lottery-ticket .total-price span {
+    font-size: 18px;
+}
+
+.buy-lottery-ticket .sub-total-price {
+    padding-bottom: 20px;
+}
+
+.buy-lottery-ticket .total-price {
+    padding-top: 20px;
+    border-top: 1px solid #201456;
+}
+
+.buy-lottery-ticket .total-price p, .buy-lottery-ticket .total-price span {
+    color: #ffffff;
+}
+
+.pick-lottery-package .title {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 60px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+@media (max-width: 991px) {
+    .pick-lottery-package .title {
+        font-size: 48px;
+    }
+}
+
+@media (max-width: 767px) {
+    .pick-lottery-package .title {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 575px) {
+    .pick-lottery-package .title {
+        font-size: 32px;
+    }
+}
+
+.lottery-package-list {
+    text-align: center;
+    margin: -10px -15px;
+}
+
+.lottery-package-list a {
+    padding: 20px 20px;
+    background-image: -moz-linear-gradient(0deg, rgb(233, 56, 142) 0%, rgb(185, 33, 122) 43%, rgb(136, 9, 101) 100%);
+    background-image: -webkit-linear-gradient(0deg, rgb(233, 56, 142) 0%, rgb(185, 33, 122) 43%, rgb(136, 9, 101) 100%);
+    background-image: -ms-linear-gradient(0deg, rgb(233, 56, 142) 0%, rgb(185, 33, 122) 43%, rgb(136, 9, 101) 100%);
+    color: #ffffff;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    margin: 10px 15px;
+}
+
+.lottery-package-list a:hover {
+    background-image: -moz-linear-gradient(86deg, rgb(236, 3, 139) 0%, rgb(251, 100, 104) 44%, rgb(251, 185, 54) 100%);
+    background-image: -webkit-linear-gradient(86deg, rgb(236, 3, 139) 0%, rgb(251, 100, 104) 44%, rgb(251, 185, 54) 100%);
+    background-image: -ms-linear-gradient(86deg, rgb(236, 3, 139) 0%, rgb(251, 100, 104) 44%, rgb(251, 185, 54) 100%);
+    box-shadow: 0px 17px 40px 0px rgba(124, 78, 25, 0.35);
+}
