@@ -9902,15 +9902,15 @@ iframe {
 
 @media (max-width: 1399px) {
   .custom-display {
-    font-size: 68px;
+    font-size: 58px;
     line-height: 110%;
   }
   .winner-span {
-    font-size: 68px;
+    font-size: 58px;
     line-height: 110%;
   }
   .winner-span .wins {
-    font-size: 68px;
+    font-size: 58px;
     line-height: 110%;
   }
   .shape-win {
@@ -9972,13 +9972,13 @@ iframe {
     padding: 40px 0 0px;
   }
   .custom-display {
-    font-size: 32px;
+    font-size: 28px;
   }
   .winner-span {
-    font-size: 32px;
+    font-size: 28px;
   }
   .winner-span .wins {
-    font-size: 32px;
+    font-size: 28px;
   }
   .winner-span .thumb {
     width: 100%;

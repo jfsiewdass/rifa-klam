@@ -2,13 +2,13 @@
 
 @section('content')
 <div class="row">
-    <div class="col-lg-12 margin-tb">
+    <div class="col-lg-12 d-flex justify-content-between align-items-center margin-tb">
         <div class="pull-left">
-            <h2>rifas</h2>
+            <h2>Gestion de rifas</h2>
         </div>
         <div class="pull-right">
             @can('rifa-create')
-            <a class="btn btn-success btn-sm mb-2" href="{{ route('rifas.create') }}"><i class="fa fa-plus"></i> Create New rifa</a>
+            <a class="btn btn-success mb-2" href="{{ route('rifas.create') }}"><i class="fa fa-plus"></i> Crear rifa</a>
             @endcan
         </div>
     </div>
@@ -53,5 +53,5 @@
 
 {!! $rifas->links() !!}
 
-<p class="text-center text-primary"><small>Tutorial by ItSolutionStuff.com</small></p>
+<p class="text-center text-primary"><small></small></p>
 @endsection

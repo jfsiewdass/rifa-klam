@@ -12,7 +12,7 @@
     <!-- ==== #Description ==== -->
     <meta name="description" content="LottoVibe - Multipurpose HTML Template">
     <!-- ==== #Title ==== -->
-    <title>Rifas Klam</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
     <!-- ==== #Favicon ==== -->
     <link rel="shortcut icon" href="assets/images/logo/favicon.png" type="image/x-icon">
 
@@ -44,214 +44,7 @@
     <!-- ==== Custom Cursor Pointer ==== -->
 
     <!-- ==== Custom Mobile & Other Device Menu ==== -->
-    <header class="header-section-v1 custom-fixed header-position">
-        <div class="container-header">
-            <div class="main-navbar main-navbar-white">
-                <!-- <div class="main-navbar-black"></div> -->
-                <nav class="navbar-custom">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <a href="index.html" class="nav-brand d-xl-none">
-                            <img class="w-100" src="assets/images/logo.jpg" alt="logo">
-                        </a>
-                        <div class="d-flex gap-6">
-                            <button class="navbar-toggle-btn d-block d-xl-none" type="button">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="navbar-toggle-item">
-                        <div class="d-flex gap-5 flex-column flex-lg-row align-items-start align-items-xl-center justify-content-between mt-2 mt-xl-0">
-                            <a href="index.html" class="nav-brand d-none d-xl-block">
-                                <img class="w-100" src="assets/images/logo.jpg" alt="logo">
-                            </a>
-                            <ul class="custom-nav d-xl-flex d-grid gap-4 gap-xl-5 gap-xxl-10">
-                                <li class="menu-item position-relative">
-                                    <button class="position-relative">
-                                        Home
-                                    </button>
-                                    <ul class="sub-menu">
-                                        <li class="menu-link mb-xxl-2">
-                                            <a href="index.html">Home One</a>
-                                        </li>
-                                        <li class="menu-link">
-                                            <a href="index2.html">Home Two</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item position-relative">
-                                    <a href="winners.html">
-                                        Winners
-                                    </a>
-                                </li>
-                                <li class="menu-item position-relative">
-                                    <a href="features.html">
-                                        Features
-                                    </a>
-                                </li>
-                                 <li class="menu-item position-relative">
-                                    <button class="position-relative">
-                                        News
-                                    </button>
-                                    <ul class="sub-menu">
-                                        <li class="menu-link mb-xxl-2">
-                                            <a href="blog1.html">BLog V-1</a>
-                                        </li>
-                                        <li class="menu-link mb-xxl-2">
-                                            <a href="blog2.html">BLog V-2</a>
-                                        </li>
-                                        <li class="menu-link">
-                                            <a href="blog-details.html">Blog Details</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item position-relative">
-                                    <button class="position-relative">
-                                        Lotteries
-                                    </button>
-                                    <ul class="sub-menu">
-                                        <li class="menu-link mb-xxl-2">
-                                            <a href="contest.html">Contest</a>
-                                        </li>
-                                        <li class="menu-link">
-                                            <a href="contest-details.html">Contest Details</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item position-relative">
-                                    <button class="position-relative">
-                                        Pages
-                                    </button>
-                                    <ul class="sub-menu">
-                                        <li class="menu-link mb-xxl-1">
-                                            <a href="about.html">About Us</a>
-                                        </li>
-                                        <li class="menu-link mb-xxl-1">
-                                            <a href="user-panel.html">User Panel</a>
-                                        </li>
-                                        <li class="menu-item py-1 position-relative">
-                                            <button class="position-relative">Shop</button>
-                                            <ul class="sub-menu">
-                                                <li class="menu-link">
-                                                    <a href="basket.html">Basket</a>
-                                                </li>
-                                                <li class="menu-link">
-                                                    <a href="checkout.html">Checkout</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-item mb-xxl-1 py-1 position-relative">
-                                            <button class="position-relative">Authentication</button>
-                                            <ul class="sub-menu">
-                                                <li class="menu-link mb-xxl-1">
-                                                    <a href="login.html">Login</a>
-                                                </li>
-                                                <li class="menu-link mb-xxl-1">
-                                                    <a href="register.html">Register</a>
-                                                </li>
-                                                <li class="menu-link mb-xxl-1">
-                                                    <a href="forgot-password.html">Forgot Password</a>
-                                                </li>
-                                                <li class="menu-link mb-xxl-1">
-                                                    <a href="new-password.html">New Password</a>
-                                                </li>
-                                                <li class="menu-link">
-                                                    <a href="verify-password.html">Verify Password</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        
-                                        <li class="menu-link mb-xxl-1">
-                                            <a href="affiliate.html" class="fw_500 n0-color">Affiliate</a>
-                                        </li>
-                                        <li class="menu-link mb-xxl-1">
-                                            <a href="howtoplay.html" class="fw_500 n0-color">How To Play</a>
-                                        </li>
-                                        <li class="menu-link mb-xxl-1">
-                                            <a href="faq.html" class="fw_500 n0-color">Faq</a>
-                                        </li>
-                                        <li class="menu-link mb-xxl-1">
-                                            <a href="contact.html" class="fw_500 n0-color">Contact</a>
-                                        </li>
-                                        <li class="menu-link">
-                                            <a href="error.html" class="fw_500 n0-color">Error 404</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item itembg__1 position-relative">
-                                    <a href="contact.html" class="fw_500">
-                                        Contact Us
-                                    </a>
-                                </li>
-                            </ul>
-                            <div class="d-flex flex-wrap flex-xl-no-wrap align-items-center justify-content-lg-end gap-4">
-                                <ul class="d-flex head-card align-items-center gap-3">
-                                    <li>
-                                        <a href="basket.html" class="cmn-circle">
-                                            <i class="ti ti-shopping-cart-plus"></i>
-                                        </a>
-                                        <span class="badge-seri">
-                                            04
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <a href="user-panel.html" class="cmn-circle">
-                                            <i class="ti ti-user"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div class="head-language">
-                                    <select name="country">
-                                        <option value="1">
-                                            EN
-                                        </option>
-                                        <option value="1">
-                                            Bn
-                                        </option>
-                                        <option value="1">
-                                            Uk
-                                        </option>
-                                        <option value="1">
-                                            Us
-                                        </option>
-                                        <option value="1">
-                                            Uk
-                                        </option>
-                                        <option value="1">
-                                            EN
-                                        </option>
-                                    </select>
-                                </div>
-                                <a href="contest.html" class="kewta-btn d-inline-flex align-items-center">
-                                    <span class="kew-text p1-border n0-clr">
-                                        Explore Now
-                                    </span>
-                                    <div class="kew-arrow p1-bg">
-                                        <div class="kt-one">
-                                            <i class="ti ti-arrow-right n4-clr"></i>                                
-                                        </div>
-                                        <div class="kt-two">
-                                            <i class="ti ti-arrow-right n4-clr"></i>                               
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="invisible-menuthumb d-flex">
-                                    <a href="landing-nft1.html">
-                                        <img src="assets/images/global/global-nft.png" alt="img">
-                                    </a>
-                                    <a href="landing-nft2.html">
-                                        <img src="assets/images/global/global-nft2.png" alt="img">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </header>
+    @include('layouts.landing.nav')
     <!-- ==== Custom Mobile & Other Device Menu ==== -->
     
     <!-- ==== Main ==== -->
@@ -268,7 +61,7 @@
                             <ul class="entry-win d-flex align-items-center gap-3">
                                 <li class="entry-win-item" data-aos="fade-down-right" data-aos-duration="1000">
                                     <a href="javascript:void(0)" class="fs-four p1-clr">
-                                        Entry
+                                        Entra
                                     </a>
                                 </li>
                                 <li class="entry-win-item" data-aos="fade-down-right" data-aos-duration="1200">
@@ -276,7 +69,7 @@
                                 </li>
                                 <li class="entry-win-item" data-aos="fade-down-right" data-aos-duration="1400">
                                     <a href="javascript:void(0)" class="fs-four p1-clr">
-                                        Draw
+                                        Compra
                                     </a>
                                 </li>
                                 <li class="entry-win-item" data-aos="fade-down-right" data-aos-duration="1600">
@@ -284,7 +77,7 @@
                                 </li>
                                 <li class="entry-win-item" data-aos="fade-down-right" data-aos-duration="2000">
                                     <a href="javascript:void(0)" class="fs-four p1-clr">
-                                        Win
+                                        Gana
                                     </a>
                                 </li>
                             </ul>
@@ -297,12 +90,12 @@
                             </a> --}}
                         </div>
                         <div class="custom-display n0-clr mb-6" data-aos="zoom-in-up" data-aos-duration="1000">
-                            Could you be our 
+                            Puedes ser tu el
                             <div class="d-xxl-flex d-grid align-items-center justify-content-between winner-span gap-xxl-5 gap-4 flex-xxl-nowrap flex-wrap">
                                 <span class="wins nw1-clr d-flex align-items-center gap-6" data-aos="zoom-in-down" data-aos-duration="2000">
-                                    next 
+                                    proximo 
                                     <span class="wins p1-clr">
-                                        winner?
+                                        ganador?
                                         <svg viewBox="0 0 355 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M0.92099 12.8063C56.8373 3.14121 205.75 -10.0362 354.071 14.5747" stroke="#AEFE3A"/>
                                         </svg>                                            
@@ -322,7 +115,7 @@
                         <div class="d-flex align-items-center gap-xl-8 gap-3 flex-wrap mb-xxl-20 pb-xl-20 pb-5">
                             <a href="contest.html" class="kewta-btn kewta-alt d-inline-flex align-items-center" data-aos="zoom-in-right" data-aos-duration="1000">
                                 <span class="kew-text s1-bg n4-clr act3-bg">
-                                    Participant Now
+                                    Participa ahora
                                 </span>
                                 <div class="kew-arrow act3-bg">
                                     <div class="kt-one">
@@ -334,12 +127,12 @@
                                 </div>
                             </a>
                             <a href="howtoplay.html" class="how-cont nw1-clr fw_700" data-aos="zoom-in-left" data-aos-duration="800">
-                                How It’s Works
+                                como funciona
                             </a>
                         </div>
                         <div class="bn1-odometer d-flex align-items-center gap-xxl-11 gap-xl-8 gap-lg-6 gap-5">
                             <div class="odometer__items" data-aos="zoom-in-down" data-aos-duration="1000">
-                                <div class="cont d-flex align-items-center">
+                                {{-- <div class="cont d-flex align-items-center">
                                     <span class="odometer display-four nw1-clr fw_800">
                                     1750
                                     </span>
@@ -347,65 +140,24 @@
                                     +
                                     </span>
                                 </div>
-                                <p>Verified Users</p>
+                                <p>Verified Users</p> --}}
                             </div>
                             <div class="odometer__items" data-aos="zoom-in-up" data-aos-duration="1000">
-                                <div class="cont d-flex align-items-center">
+                                {{-- <div class="cont d-flex align-items-center">
                                     <span class="odometer display-four nw1-clr fw_800">
                                         15
                                     </span>
                                 </div>
-                                <p>Years on the market</p>
+                                <p>Years on the market</p> --}}
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-2 col-lg-3">
-                    <div class="banner-content-v1customer">
-                        <ul class="customer-review cmn-style-flex d-inline-flex act3-border radius100 py-xxl-2 py-2 px-2">
-                            <li>
-                                <a href="javascript:void(0)" class="customer-revew-item n0-bg d-flex align-items-center justify-content-center">
-                                    <img src="assets/images/banner/customer1.png" alt="img">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="customer-revew-item n0-bg d-flex align-items-center justify-content-center">
-                                    <img src="assets/images/banner/customer2.png" alt="img">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="customer-revew-item n0-bg d-flex align-items-center justify-content-center">
-                                    <img src="assets/images/banner/customer3.png" alt="img">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="customer-revew-item n0-bg d-flex align-items-center justify-content-center">
-                                    <img src="assets/images/banner/customer4.png" alt="img">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="customer-revew-item n0-bg d-flex align-items-center justify-content-center">
-                                    <span class="d-grid customer-ratting text-center p-2 p1-bg align-items-center justify-content-center">
-                                        <i class="ti ti-star-filled n4-clr"></i>
-                                        <span class="d-block fs-eight fw_700 n4-clr">
-                                            4.7
-                                        </span>
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                        <span class="nw2-clr fs-eight d-block fw_700 text-uppercase mt-xxl-4 mt-3">
-                            <span class="act3-clr fs-five">70k</span> CUSTOMER REVIEW
-                        </span>
-                        {{-- <a href="about.html" class="d-flex arrow-rotate justify-content-end me-5 mt-6">
-                            <img src="assets/images/banner/kewta-arrow.png" alt="img">
-                        </a> --}}
-                    </div>
-                </div>
+                
             </div>
         </div>
         <!--Banner Content -->
-        <img src="assets/images/banner/win.png" alt="img" class="shape-win">
+        {{-- <img src="assets/images/banner/win.png" alt="img" class="shape-win"> --}}
         <div class="banner-oneslider">
             <div class="banner-carslide-wrap swiper mySwiper">
                 <div class="swiper-wrapper">
@@ -4054,6 +3806,279 @@
                             Play for Life-Changing Winning Prizes
                         </span>
                         <img src="assets/images/global/life-arrow.png" alt="img" class="tablet-arrow">
+                        <section class="pb-120 mt-minus-50">
+                            <div class="container">
+                              <div class="row">
+                                <div class="col-lg-12">
+                                  <div class="lottery-wrapper style--two">
+                                    <div class="action-header">
+                                      <div class="left">
+                                        <ul>
+                                          <li><a href="#0">5 Tickets</a></li>
+                                          <li><a href="#0">10 Tickets</a></li>
+                                          <li><a href="#0">15 Tickets</a></li>
+                                          <li><a href="#0">20 Tickets</a></li>
+                                        </ul>
+                                      </div>
+                                      <div class="right">
+                                        <ul>
+                                          <li>
+                                            <i class="las la-clock"></i>
+                                            <div class="clock2" data-clock="2023/06/12"><div><span>00</span><p>d</p></div><div><span>00</span><p>h</p></div><div><span>00</span><p>m</p></div><div><span>00</span><p>s</p></div></div>
+                                          </li>
+                                          <li>
+                                            <button type="button">
+                                              <i class="las la-trash"></i>
+                                              <span>Erase All</span>
+                                            </button>
+                                          </li>
+                                          <li>
+                                            <button type="button">
+                                              <i class="las la-table"></i>
+                                              <span>Quick Pick All</span>
+                                            </button>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                    <div class="row mt-50 mb-none-30">
+                                      <div class="col-lg-6 mb-30">
+                                        <div class="lottery-single style--two">
+                                          <button class="lottery-single__close"><i class="las la-times"></i></button>
+                                          <div class="lottery-single__header">
+                                            <div class="top">
+                                              <span class="titcket-number">Ticket #2</span>
+                                              <ul>
+                                                <li>
+                                                  <button>
+                                                    <i class="las la-table"></i>
+                                                    <span>Quick Pick</span>
+                                                  </button>
+                                                </li>
+                                                <li>
+                                                  <button><i class="las la-trash"></i> </button>
+                                                </li>
+                                              </ul>
+                                            </div>
+                                            <ul class="lottery-single__selected-number justify-content-center">
+                                              <li>00</li>
+                                              <li>00</li>
+                                              <li>00</li>
+                                              <li>00</li>
+                                              <li>00</li>
+                                              <li>00</li>
+                                              <li>00</li>
+                                            </ul>
+                                          </div><!-- lottery-single__header end -->
+                                          <div class="lottery-single__body">
+                                            <p class="text-white mb-2">Select 5 numbers</p>
+                                            <ul class="lottery-single__number">
+                                              <li>1</li>
+                                              <li>2</li>
+                                              <li>3</li>
+                                              <li>4</li>
+                                              <li>5</li>
+                                              <li>6</li>
+                                              <li>7</li>
+                                              <li class="active">8</li>
+                                              <li class="active">9</li>
+                                              <li class="active">10</li>
+                                              <li>11</li>
+                                              <li>12</li>
+                                              <li>13</li>
+                                              <li>14</li>
+                                              <li>15</li>
+                                              <li>16</li>
+                                              <li>17</li>
+                                              <li>18</li>
+                                              <li>19</li>
+                                              <li>20</li>
+                                              <li class="">21</li>
+                                              <li>22</li>
+                                              <li>23</li>
+                                              <li>24</li>
+                                              <li>25</li>
+                                              <li>26</li>
+                                              <li>27</li>
+                                              <li>28</li>
+                                              <li>29</li>
+                                              <li>30</li>
+                                              <li>31</li>
+                                              <li>32</li>
+                                              <li>33</li>
+                                              <li>34</li>
+                                              <li class="">35</li>
+                                              <li>36</li>
+                                              <li>37</li>
+                                              <li>38</li>
+                                              <li>39</li>
+                                              <li>40</li>
+                                              <li>41</li>
+                                              <li>42</li>
+                                              <li>43</li>
+                                              <li>44</li>
+                                              <li>45</li>
+                                              <li>46</li>
+                                              <li>47</li>
+                                              <li>48</li>
+                                              <li>49</li>
+                                              <li>50</li>
+                                            </ul>
+                                          </div><!-- lottery-single__body end -->
+                                          <div class="lottery-single__footer">
+                                            <p class="text-white mb-2">Select 2 lucky numbers</p>
+                                            <ul class="lottery-single__number justify-content-center">
+                                              <li>1</li>
+                                              <li>2</li>
+                                              <li>3</li>
+                                              <li>4</li>
+                                              <li>5</li>
+                                              <li>6</li>
+                                              <li>7</li>
+                                              <li>8</li>
+                                              <li>9</li>
+                                              <li>10</li>
+                                              <li>11</li>
+                                            </ul>
+                                          </div><!-- lottery-single__footer end -->
+                                        </div><!-- lottery-single end -->
+                                      </div>
+                                      <div class="col-lg-6 mb-30">
+                                        <div class="lottery-single style--two">
+                                          <button class="lottery-single__close"><i class="las la-times"></i></button>
+                                          <div class="lottery-single__header">
+                                            <div class="top">
+                                              <span class="titcket-number">Ticket #2</span>
+                                              <ul>
+                                                <li>
+                                                  <button>
+                                                    <i class="las la-table"></i>
+                                                    <span>Quick Pick</span>
+                                                  </button>
+                                                </li>
+                                                <li>
+                                                  <button><i class="las la-trash"></i> </button>
+                                                </li>
+                                              </ul>
+                                            </div>
+                                            <ul class="lottery-single__selected-number justify-content-center">
+                                              <li>00</li>
+                                              <li>00</li>
+                                              <li>00</li>
+                                              <li>00</li>
+                                              <li>00</li>
+                                              <li>00</li>
+                                              <li>00</li>
+                                            </ul>
+                                          </div><!-- lottery-single__header end -->
+                                          <div class="lottery-single__body">
+                                            <p class="text-white mb-2">Select 5 numbers</p>
+                                            <ul class="lottery-single__number">
+                                              <li>1</li>
+                                              <li>2</li>
+                                              <li>3</li>
+                                              <li>4</li>
+                                              <li>5</li>
+                                              <li>6</li>
+                                              <li>7</li>
+                                              <li>8</li>
+                                              <li>9</li>
+                                              <li>10</li>
+                                              <li>11</li>
+                                              <li>12</li>
+                                              <li>13</li>
+                                              <li>14</li>
+                                              <li>15</li>
+                                              <li>16</li>
+                                              <li>17</li>
+                                              <li>18</li>
+                                              <li>19</li>
+                                              <li>20</li>
+                                              <li>21</li>
+                                              <li>22</li>
+                                              <li>23</li>
+                                              <li>24</li>
+                                              <li>25</li>
+                                              <li>26</li>
+                                              <li>27</li>
+                                              <li>28</li>
+                                              <li>29</li>
+                                              <li>30</li>
+                                              <li>31</li>
+                                              <li>32</li>
+                                              <li>33</li>
+                                              <li>34</li>
+                                              <li>35</li>
+                                              <li>36</li>
+                                              <li>37</li>
+                                              <li>38</li>
+                                              <li>39</li>
+                                              <li>40</li>
+                                              <li>41</li>
+                                              <li>42</li>
+                                              <li>43</li>
+                                              <li>44</li>
+                                              <li>45</li>
+                                              <li>46</li>
+                                              <li>47</li>
+                                              <li>48</li>
+                                              <li>49</li>
+                                              <li>50</li>
+                                            </ul>
+                                          </div><!-- lottery-single__body end -->
+                                          <div class="lottery-single__footer">
+                                            <p class="text-white mb-2">Select 2 lucky numbers</p>
+                                            <ul class="lottery-single__number justify-content-center">
+                                              <li>1</li>
+                                              <li>2</li>
+                                              <li>3</li>
+                                              <li>4</li>
+                                              <li>5</li>
+                                              <li>6</li>
+                                              <li>7</li>
+                                              <li>8</li>
+                                              <li>9</li>
+                                              <li>10</li>
+                                              <li>11</li>
+                                            </ul>
+                                          </div><!-- lottery-single__footer end -->
+                                        </div><!-- lottery-single end -->
+                                      </div>
+                                    </div>
+                                    <div class="lottery-wrapper__btn">
+                                      <a href="#0" class="btn-border text-white">Add Tickets</a>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-lg-12 mt-50">
+                                  <div class="buy-lottery-ticket">
+                                    <div class="left">
+                                      <div class="sub-total-price">
+                                        <p>Ticket Price (3 tickets X $ 4.99)</p>
+                                        <span>$14.97</span>
+                                      </div>
+                                      <div class="total-price">
+                                        <p>Ticket Price (3 tickets X $ 4.99)</p>
+                                        <span>$14.97</span>
+                                      </div>
+                                    </div>
+                                    <div class="right"><a href="#0" class="cmn-btn">buy tickets</a></div>
+                                  </div>
+                                </div><!-- col-lg-12 -->
+                                <div class="col-lg-12 pt-120">
+                                  <div class="pick-lottery-package">
+                                    <h2 class="title">Choose a Quick Pick</h2>
+                                    <div class="lottery-package-list">
+                                      <a href="#0">3 Quick Picks For $14.97</a>
+                                      <a href="#0">5 Quick Picks For $24.95</a>
+                                      <a href="#0">10 Quick Picks For $49.90</a>
+                                      <a href="#0">20 Quick Picks For $99.80</a>
+                                    </div>
+                                  </div>
+                                </div><!-- col-lg-12 -->
+                              </div>
+                            </div>
+                          </section>
                     </div>
                 </div>
             </div>
@@ -4289,30 +4314,7 @@
 
 
     <!-- ==== js Jquery start ==== -->
-    <script src="assets/js/plugins/jquery.js"></script>
-    <!-- ==== js Viewport js start ==== -->
-    <script src="assets/js/plugins/viewpot.js"></script>
-    <!-- ==== js Aos Animation start ==== -->
-    <script src="assets/js/plugins/aos.js"></script>
-    <!-- ==== js Bootstrap start ==== -->
-    <script src="assets/js/plugins/bootstrap.js"></script>
-    <!-- ==== js Magnific start ==== -->
-    <script src="assets/js/plugins/magnific-popup.js"></script>
-    <!-- ==== js Swiper start ==== -->
-    <script src="assets/js/plugins/swiper.js"></script>
-    <!-- ==== js Odometer start ==== -->
-    <script src="assets/js/plugins/odometer.js"></script>
-    <!-- ==== js Nice Select start ==== -->
-    <script src="assets/js/plugins/jquery.nice-select.min.js"></script>
-    <!-- ==== js Phosphor Icon start ==== -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <!-- ==== js Matter Js start ==== -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.18.0/matter.min.js"></script>
-    <!-- ==== js Matter Js Custom start ==== -->
-    <script src="assets/js/plugins/matter-custom.js"></script>
-    <!-- ==== js Mian start ==== -->
-    <script src="assets/js/main.js"></script>
-
+    
 </body>
-
+    @include('layouts.landing.script')
 </html>
