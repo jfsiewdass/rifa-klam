@@ -1,7 +1,28 @@
 <!doctype html>
 <html lang="en">
 
-@include('layouts.landing.head')
+<head>
+
+    <!-- ==== Required Meta ==== -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ==== #Keywords ==== -->
+    <meta name="keywords" content="boot, Bootstrap, LottoVibe - Multipurpose HTML Template">
+    <!-- ==== #Description ==== -->
+    <meta name="description" content="LottoVibe - Multipurpose HTML Template">
+    <!-- ==== #Title ==== -->
+    <title>Lottovibe - Lottery & Giveaway HTML Template</title>
+    <!-- ==== #Favicon ==== -->
+    <link rel="shortcut icon" href="assets/images/logo/favicon.png" type="image/x-icon">
+
+
+    <!-- ==== Tabler Icon ==== -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.36.0/tabler-icons.min.css">
+    <!-- ==== #style.min ==== -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
 <body>
 
     <!-- Global Line Animation -->
@@ -60,13 +81,13 @@
                                     </a>
                                 </li>
                             </ul>
-                            <a href="contest.html" class="custom-bigarrow">
+                            {{-- <a href="contest.html" class="custom-bigarrow">
                                 <span class="icon">
                                     <svg width="137" height="16" viewBox="0 0 137 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M136.707 8.70712C137.098 8.31659 137.098 7.68343 136.707 7.29291L130.343 0.928944C129.953 0.538419 129.319 0.538419 128.929 0.928943C128.538 1.31947 128.538 1.95263 128.929 2.34316L134.586 8.00001L128.929 13.6569C128.538 14.0474 128.538 14.6806 128.929 15.0711C129.319 15.4616 129.953 15.4616 130.343 15.0711L136.707 8.70712ZM-8.74228e-08 9L136 9.00001L136 7.00001L8.74228e-08 7L-8.74228e-08 9Z" fill="white"/>
                                     </svg>
                                 </span>                                    
-                            </a>
+                            </a> --}}
                         </div>
                         <div class="custom-display n0-clr mb-6" data-aos="zoom-in-up" data-aos-duration="1000">
                             Puedes ser tu el
@@ -80,12 +101,12 @@
                                         </svg>                                            
                                     </span>
                                 </span>
-                                <div class="thumb">
+                                {{-- <div class="thumb">
                                     <img src="assets/images/global/play-text.png" alt="img" class="radius100">
                                     <a href="https://www.youtube.com/watch?v=668nUCeBHyY" class="bn-vid popup-video">
                                         <i class="ti ti-player-play-filled n4-clr fs-six"></i>
                                     </a>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <p class="nw2-clr bn-pra mb-xxl-10 mb-sm-8 mb-6" data-aos="zoom-out-up" data-aos-duration="1000">
@@ -169,9 +190,9 @@
                         <span class="nw2-clr fs-eight d-block fw_700 text-uppercase mt-xxl-4 mt-3">
                             <span class="act3-clr fs-five">70k</span> CUSTOMER REVIEW
                         </span>
-                        <a href="about.html" class="d-flex arrow-rotate justify-content-end me-5 mt-6">
+                        {{-- <a href="about.html" class="d-flex arrow-rotate justify-content-end me-5 mt-6">
                             <img src="assets/images/banner/kewta-arrow.png" alt="img">
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
             </div>
@@ -228,7 +249,7 @@
     <!-- ==== Banner Section ==== -->
 
     <!-- ==== Lottery Service ==== -->
-    <section  class="lottery-service pt-120 pb-120" id="down-scroll">
+    {{-- <section  class="lottery-service pt-120 pb-120" id="down-scroll">
         <!--Section Header-->
         <div class="container">
             <div class="row g-xl-4 g-3 justify-content-between mb-xxl-15 mb-xl-10 mb-8">
@@ -383,11 +404,11 @@
             </div>
         </div>
         <!--Lottery Service Body-->
-    </section>
+    </section> --}}
     <!-- ==== Lottery Service ==== -->
 
     <!-- ==== Highlight service ==== -->
-    <section class="highlight-service n2-bg pt-120 pb-120">
+    {{-- <section class="highlight-service n2-bg pt-120 pb-120">
         <!--Section Header-->
         <div class="container">
             <div class="row g-xl-4 g-3 align-items-center justify-content-sm-between justify-content-center mb-xxl-15 mb-xl-10 mb-8">
@@ -509,12 +530,12 @@
             </div>
         </div>
         <!--hilight body-->
-    </section>
+    </section> --}}
     <!-- ==== Highlight service ==== -->
 
     <!-- ==== Win Lottery section ==== -->
-    <section  class="current-lottery pt-120 pb-120">
-        <div class="container">
+    <section  class="current-lottery pt-120 pb-120" id="down-scroll">
+        <div class="container" >
             <!--Section Header-->
             <div class="row g-xl-4 g-3 align-items-center justify-content-between mb-xxl-15 mb-xl-10 mb-8">
                 <div class="col-lg-6 col-md-8 col-sm-8">
@@ -2621,7 +2642,7 @@
     <!-- ==== Win Lottery section ==== -->
 
     <!-- ==== About Counter Section ==== -->
-    <div class="about-counter winbg pt-120 pb-120 overflow-hidden">
+    {{-- <div class="about-counter winbg pt-120 pb-120 overflow-hidden">
         <div class="container">
             <div class="row g-10 justify-content-center">
                 <div class="col-lg-4 col-md-6 col-sm-6" data-aos="zoom-in-right" data-aos-duration="1200">
@@ -2674,11 +2695,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- ==== About Counter Section ==== -->
 
     <!-- ==== Unique Winner section ==== -->
-    <section class="unique-winner pt-120 pb-120">
+    {{-- <section class="unique-winner pt-120 pb-120">
         <div class="container-fluid p-2">
             <div class="row g-xl-4 g-3 align-items-center justify-content-xl-between justify-content-center">
                 <div class="col-xl-5 col-lg-5">
@@ -2761,11 +2782,11 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- ==== Unique Winner section ==== -->
 
     <!-- ==== Guid Winning section ==== -->
-    <section class="guid-winning pb-120 pt-120 s1-bg position-relative">
+    {{-- <section class="guid-winning pb-120 pt-120 s1-bg position-relative">
         <!--Section Header-->
         <div class="container mb-xxl-15 mb-xl-12 mb-10 pb-xxl-15 pb-xl-12 pb-10 nw4-custom">
             <div class="row g-xl-4 g-3 align-items-center justify-content-center">
@@ -2894,11 +2915,11 @@
         </div>
 
         <img src="assets/images/global/lotto-b8.png" alt="img" class="lotto-b8">
-    </section>
+    </section> --}}
     <!-- ==== Guid Winning section ==== -->
 
     <!-- ==== Testimonial section ==== -->
-    <section  class="testimonial-mextra testimonial-v1-before pt-120 pb-120">
+    {{-- <section  class="testimonial-mextra testimonial-v1-before pt-120 pb-120">
         <!--Section Header-->
         <div class="container">
             <div class="row g-xl-4 g-3 align-items-center justify-content-between mb-xxl-15 mb-xl-10 mb-8">
@@ -3201,11 +3222,11 @@
            </div>
         </div>
         <!--Testimonial wap-->
-    </section>
+    </section> --}}
     <!-- ==== Testimonial section ==== -->
 
     <!-- ==== Callto Action section ==== -->
-    <section  class="call-tosection overflow-visible n4-bg pt-120 position-relative call-custom-space">
+    {{-- <section  class="call-tosection overflow-visible n4-bg pt-120 position-relative call-custom-space">
         <div class="container">
             <div class="call-to-wrapper1 pt-6">
                 <div class="row g-xl-4 g-4 justify-content-between">
@@ -3303,11 +3324,11 @@
         <div class="call-posi-car">
             <img src="assets/images/lottery/lc4.png" alt="img">
         </div>
-    </section>
+    </section> --}}
     <!-- ==== Callto Action section ==== -->
 
     <!-- ==== Blog section ==== -->
-    <section  class="blog-section1 pt-120 pb-120">
+    {{-- <section  class="blog-section1 pt-120 pb-120">
         <!--Section Header-->
         <div class="container">
             <div class="row g-xl-4 g-3 align-items-center justify-content-between mb-xxl-12 mb-xl-10 mb-8">
@@ -3432,11 +3453,11 @@
             </div>
         </div>
         <!--blog body Header-->
-    </section>
+    </section> --}}
     <!-- ==== Blog section ==== -->
 
     <!-- ==== Question section ==== -->
-    <section  class="question-section pt-120 pb-120">
+    {{-- <section  class="question-section pt-120 pb-120">
         <!--Section Header-->
         <div class="container">
             <div class="row g-xl-4 g-3 justify-content-center mb-xxl-10 mb-xl-8 mb-7">
@@ -3745,11 +3766,11 @@
             </div>
         </div>
         <!--Question body-->
-    </section>
+    </section> --}}
     <!-- ==== Question section ==== -->
 
     <!-- ==== Sponsor1 section ==== -->
-    <div  class="sponsor-section1 pt-120 pb-120 overflow-hidden">
+    {{-- <div  class="sponsor-section1 pt-120 pb-120 overflow-hidden">
         <!--Section Header-->
         <div class="container">
             <div class="row g-xl-4 g-3 justify-content-center mb-xxl-15 mb-xl-10 mb-7">
@@ -3800,11 +3821,11 @@
             </div>
         </div>
         <!--Sponsor boyds-->
-    </div>
+    </div> --}}
     <!-- ==== Sponsor1 section ==== -->
 
     <!-- ==== tablet button section ==== -->
-    <div class="tablet-section tablet-custom-v1 n4-bg pt-120 overflow-hidden">
+    {{-- <div class="tablet-section tablet-custom-v1 n4-bg pt-120 overflow-hidden">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
@@ -4106,7 +4127,7 @@
         <div class="overflow-hidden">
             <div class="tags-container relative"></div>
         </div>
-    </div>
+    </div> --}}
     <!-- ==== tablet button section ==== -->
 
     <!-- ==== Footer section ==== -->
@@ -4133,7 +4154,7 @@
         </div>
         <!--Text Animation -->
 
-        <div class="footer-top pt-120 pb-120">
+        {{-- <div class="footer-top pt-120 pb-120">
             <div class="container pb-120">
                 <div class="footer-v3-explore d-flex align-items-center justify-content-between">
                     <span class="display-one n0-clr fw_800" data-aos="zoom-in-down" data-aos-duration="1400">
@@ -4264,7 +4285,7 @@
             <span class="footer-web d-block">
                 Lottovibe
             </span>
-        </div>
+        </div> --}}
         <div class="footer-v3-newsletter p1-bg pt-lg-15 cus-z1 pt-10 pb-lg-15 pb-10">
             <div class="container">
                 <div class="row g-xl-10 g-lg-10 g-4 align-items-center justify-content-lg-between justify-content-center">

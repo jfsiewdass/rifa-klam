@@ -2,11 +2,19 @@
 
 @section('content')
 <div class="row">
+<<<<<<< HEAD
     <div class="col-lg-12 margin-tb">
         <div class="float-left">
             <h2>Create New User</h2>
         </div>
         <div class="float-right">
+=======
+    <div class="col-lg-12 d-flex justify-content-between align-items-center margin-tb">
+        <div >
+            <h2>Create New User</h2>
+        </div>
+        <div >
+>>>>>>> 149eb8e5bb27499dfd5064a7f91fd7a8792331d8
             <a class="btn btn-primary btn-sm mb-2" href="{{ route('users.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
         </div>
     </div>
@@ -62,8 +70,8 @@
                 </select>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button type="submit" class="btn btn-primary btn-sm mt-2 mb-3"><i class="fa-solid fa-floppy-disk"></i> Submit</button>
+        <div class="col-xs-12 col-sm-12 col-md-12 text-center mt-3">
+            <button type="submit" class="btn btn-primary cmn-btn s1-bg radius12 fw_600 justify-content-center d-inline-flex align-items-center gap-2 py-xxl-4 py-3 px-xl-6 px-5 n0-clr mt-1"><i class="fa-solid fa-floppy-disk"></i> Submit</button>
         </div>
     </div>
 </form>

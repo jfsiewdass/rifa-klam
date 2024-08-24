@@ -20,7 +20,7 @@
     <!-- ==== Tabler Icon ==== -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.36.0/tabler-icons.min.css">
     <!-- ==== #style.min ==== -->
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body class="winbg">
@@ -95,19 +95,17 @@
 
 
     <!-- ==== Login ==== -->
-    <main class="py-4">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            @yield('content')
-                        </div>
-                    </div>
-                </div>
+    <section class="login-sectionv py-15 position-relative overflow-hidden w-100 h-100">
+        <div class="cmn-scroll-wrapper d-center">
+            <div class="cmn-scroll">
+                <a href="index.html" class="pb-10 text-center d-block">
+                    <img src="assets/images/logo/logo-black.png" alt="img">
+                </a>
+                
+                    @yield('content')
             </div>
         </div>
-    </main>
+    </section>
     <!-- ==== Login ==== -->
 
 
@@ -139,30 +137,3 @@
 </body>
 
 </html>
-
-{{-- <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-@include('layouts.admin.head')
-<body>
-    <div id="app">
-        @include('layouts.admin.nav')
-
-        <main class="py-4">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                @yield('content')
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-        
-    </div>
-    
-</body>
-
-</html> --}}
