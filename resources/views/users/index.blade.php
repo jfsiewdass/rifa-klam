@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row">
-    <div class="col-lg-12 margin-tb">
+    <div class="col-lg-12 d-flex justify-content-between align-items-center margin-tb">
         <div class="pull-left">
             <h2>Gestion de usuarios</h2>
         </div>

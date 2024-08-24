@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row">
-    <div class="col-lg-12 margin-tb d-flex">
+    <div class="col-lg-12 margin-tb d-flex justify-content-between align-items-center">
         <div class="pull-left">
             <h2>Crear rifa</h2>
         </div>

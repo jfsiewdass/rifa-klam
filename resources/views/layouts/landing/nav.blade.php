@@ -52,16 +52,24 @@
                                     Terminos y condiciones
                                 </a>
                             </li>
+                            @guest
+                            @else
+                            <li class="menu-item itembg__1 position-relative">
+                                <a href="{{ url('/') }}" class="fw_500">
+                                    Administracion
+                                </a>
+                            </li>
+                            @endguest
                         </ul>
                         <div class="d-flex flex-wrap flex-xl-no-wrap align-items-center justify-content-lg-end gap-4">
-                            <ul class="d-flex head-card align-items-center gap-3">
+                            {{-- <ul class="d-flex head-card align-items-center gap-3">
                                
                                 <li>
                                     <a href="user-panel.html" class="cmn-circle">
                                         <i class="ti ti-user"></i>
                                     </a>
                                 </li>
-                            </ul>
+                            </ul> --}}
                             {{-- <div class="head-language">
                                 <select name="country">
                                     <option value="1">

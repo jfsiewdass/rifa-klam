@@ -23,11 +23,6 @@
                         </li>
                     @endif
 
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                    @endif
                 @else
                     <li><a class="nav-link {{ 
                                                 \Route::current()->getName() == 'users.index' ||
@@ -39,8 +34,8 @@
                                                 \Route::current()->getName() == 'rifas.index' ||
                                                 \Route::current()->getName() == 'rifas.create' ||
                                                 \Route::current()->getName() == 'rifas.edit' ? 'active' : ''
-                                            }}" href="{{ route('rifas.index') }}">Gestion de Rifas</a></li>
-                    <li><a class="nav-link" href="{{ route('home') }}">Ir al inicio</a></li>
+                                            }}" href="{{ route('rifas.index') }}">Rifas</a></li>
+                    
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }}
@@ -50,7 +45,7 @@
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                                Cerrar Sesion
                             </a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -59,6 +54,9 @@
                         </div>
                     </li>
                 @endguest
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('home') }}">Ir a inicio</a>
+                </li>
             </ul>
         </div>
     </div>
