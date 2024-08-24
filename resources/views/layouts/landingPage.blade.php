@@ -12,7 +12,7 @@
     <!-- ==== #Description ==== -->
     <meta name="description" content="LottoVibe - Multipurpose HTML Template">
     <!-- ==== #Title ==== -->
-    <title>Lottovibe - Lottery & Giveaway HTML Template</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
     <!-- ==== #Favicon ==== -->
     <link rel="shortcut icon" href="assets/images/logo/favicon.png" type="image/x-icon">
 
@@ -132,7 +132,7 @@
                         </div>
                         <div class="bn1-odometer d-flex align-items-center gap-xxl-11 gap-xl-8 gap-lg-6 gap-5">
                             <div class="odometer__items" data-aos="zoom-in-down" data-aos-duration="1000">
-                                <div class="cont d-flex align-items-center">
+                                {{-- <div class="cont d-flex align-items-center">
                                     <span class="odometer display-four nw1-clr fw_800">
                                     1750
                                     </span>
@@ -140,65 +140,24 @@
                                     +
                                     </span>
                                 </div>
-                                <p>Verified Users</p>
+                                <p>Verified Users</p> --}}
                             </div>
                             <div class="odometer__items" data-aos="zoom-in-up" data-aos-duration="1000">
-                                <div class="cont d-flex align-items-center">
+                                {{-- <div class="cont d-flex align-items-center">
                                     <span class="odometer display-four nw1-clr fw_800">
                                         15
                                     </span>
                                 </div>
-                                <p>Years on the market</p>
+                                <p>Years on the market</p> --}}
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-2 col-lg-3">
-                    <div class="banner-content-v1customer">
-                        <ul class="customer-review cmn-style-flex d-inline-flex act3-border radius100 py-xxl-2 py-2 px-2">
-                            <li>
-                                <a href="javascript:void(0)" class="customer-revew-item n0-bg d-flex align-items-center justify-content-center">
-                                    <img src="assets/images/banner/customer1.png" alt="img">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="customer-revew-item n0-bg d-flex align-items-center justify-content-center">
-                                    <img src="assets/images/banner/customer2.png" alt="img">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="customer-revew-item n0-bg d-flex align-items-center justify-content-center">
-                                    <img src="assets/images/banner/customer3.png" alt="img">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="customer-revew-item n0-bg d-flex align-items-center justify-content-center">
-                                    <img src="assets/images/banner/customer4.png" alt="img">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="customer-revew-item n0-bg d-flex align-items-center justify-content-center">
-                                    <span class="d-grid customer-ratting text-center p-2 p1-bg align-items-center justify-content-center">
-                                        <i class="ti ti-star-filled n4-clr"></i>
-                                        <span class="d-block fs-eight fw_700 n4-clr">
-                                            4.7
-                                        </span>
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                        <span class="nw2-clr fs-eight d-block fw_700 text-uppercase mt-xxl-4 mt-3">
-                            <span class="act3-clr fs-five">70k</span> CUSTOMER REVIEW
-                        </span>
-                        {{-- <a href="about.html" class="d-flex arrow-rotate justify-content-end me-5 mt-6">
-                            <img src="assets/images/banner/kewta-arrow.png" alt="img">
-                        </a> --}}
-                    </div>
-                </div>
+                
             </div>
         </div>
         <!--Banner Content -->
-        <img src="assets/images/banner/win.png" alt="img" class="shape-win">
+        {{-- <img src="assets/images/banner/win.png" alt="img" class="shape-win"> --}}
         <div class="banner-oneslider">
             <div class="banner-carslide-wrap swiper mySwiper">
                 <div class="swiper-wrapper">
