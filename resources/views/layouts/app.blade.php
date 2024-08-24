@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.36.0/tabler-icons.min.css">
     <!-- ==== #style.min ==== -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
 <body class="winbg">
@@ -115,7 +116,7 @@
 
 
 
-    <!-- ==== js Jquery start ==== -->
+    {{-- <!-- ==== js Jquery start ==== -->
     <script src="assets/js/plugins/jquery.js"></script>
     <!-- ==== js Viewport js start ==== -->
     <script src="assets/js/plugins/viewpot.js"></script>
@@ -132,9 +133,9 @@
     <!-- ==== js Nice Select start ==== -->
     <script src="assets/js/plugins/jquery.nice-select.min.js"></script>
     <!-- ==== js Phosphor Icon start ==== -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script> --}}
     <!-- ==== js Mian start ==== -->
-    <script src="assets/js/main.js"></script>
+    {{-- <script src="assets/js/main.js"></script> --}}
     @yield('scripts')
 </body>
 

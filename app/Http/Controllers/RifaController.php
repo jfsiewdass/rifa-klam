@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
     
 use App\Models\Rifa;
+use App\Models\RifaImage;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -41,7 +42,8 @@ class RifaController extends Controller
      */
     public function create(): View
     {
-        return view('rifas.create');
+        $images = [];
+        return view('rifas.create', compact('images'));
     }
     
     /**
@@ -90,7 +92,7 @@ class RifaController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Rifa  $rifa
-     * @return \Illuminate\Http\Response
+     * @return \Iltype =luminate\Http\Response
      */
     public function update(Request $request, Rifa $rifa): RedirectResponse
     {
@@ -117,5 +119,42 @@ class RifaController extends Controller
     
         return redirect()->route('rifas.index')
                         ->with('success','rifa deleted successfully');
+    }
+    public function upload(Request $request)
+    {
+        try {
+            //code...
+            $images = [];
+    
+            foreach($request->file('files') as $image) {
+                $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                  
+                $image->move(public_path('images'), $imageName);
+      
+                $images[] = [
+                    'path' => asset('/images/'. $imageName),
+                    'type' => 'BANNER',
+                    'rifa_id' => 1,
+                ];
+                //dd($images);
+            }
+            foreach ($images as $imageData) {
+                RifaImage::create($imageData);
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+     
+        return response()->json(['success'=>$images]);
+    }
+
+    /**
+     * Display uploaded images
+     */
+    public function preview()
+    {
+        $images = RifaImage::orderBy('order', 'asc')->get();
+
+        return response()->json($images); 
     }
 }

@@ -31,5 +31,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('rifas', RifaController::class);
+    Route::get('/previews', [RifaController::class, 'preview']);
+    Route::post('/upload', [RifaController::class, 'upload'])->name('rifas.upload');
     // Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 });
