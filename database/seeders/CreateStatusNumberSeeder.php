@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\StatusNumber;
+use App\Models\StatusVoucher;
+
 class CreateStatusNumberSeeder extends Seeder
 {
     /**
@@ -15,5 +17,8 @@ class CreateStatusNumberSeeder extends Seeder
         foreach (['RESERVADO', 'PENDIENTE', 'PAGADO'] as $status) {
             StatusNumber::create(['description' => $status]);
        }
+       foreach (['PENDIENTE', 'PAGADO'] as $status) {
+        StatusVoucher::create(['description' => $status]);
+   }
     }
 }

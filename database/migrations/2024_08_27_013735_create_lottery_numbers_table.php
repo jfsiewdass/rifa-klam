@@ -53,7 +53,7 @@ return new class extends Migration
             $table->unsignedBigInteger('lottery_id');
             
             $table->unsignedBigInteger('voucher_id')->nullable();
-            $table->unsignedBigInteger('status_number_id');
+            $table->unsignedBigInteger('status_number_id')->default(1);
 
             $table->unique(['number', 'lottery_id']);
 

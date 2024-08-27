@@ -11,33 +11,32 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css
     <h1 class="text-center">{{ $lottery->name }}</h1>
     
     
-    <div class="row">
-        <div class="col-md-5">
-            <h3 class="text-left">${{ $lottery->name }}</h3>
-            <br>
-            <p class="text-justify" style="text-align: justify">{!! $lottery->detail !!}</p>
-            <br>
-            <h5 class="text-left" >Tasa del día {{ $rate->rate }} Bs</h5>
-            <br>
-            <h5 class="text-left" style="color: red">Rango de números {{ $lottery->number_range }}</h5>
-            <br>
-            <h3 class="text-left" style="color: red">${{ $lottery->amount }} por rifa</h3>
-            
+    <div class="row justify-content-center">
+        <div class="row justify-content-center">
+            <div class="col-xl-1"></div>
+            <div class="col-xl-5 me-xl-10 col-xs-12">
+                <h3 class="text-left">{{ $lottery->name }}</h3>
+                <br>
+                <p class="text-justify" style="text-align: justify">{!! $lottery->detail !!}</p>
+                <br>
+                <h5 class="text-left" >Tasa del día {{ $rate->rate }} Bs</h5>
+                <br>
+                <h5 class="text-left" style="color: red">Rango de números {{ $lottery->number_range }}</h5>
+                <br>
+                <h3 class="text-left" style="color: red">${{ $lottery->amount }} por rifa</h3>
+                
+            </div>
+            <div class="col-xl-5 col-xs-12 text-center bg-light rounded border">
+                <img class="d-block w-100" src="{{ Storage::url($lottery->images[0]) }}"  alt="img">
+            </div>
+            <div class="col-xl-1"></div>
         </div>
-        <div class="col-md-2">
-            
-        </div>
-        {{-- @foreach ($lottery->images as $img) --}}
-        <div class="col-md-4 text-center">
-            <img class="d-block w-100" src="{{ Storage::url($lottery->images[0]) }}" alt="img">
-        </div>
-        <div class="col-md-12">
+        <div class="col-md-12 mt-3">
             <h5 class="text-center" id="quantity"></h5>
         </div>
-        {{-- @endforeach --}}
         <div class="col-md-12">
-            <div class="row row justify-content-center">
-                <div class="col-md-4">
+            <div class="row justify-content-center">
+                <div class="col-md-4 my-3">
                     <input type="text" class="form-control" placeholder="Buscar número" id="findNumber">
                 </div>
             </div>
@@ -85,41 +84,36 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css
 <script>
     $(document).ready(function() {
         
-        let range = "{{ $lottery->number_range }}".split('-');
         let amount = parseInt("{{ $lottery->amount }}");
 
         let dollar = @json($rate);
-        console.log(parseInt(dollar.rate));
         
+        const todosLosNumeros = @json($range);
+
+        const numerosSeleccionados = JSON.parse(localStorage.getItem('numerosSeleccionados')) || [];
+
+        const numerosNuevos = encontrarYAgregarNumeros();
+
+        console.log(numerosNuevos);
         
-        // for (let i = 100; i <= 200; i++) {
-            //     numerosAFiltrar.push(i);
-            // }
-            // console.log(numerosAFiltrar);
-        const totalNumeros = range[1];
+        const totalNumeros = todosLosNumeros.length;
         const numerosPorPagina = 100;
-        const todosLosNumeros = Array.from({ length: totalNumeros }, (_, i) => i + 1);
+        
         let numerosAFiltrar = [];
         
 
         let paginaActual = 1;
-        //numerosAFiltrar = [1, 54, 986, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17,]
-
-        // Obtener los números seleccionados desde el almacenamiento local
-        const numerosSeleccionados = JSON.parse(localStorage.getItem('numerosSeleccionados')) || [];
+        
+        
         if (numerosSeleccionados.length > 0) {
             $('#btnNext').prop('disabled', false)
+            $('#quantity').html(`Números seleccionados ${numerosSeleccionados.length} total a pagar ${parseInt(dollar.rate) * (numerosSeleccionados.length * amount)} Bs.`)
         } else {
 
             $('#btnNext').prop('disabled', true)
-        }
-        //console.log(numerosSeleccionados);
-        
-        if (numerosSeleccionados?.length > 0) {
-            $('#quantity').html(`Números seleccionados ${numerosSeleccionados.length} total a pagar ${parseInt(dollar.rate) * (numerosSeleccionados.length * amount)} Bs.`)
-        } else {
             $('#quantity').html(``)
         }
+        
         function calcularTotalNumerosFiltrados() {
             let contador = 0;
             for (let i = 1; i <= totalNumeros; i++) {
@@ -160,9 +154,12 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css
                     } else {
                         numerosSeleccionados.splice(indice, 1);
                     }
-                    if (numerosSeleccionados?.length > 0) {
+                    if (numerosSeleccionados.length > 0) {
+                        $('#btnNext').prop('disabled', false)
                         $('#quantity').html(`Números seleccionados ${numerosSeleccionados.length} total a pagar ${parseInt(dollar.rate) * (numerosSeleccionados.length * amount)} Bs.`)
                     } else {
+
+                        $('#btnNext').prop('disabled', true)
                         $('#quantity').html(``)
                     }
                     $(this).toggleClass('seleccionado');
@@ -175,12 +172,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css
         function guardarNumerosSeleccionados() {
             localStorage.setItem('numerosSeleccionados', JSON.stringify(numerosSeleccionados));
 
-            if (numerosSeleccionados.length > 0) {
-                $('#btnNext').prop('disabled', false)
-            } else {
-
-                $('#btnNext').prop('disabled', true)
-            }
+            
         }
 
         crearNumeros(paginaActual);
@@ -282,9 +274,11 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css
         })
         $('#paymentProcess').on('click', function() {
             var formData = new FormData();
-            formData.append('numeros', JSON.stringify(numerosSeleccionados));
+            const numbersRangeSet = new Set(numerosNuevos);
+            formData.append('numbers', JSON.stringify(numerosSeleccionados.filter(f => !numbersRangeSet.has(f))));
             formData.append('_token', "{{ csrf_token() }}");
-            Swal.fire('Hola', 'Este es un mensaje de ejemplo', 'error');
+            formData.append('lottery_id', "{{ $lottery->id }}");
+            
             $.ajax({
                 type: "POST",
                 url: "{{ route('numbers.check') }}",
@@ -293,7 +287,14 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css
                 processData: false,
                 success: function(response) {
                     
-                    console.log(response);
+                    if (response.code == 401) {
+                        Swal.fire(
+                            'Atención', 
+                            `${numerosSeleccionados.length == 1 ? 'El número seleccionado se encuentra ocupado' : 'Uno o varios números seleccionados se encuentran ocupados'}, por favor seleccione otro número`, 
+                            'error'
+                        );
+                    } 
+                    closeModal()
                 },
                 error: function(error) {
                     // Manejar errores
@@ -301,10 +302,24 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css
                 }
             });
         })
+        function encontrarYAgregarNumeros() {
+            // Crear un conjunto (Set) para una búsqueda más eficiente
+            const numbersRangeSet = new Set(todosLosNumeros);
+
+            // Filtrar los números de selectedNumbers que no están en numbersRange
+            const numerosNoEncontrados = numerosSeleccionados.filter(num => !numbersRangeSet.has(num));
+
+            // Agregar los números no encontrados a numbersRange y ordenar
+            todosLosNumeros.push(...numerosNoEncontrados);
+            todosLosNumeros.sort((a, b) => a - b);
+
+            return numerosNoEncontrados;
+        }
     });
 
     function closeModal() {
         $("#exampleModal").modal('toggle');
     }
+    
 </script>
 @endsection

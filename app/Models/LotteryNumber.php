@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class LotteryNumber extends Model
 {
     use HasFactory;
+    protected $fillable = ['number', 'lottery_id', 'voucher_id', 'status_number_id'];
 }
