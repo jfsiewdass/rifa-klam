@@ -11,15 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rifas', function (Blueprint $table) {
+        Schema::create('day_rates', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('detail');
-            $table->string('path');
-            $table->string('number_range');
-            $table->date('start_date');
-            $table->date('end_date')->nullable();
-            $table->integer('user_id');
+            $table->string('rate');
             $table->timestamps();
         });
     }
@@ -29,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rifas');
+        Schema::dropIfExists('day_rates');
     }
 };

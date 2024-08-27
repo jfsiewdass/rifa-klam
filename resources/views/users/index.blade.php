@@ -4,10 +4,10 @@
 <div class="row">
     <div class="col-lg-12 d-flex justify-content-between align-items-center margin-tb">
         <div class="pull-left">
-            <h2>Gestion de usuarios</h2>
+            <h2>Gestión de usuarios</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-success mb-2" href="{{ route('users.create') }}"><i class="fa fa-plus"></i> Crear nuevo usuario</a>
+            <a class="btn btn-success mb-2" href="{{ route('users.create') }}"><i class="fa fa-plus"></i> Crear usuario</a>
         </div>
     </div>
 </div>
@@ -17,7 +17,7 @@
         {{ $value }}
     </div>
 @endsession
-
+<div class="table-responsive">
 <table class="table table-bordered">
    <tr>
        <th>N°</th>
@@ -38,8 +38,8 @@
             @endforeach
           @endif
         </td>
-        <td>
-             <a class="btn btn-info btn-sm" href="{{ route('users.show',$user->id) }}"><i class="fa-solid fa-list"></i> </a>
+        <td  class="d-flex">
+             {{-- <a class="btn btn-info btn-sm" href="{{ route('users.show',$user->id) }}"><i class="fa-solid fa-list"></i> </a> --}}
              <a class="btn btn-primary btn-sm" href="{{ route('users.edit',$user->id) }}"><i class="fa-solid fa-pen-to-square"></i> </a>
               <form method="POST" action="{{ route('users.destroy', $user->id) }}" style="display:inline">
                   @csrf
@@ -51,7 +51,7 @@
     </tr>
  @endforeach
 </table>
-
+</div>
 {!! $data->links('pagination::bootstrap-5') !!}
 
 <p class="text-center text-primary"><small></small></p>

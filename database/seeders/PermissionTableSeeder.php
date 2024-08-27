@@ -18,10 +18,10 @@ class PermissionTableSeeder extends Seeder
            'role-create',
            'role-edit',
            'role-delete',
-           'rifa-list',
-           'rifa-create',
-           'rifa-edit',
-           'rifa-delete'
+           'lottery-list',
+           'lottery-create',
+           'lottery-edit',
+           'lottery-delete'
         ];
         
         foreach ($permissions as $permission) {

@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\RifaController;
+use App\Http\Controllers\LotteryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,19 +17,21 @@ use App\Http\Controllers\RifaController;
 |
 */
   
-Route::get('/', function () {
+Route::get('/admin', function () {
+    if(Auth::guest())
+        return redirect()->route('login');
     return view('welcome');
 });
   
 Auth::routes();
   
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-  
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/detail/{id}', [HomeController::class, 'detail'])->name('detail');
+Route::post('/numbers/check', [HomeController::class, 'numbers_check'])->name('numbers.check');
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
-    Route::resource('rifas', RifaController::class);
-    Route::get('/previews', [RifaController::class, 'preview']);
-    Route::post('/upload', [RifaController::class, 'upload'])->name('rifas.upload');
+    Route::resource('lotteries', LotteryController::class);
+    
     // Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 });

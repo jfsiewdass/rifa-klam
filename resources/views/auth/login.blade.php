@@ -66,7 +66,7 @@
                             <div class="row mb-0">
                                 <div class="">
                                     <button type="submit"
-                                        class="btn btn-primary cmn-btn s1-bg radius12 w-100 fw_600 justify-content-center d-inline-flex align-items-center gap-2 py-xxl-4 py-3 px-xl-6 px-5 n0-clr mt-1">
+                                        class="btn btn-success cmn-btn radius12 w-100 fw_600 justify-content-center d-inline-flex align-items-center gap-2 py-xxl-4 py-3 px-xl-6 px-5 n0-clr mt-1">
                                         <span class="fw_600 n0-clr">
                                             Iniciar sesion
                                         </span>

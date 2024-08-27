@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rifa_images', function (Blueprint $table) {
+        Schema::create('lotteries', function (Blueprint $table) {
             $table->id();
-            $table->string('path');
-            $table->enum('type', ['CARD', 'BANNER'])->nullable();
-            $table->integer('order')->nullable();
-            $table->unsignedBigInteger('rifa_id');
-            $table->foreign('rifa_id')->references('id')->on('rifas')->onDelete('cascade');
+            $table->string('name');
+            $table->text('detail');
+            $table->text('amount');
+            $table->string('number_range');
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
+            $table->integer('user_id');
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rifa_images');
+        Schema::dropIfExists('rifas');
     }
 };

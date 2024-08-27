@@ -77,9 +77,9 @@ document.addEventListener("DOMContentLoaded", () => {
       // window on scroll function//
 
       // magnific-popup//
-        $('.popup-video').magnificPopup({
-          type: 'iframe'
-        });
+        // $('.popup-video').magnificPopup({
+        //   type: 'iframe'
+        // });
       // magnific-popup//
 
       // gridGallery//

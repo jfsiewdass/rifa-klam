@@ -12,7 +12,7 @@
     </div>
 </div>
 
-@if (count($errors) > 0)
+{{-- @if (count($errors) > 0)
     <div class="alert alert-danger">
       <strong>Whoops!</strong> There were some problems with your input.<br><br>
       <ul>
@@ -21,36 +21,36 @@
          @endforeach
       </ul>
     </div>
-@endif
+@endif --}}
 
 <form method="POST" action="{{ route('users.store') }}">
     @csrf
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
             <div class="form-group">
                 <strong>Nombre:</strong>
                 <input type="text" name="name" placeholder="Nombre" class="form-control">
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
             <div class="form-group">
-                <strong>Correo electronico:</strong>
+                <strong>Correo electrónico:</strong>
                 <input type="email" name="email" placeholder="Correo electronico" class="form-control">
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
             <div class="form-group">
                 <strong>Contraseña:</strong>
                 <input type="password" name="password" placeholder="Contraseña" class="form-control">
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
             <div class="form-group">
                 <strong>Confirmar contraseña:</strong>
                 <input type="password" name="confirm-password" placeholder="Confirmar Contraseña" class="form-control">
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
             <div class="form-group">
                 <strong>Perfil de usuario:</strong>
                 <select name="roles[]" class="form-control">
@@ -63,7 +63,7 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center mt-3">
-            <button type="submit" class="btn btn-primary cmn-btn s1-bg radius12 fw_600 justify-content-center d-inline-flex align-items-center gap-2 py-xxl-4 py-3 px-xl-6 px-5 n0-clr mt-1"><i class="fa-solid fa-floppy-disk"></i> Submit</button>
+            <button type="submit" class="btn btn-success cmn-btn s1-bg radius12 fw_600 justify-content-center d-inline-flex align-items-center gap-2 py-xxl-2 py-3 px-xl-6 px-5 n0-clr mt-1"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>
         </div>
     </div>
 </form>

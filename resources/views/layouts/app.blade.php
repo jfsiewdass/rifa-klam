@@ -60,13 +60,8 @@
 
 
 
-<<<<<<< HEAD
     {{-- <!-- ==== js Jquery start ==== -->
-    <script src="assets/js/plugins/jquery.js"></script>
-=======
-    <!-- ==== js Jquery start ==== -->
     <script src="{{ asset('assets/js/plugins/jquery.js') }}"></script>
->>>>>>> c5971e8e152b9e7d7c6e6d29ee8a32a24e52bd67
     <!-- ==== js Viewport js start ==== -->
     <script src="{{ asset('assets/js/plugins/viewpot.js') }}"></script>
     <!-- ==== js Aos Animation start ==== -->
@@ -82,9 +77,9 @@
     <!-- ==== js Nice Select start ==== -->
     <script src="{{ asset('assets/js/plugins/jquery.nice-select.min.js') }}"></script>
     <!-- ==== js Phosphor Icon start ==== -->
-    <script src="{{ asset('https://unpkg.com/@phosphor-icons/web') }}"></script>
+    <script src="{{ asset('https://unpkg.com/@phosphor-icons/web') }}"></script> --}}
     <!-- ==== js Mian start ==== -->
-    <script src="{{ asset('assets/js/main.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/main.js') }}"></script> --}}
     @yield('scripts')
 </body>
 

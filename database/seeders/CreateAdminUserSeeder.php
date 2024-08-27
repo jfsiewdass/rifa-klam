@@ -1,7 +1,8 @@
 <?php
   
 namespace Database\Seeders;
-  
+
+use App\Models\DayRate;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
@@ -17,7 +18,7 @@ class CreateAdminUserSeeder extends Seeder
     public function run(): void
     {
         $user = User::create([
-            'name' => 'Admin User', 
+            'name' => 'Usuario Administrador', 
             'email' => 'admin@gmail.com',
             'password' => bcrypt('123456')
         ]);
@@ -29,5 +30,7 @@ class CreateAdminUserSeeder extends Seeder
         $role->syncPermissions($permissions);
          
         $user->assignRole([$role->id]);
+
+        DayRate::create(['rate' => '40']);
     }
 }

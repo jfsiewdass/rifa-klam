@@ -30,7 +30,7 @@
   /* Color styles */
   --p1: rgb(16, 152, 86);
   --p1-border: rgba(223, 255, 94, 0.3);
-  --s1: rgba(85, 74, 255, 1);
+  --s1: rgb(16, 152, 86);
   --act1: rgba(254, 68, 69, 1);
   --act2: rgba(19, 19, 19, 1);
   --act3: rgb(16, 152, 86);
@@ -1994,7 +1994,7 @@ iframe {
   background: var(--p1) !important;
   border-color: var(--p1) !important;
 }
-.pagination .page-item .page-link {
+/* .pagination .page-item .page-link {
   outline: none;
   bottom: 0;
   padding: 0;
@@ -2010,7 +2010,7 @@ iframe {
   background-color: var(--p1);
   border-color: transparent;
   box-shadow: none;
-}
+} */
 
 .video__cmn64 {
   width: 64px;
@@ -5949,7 +5949,7 @@ iframe {
   top: -2px;
   left: 0;
   width: 100%;
-  background: #554AFF;
+  background: rgb(4, 27, 16);
   opacity: 0.5;
   height: 323px;
   z-index: 0;
@@ -5995,7 +5995,7 @@ iframe {
 }
 
 .range-custom {
-  background: rgba(85, 74, 255, 0.4);
+  background: rgb(132, 238, 187);
   height: 4px;
   border-radius: 4px;
   width: 100%;
@@ -10005,3 +10005,55 @@ iframe {
 label {
   font-weight: bold;
 }
+.numero {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  text-align: center;
+  line-height: 40px;
+  display: inline-block;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.seleccionado {
+  background-color: green;
+  color: white;
+}
+/* Estilos generales para la lista de paginación */
+.paginacion {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Estilos para cada elemento de la lista (cada número de página) */
+.paginacion li {
+  margin: 0 5px;
+}
+
+/* Estilos para los enlaces de cada página */
+.paginacion a {
+  display: inline-block;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+/* Estilo para la página activa */
+.paginacion li.active a {
+  background-color: #f0f0f0;
+  border-color: #aaa;
+}
+
+/* .form-container {
+  display: flex;
+  flex-direction: column;
+} */

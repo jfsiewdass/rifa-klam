@@ -5,7 +5,7 @@
             <nav class="navbar-custom">
                 <div class="d-flex align-items-center justify-content-between">
                     <a href="index.html" class="nav-brand d-xl-none">
-                        <img class="w-100" src="assets/images/logo.jpg" alt="logo">
+                        <img class="w-100" src="{{ asset('assets/images/logo.jpg') }}" alt="logo">
                     </a>
                     <div class="d-flex gap-6">
                         <button class="navbar-toggle-btn d-block d-xl-none" type="button">
@@ -19,7 +19,7 @@
                 <div class="navbar-toggle-item">
                     <div class="d-flex gap-5 flex-column flex-lg-row align-items-start align-items-xl-center justify-content-between mt-2 mt-xl-0">
                         <a href="index.html" class="nav-brand d-none d-xl-block">
-                            <img class="w-100" src="assets/images/logo.jpg" alt="logo">
+                            <img class="w-100" src="{{ asset('assets/images/logo.jpg') }}" alt="logo">
                         </a>
                         <ul class="custom-nav d-xl-flex d-grid gap-4 gap-xl-5 gap-xxl-10">
                            
@@ -38,25 +38,30 @@
                             </li> --}}
                            
                             <li class="menu-item itembg__1 position-relative">
-                                <a href="contact.html" class="fw_500">
-                                    Como funciona
+                                <a href="contact.html" class="fw_500 {{ \Route::current()->getName() == 'home' ? 'active' : '' }}">
+                                    Inicio
                                 </a>
                             </li>
                             <li class="menu-item itembg__1 position-relative">
-                                <a href="contact.html" class="fw_500">
-                                    Contactanos
+                                <a href="contact.html" class="fw_500 {{ \Route::current()->getName() == 'actual' ? 'active' : '' }}">
+                                    Rifas actuales
                                 </a>
                             </li>
                             <li class="menu-item itembg__1 position-relative">
-                                <a href="contact.html" class="fw_500">
-                                    Terminos y condiciones
+                                <a href="contact.html" class="fw_500 {{ \Route::current()->getName() == 'winners' ? 'active' : '' }}">
+                                    Ganadores
+                                </a>
+                            </li>
+                            <li class="menu-item itembg__1 position-relative">
+                                <a href="contact.html" class="fw_500 {{ \Route::current()->getName() == 'contact' ? 'active' : '' }}">
+                                    Contacto
                                 </a>
                             </li>
                             @guest
                             @else
                             <li class="menu-item itembg__1 position-relative">
-                                <a href="{{ url('/') }}" class="fw_500">
-                                    Administracion
+                                <a href="{{ url('/admin') }}" class="fw_500">
+                                    Administración
                                 </a>
                             </li>
                             @endguest
