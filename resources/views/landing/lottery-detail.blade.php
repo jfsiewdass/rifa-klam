@@ -1,23 +1,35 @@
 @extends('layouts.landingPage')
 @section('content')
 
-<link href="
-https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css
-" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css" rel="stylesheet">
 <div  class="banner-section-v1 pt-70-fixed pb-70-fixed n4-bg position-relative overflow-hidden">
     
 </div>
 <div style="background-color: white;" class=" mx-md-15 mx-5 ">
-    <h1 class="text-center">{{ $lottery->name }}</h1>
-    
+    <h1 class="text-center my-10 mb-15">{{ $lottery->name }}</h1>
+    @php
+        list($start, $total) = explode('-', $lottery->number_range);
+        $numbers = $lottery->lotteryNumbers()->where('status_number_id', '<>', '1')->count();
+        $percent = $numbers * 100 / $total;
+    @endphp
     
     <div class="row justify-content-center">
         <div class="row justify-content-center">
             <div class="col-xl-1"></div>
             <div class="col-xl-5 me-xl-10 col-xs-12">
+                <h3 class="text-left text-success">RIFA #{{ $lottery->unique_id }}</h3>
+                <br>
                 <h3 class="text-left">{{ $lottery->name }}</h3>
                 <br>
                 <p class="text-justify" style="text-align: justify">{!! $lottery->detail !!}</p>
+                <div class="cmn-prrice-range pe-xxl-6 pe-xl-5 pe-lg-4 pe-3 d-flex align-items-center gap-2 mt-5">
+                    <div class="range-custom position-relative" style="--range-width: {{ number_format($percent, 2) }}%;">
+                        <span class="curs-range"></span>
+                    </div>
+                    <span class="n4-clr soldout fw_700 fs-eight">
+                        {{  number_format($percent, 2) }}% Vendido
+                    </span>
+                </div>
                 <br>
                 <h5 class="text-left" >Tasa del día {{ $rate->rate }} Bs</h5>
                 <br>
@@ -36,9 +48,14 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css
         </div>
         <div class="col-md-12">
             <div class="row justify-content-center">
-                <div class="col-md-4 my-3">
-                    <input type="text" class="form-control" placeholder="Buscar número" id="findNumber">
+                <div class="col-md-4 my-3 d-flex">
+                    <input type="text" class="form-control me-5" placeholder="Buscar número" id="findNumber">
+                    <button class="btn btn-danger border d-flex align-items-center" disabled id="btnCancel" >
+                        {{-- <i class="ph-bold ph-empty act4-clr"></i> --}}
+                        Cancelar
+                    </button>
                 </div>
+                
             </div>
             <div id="numeros"></div>
             <div class="row row justify-content-center py-3">
@@ -83,7 +100,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js"></script>
 <script>
     $(document).ready(function() {
-        
+        // countdown()
         let amount = parseInt("{{ $lottery->amount }}");
 
         let dollar = @json($rate);
@@ -93,8 +110,6 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css
         const numerosSeleccionados = JSON.parse(localStorage.getItem('numerosSeleccionados')) || [];
 
         const numerosNuevos = encontrarYAgregarNumeros();
-
-        console.log(numerosNuevos);
         
         const totalNumeros = todosLosNumeros.length;
         const numerosPorPagina = 100;
@@ -107,10 +122,12 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css
         
         if (numerosSeleccionados.length > 0) {
             $('#btnNext').prop('disabled', false)
+            $('#btnCancel').prop('disabled', false)
             $('#quantity').html(`Números seleccionados ${numerosSeleccionados.length} total a pagar ${parseInt(dollar.rate) * (numerosSeleccionados.length * amount)} Bs.`)
         } else {
 
             $('#btnNext').prop('disabled', true)
+            $('#btnCancel').prop('disabled', true)
             $('#quantity').html(``)
         }
         
@@ -156,10 +173,12 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css
                     }
                     if (numerosSeleccionados.length > 0) {
                         $('#btnNext').prop('disabled', false)
+                        $('#btnCancel').prop('disabled', false)
                         $('#quantity').html(`Números seleccionados ${numerosSeleccionados.length} total a pagar ${parseInt(dollar.rate) * (numerosSeleccionados.length * amount)} Bs.`)
                     } else {
 
                         $('#btnNext').prop('disabled', true)
+                        $('#btnCancel').prop('disabled', true)
                         $('#quantity').html(``)
                     }
                     $(this).toggleClass('seleccionado');
@@ -178,12 +197,10 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css
         crearNumeros(paginaActual);
 
        
-        const totalNumerosFiltrados = calcularTotalNumerosFiltrados(); // Función auxiliar para calcular el total
+        const totalNumerosFiltrados = calcularTotalNumerosFiltrados();
         
         var totalPaginas = Math.ceil(totalNumerosFiltrados / numerosPorPagina);
-        //console.log(totalNumerosFiltrados, totalPaginas);
 
-        // Crear la lista de páginas
         const listaPaginas = $('<ul>').addClass('paginacion');
         listaPaginas.append($('<li>').append($('<a>').attr('id', 'anterior').text('Anterior')));
         
@@ -203,7 +220,6 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css
         }
         listaPaginas.append($('<li>').append($('<a>').attr('id', 'siguiente').text('Siguiente')));
             
-            // Agregar la lista de páginas al DOM
         $('#numeros').after(listaPaginas);
         $('.paginacion li:nth-child(2)').addClass('active');
         $('#anterior').click(function() {
@@ -231,28 +247,23 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css
             
             if (number) {
                 const targetString = number.toString();
-                // Filtrar los números basado en el valor de búsqueda
+
                 const filteredNumbers = todosLosNumeros.filter(num => {
                     const numStr = num.toString();
                     return numStr.includes(targetString);
                 });
                 
-                // Actualizar los botones visibles
                 $('#numeros').empty();
                 
-                
-                // Actualizar la página actual si es necesario
                 totalPaginas = Math.ceil(filteredNumbers.length / numerosPorPagina);
                 paginaActual = Math.min(paginaActual, totalPaginas);
                 crearNumeros(1, filteredNumbers);
                 
-                // Actualizar la lista de páginas
                 $('.paginacion li').removeClass('active');
                 $(`.paginacion li:nth-child(${paginaActual + 1})`).addClass('active');
             } else {
                 crearNumeros(1);
                 
-                // Actualizar la lista de páginas
                 $('.paginacion li').removeClass('active');
                 $(`.paginacion li:nth-child(${paginaActual + 1})`).addClass('active');
             }
@@ -260,24 +271,26 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css
 
         function createButton(numero) {
             const boton = $('<button>').addClass('numero').text(numero);
-            boton.data('numero', numero); // Almacenamos el número en el elemento para facilitar la búsqueda
+            boton.data('numero', numero);
 
-            // Marcar los números seleccionados
             if (numerosSeleccionados.includes(numero)) {
                 boton.addClass('seleccionado');
             }
 
-            return boton; // Retornamos el botón creado
+            return boton;
         }
         $('#btnNext').on('click', function() {
             $("#exampleModal").modal('show');
         })
         $('#paymentProcess').on('click', function() {
             var formData = new FormData();
+            const savedNumbers = JSON.parse(localStorage.getItem('savedNumbers')) || [];
+            
             const numbersRangeSet = new Set(numerosNuevos);
             formData.append('numbers', JSON.stringify(numerosSeleccionados.filter(f => !numbersRangeSet.has(f))));
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('lottery_id', "{{ $lottery->id }}");
+            formData.append('savedNumbers', JSON.stringify(savedNumbers.map((s) => ({id: s.id, number: s.number}))));
             
             $.ajax({
                 type: "POST",
@@ -286,6 +299,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css
                 contentType: false,
                 processData: false,
                 success: function(response) {
+                    console.log(response);
                     
                     if (response.code == 401) {
                         Swal.fire(
@@ -294,22 +308,84 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css
                             'error'
                         );
                     } 
+
+                    if (response.code == 200) {
+                        console.log(savedNumbers);
+                        
+                        let numbers = response.numbers.map((n) => {
+                            console.log(n);
+                            
+                            savedNumbers.push(n)
+                        })
+                        localStorage.setItem('savedNumbers', JSON.stringify(savedNumbers));
+                        localStorage.setItem('lottery_id', JSON.stringify('{{ $id }}'));
+                        window.location.href = '{{ route("payment", $id) }}';
+
+                    }
                     closeModal()
                 },
                 error: function(error) {
-                    // Manejar errores
                     console.error(error);
                 }
             });
         })
+        $('#btnCancel').on('click', function() {
+            const botonesNumero = document.querySelectorAll('.seleccionado');
+
+            botonesNumero.forEach(boton => {
+                const savedNumbers = JSON.parse(localStorage.getItem('savedNumbers')) || [];
+                if (savedNumbers.length > 0) {
+                    var formData = new FormData();
+                    formData.append('savedNumbers', JSON.stringify(savedNumbers.map((s) => ({id: s.id, number: s.number}))));
+                    formData.append('_token', "{{ csrf_token() }}");
+                    formData.append('lottery_id', "{{ $lottery->id }}");
+                    $.ajax({
+                    type: "POST",
+                    url: "{{ route('numbers.remove') }}",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        console.log(response);
+                        
+                        // if (response.code == 401) {
+                        //     Swal.fire(
+                        //         'Atención', 
+                        //         `${numerosSeleccionados.length == 1 ? 'El número seleccionado se encuentra ocupado' : 'Uno o varios números seleccionados se encuentran ocupados'}, por favor seleccione otro número`, 
+                        //         'error'
+                        //     );
+                        // } 
+
+                        // if (response.code == 200) {
+                            
+                        //     let numbers = response.numbers.map((n) => {
+                        //         savedNumbers.push(n)
+                        //     })
+                        //     localStorage.setItem('savedNumbers', JSON.stringify(savedNumbers));
+                           
+                        //     window.location.href = '{{ route("payment", $id) }}';
+
+                        // }
+                        closeModal()
+                    },
+                    error: function(error) {
+                        // Manejar errores
+                        console.error(error);
+                    }
+                });
+                }
+
+                localStorage.removeItem('numerosSeleccionados');
+                localStorage.removeItem('savedNumbers');
+                localStorage.removeItem('lottery_id');
+                boton.click();
+            });
+        })
         function encontrarYAgregarNumeros() {
-            // Crear un conjunto (Set) para una búsqueda más eficiente
             const numbersRangeSet = new Set(todosLosNumeros);
 
-            // Filtrar los números de selectedNumbers que no están en numbersRange
             const numerosNoEncontrados = numerosSeleccionados.filter(num => !numbersRangeSet.has(num));
 
-            // Agregar los números no encontrados a numbersRange y ordenar
             todosLosNumeros.push(...numerosNoEncontrados);
             todosLosNumeros.sort((a, b) => a - b);
 
@@ -320,6 +396,8 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css
     function closeModal() {
         $("#exampleModal").modal('toggle');
     }
+
+    
     
 </script>
 @endsection

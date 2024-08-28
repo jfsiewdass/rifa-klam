@@ -1,7 +1,8 @@
 <?php
     
 namespace App\Http\Controllers;
-    
+
+use App\Http\Requests\LotteryRequest;
 use App\Models\Lottery;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -61,18 +62,18 @@ class LotteryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LotteryRequest $request)
     {
-        request()->validate([
-            'name' => 'required|min:3',
-            'detail' => 'required|min:3',
-            'startDate' => 'required',
-            // 'endDate' => 'required',
-            'amount' => 'required',
-            'starNumber' => 'required_with:endNumber|integer|min:1',
-            'endNumber' => 'required_with:starNumber|integer|gt:starNumber',
-            'file.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]);
+            // request()->validate([
+            //     'name' => 'required|min:3',
+            //     'detail' => 'required|min:3',
+            //     'startDate' => 'required',
+            //     // 'endDate' => 'required',
+            //     'amount' => 'required',
+            //     'starNumber' => 'required_with:endNumber|integer|min:1',
+            //     'endNumber' => 'required_with:starNumber|integer|gt:starNumber',
+            //     'file.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            // ]);
         
         
         try {

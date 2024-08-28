@@ -33,14 +33,23 @@
    
     @yield('content')
     <!-- ==== Win Lottery section ==== -->
-
+    <div class="countdown-body justify-content-center" style="display: none" id="countdown-body">
+        <div class="text-center">
+            <i class="ph-light ph-clock-countdown text-center"></i>
+        </div>
+        <div id="countdown" class=""></div>
+        <div class="text-center" style="display: none" id="countdown-redirect">
+            <a href="#" onclick="redirect()" style="color: var(--n); font-size: 24px"><i class="ph-bold ph-arrow-right text-center"></i></a>
+            {{-- Ir a pagar --}}
+        </div>
+    </div>
 
     <!-- ==== Footer section ==== -->
     <footer  class="footer-section3 n5-bg position-relative cus-z1 overflow-hidden">
-        <img src="assets/images/global/v3star.png" alt="star" class="v3-star">
-        <div class="call-sun">
+        {{-- <img src="assets/images/global/v3star.png" alt="star" class="v3-star"> --}}
+        {{-- <div class="call-sun">
             <img src="assets/images/global/call-sunv3.png" alt="call-sun">
-        </div>
+        </div> --}}
 
         <!--Text Animation -->
         <div class="banner-textanimation2">
@@ -110,13 +119,13 @@
                 <div class="d-flex flex-wrap pb-xxl-8 pb-xl-6 pb-4 pt-xxl-8 pt-xl-6 pt-4 n4-bt gap-3 align-items-center justify-content-center">
                     <p class="footer-copyright flex-wrap justify-content-center n4-clr">
                         <span class="copy nw4-clr">
-                            Copyright &copy; 2024 <a href="#" class="nw4-clr">Lottovibe</a>
+                            Copyright &copy; 2024 <a href="#" class="nw4-clr">RIFAS KLAM</a>
                         </span>
                         <span class="midbor">
 
                         </span>
                         <span class="designed nw4-clr">
-                            Designed By <a href="https://themeforest.net/user/pixelaxis" class="p1-clr"> Pixelaxis</a>
+                            Designed By  Jsiewdass</a>
                         </span>
                     </p>
                 </div>

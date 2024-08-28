@@ -27,7 +27,11 @@ Auth::routes();
   
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/detail/{id}', [HomeController::class, 'detail'])->name('detail');
+Route::get('/payment/{id}', [HomeController::class, 'payment'])->name('payment');
+Route::post('/payment/store', [HomeController::class, 'store'])->name('payment.store');
 Route::post('/numbers/check', [HomeController::class, 'numbers_check'])->name('numbers.check');
+Route::post('/numbers/remove', [HomeController::class, 'numbers_remove'])->name('numbers.remove');
+
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);

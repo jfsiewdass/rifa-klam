@@ -52,31 +52,25 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6">
                 <div class="form-group">
-                    <strong>Fecha de inicio:</strong>
+                    <strong>Fecha:</strong>
                     <input type="date" name="startDate" class="form-control" placeholder="Nombre" id="startDate">
                     <span class="invalid-feedback" id="startDate-error"></span>
                 </div>
             </div>
+            
             <div class="col-xs-12 col-sm-12 col-md-6">
                 <div class="form-group">
-                    <strong>Fecha fin:</strong>
-                    <input type="date" name="endDate" class="form-control" placeholder="Nombre" id="endDate">
-                    <span class="invalid-feedback" id="endDate-error"></span>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-6">
-                <div class="form-group">
-                    <strong>Rango de números:</strong>
+                    <strong>Cantidad de números:</strong>
                     <div class="row">
                         <div class="form-group col-md-6" >
-                            <input type="number" name="starNumber" class="form-control" placeholder="" id="starNumber"> 
+                            <select name="qty_numbers" class="form-control" placeholder="Tipo de pago" id="qty_numbers">
+                                <option value="100">100</option>
+                                <option value="1000">1000</option>
+                                <option value="10000">10000</option>
+                            </select>
                             <span class="invalid-feedback" id="starNumber-error"></span>
                         </div>
-                        <div class="form-group col-md-6" >
-                           
-                            <input type="number" name="endNumber" class="form-control" placeholder="" id="endNumber">
-                            <span class="invalid-feedback" id="endNumber-error"></span>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

@@ -33,7 +33,9 @@ return new class extends Migration
             $table->integer('bank_code');
             $table->double('amount');
             $table->string('document');
-            $table->unsignedBigInteger('status_voucher_id');
+            $table->string('payment_type');
+            $table->string('reference_number');
+            $table->unsignedBigInteger('status_voucher_id')->default(1);
             
             $table->foreign('lottery_id')->references('id')->on('lotteries')
                 ->onUpdate('cascade')->onDelete('cascade');

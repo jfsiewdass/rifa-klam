@@ -816,7 +816,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       //nice select
-      $('select').niceSelect();
+      //$('select').niceSelect();
 
       //Quantity 
       var inputs = document.querySelectorAll('#qty, #qty2, #qty3');

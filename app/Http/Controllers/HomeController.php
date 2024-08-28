@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DayRate;
 use App\Models\Lottery;
 use App\Models\LotteryNumber;
+use App\Models\Voucher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -54,20 +55,90 @@ class HomeController extends Controller
         $occupiedNumbers = array_column($getNumbers, 'number');
         //dd($occupiedNumbers);
         $range = array_values($this->generateAndSubtractNumbers($lottery->number_range, $occupiedNumbers));
+
         //dd($range);
         return view('landing.lottery-detail', compact('id', 'lottery', 'rate', 'range'));
     }
-    public function numbers_check(Request $request) {
-        //dd($request->all());
+
+    public function payment($id)
+    {
+        $lottery = Lottery::find($id);
+        if ($lottery == null) {
+           return redirect()->route('home');
+        }
+        $rate = DayRate::get()->last();
+        $lottery->images = $images = Storage::disk('public')->allFiles('images/' . $lottery->id);
+        //dd($range);
+        return view('landing.lottery-payment', compact('id', 'lottery', 'rate'));
+    }
+
+    public function store(Request $request) {
         
+        $lottery = Lottery::find($request->lottery_id);
+        if ($lottery == null) {
+           return redirect()->route('home');
+        }
         try {
             DB::beginTransaction();
-            foreach (json_decode($request->numbers) as $value) {
-                //dd($value);
-                LotteryNumber::create(['number' => $value, 'lottery_id' => $request->lottery_id]);
+            $voucher = Voucher::create([
+                'lottery_id' => $request->lottery_id,
+                'day_rate_id' => $request->day_rate_id,
+                'amount' => $request->amount,
+                'name'=>$request->name,
+                'surname'=>$request->surname,
+                'document' => $request->surname,
+                'phone'=>$request->phone,
+                'payment_type'=>$request->payment_type,
+                'bank_code'=>$request->bank_code,
+                'reference_number'=>$request->reference_number,
+            ]);
+
+            $numbers = json_decode($request->numbers);
+            //dd($numbers);
+            foreach ($numbers as $number) {
+                $lotteryNumber = LotteryNumber::find($number->id);
+                $lotteryNumber->voucher_id = $voucher->id;
+                $lotteryNumber->status_number_id = 2;
+                $lotteryNumber->save();
+                //dd($number->id);
             }
-            $response = ['code' => 200, 'message' => 'Números reservados'];
             DB::commit();
+        } catch (\Throwable $th) {
+            dd($th);
+            DB::rollBack();
+        }
+
+        return redirect()->route('home')->with('success', 'Compra exitosa');
+    }
+
+    public function numbers_check(Request $request) {
+        //dd($request->savedNumbers);
+        try {
+            DB::beginTransaction();
+            $numbers = [];
+            $allNumbers = json_decode($request->numbers);
+            $savedNumbers = json_decode($request->savedNumbers);
+            $toSave = [];
+            //dd(array_column($savedNumbers, 'number'), $allNumbers);
+            if (count($savedNumbers) > 0) {
+                
+                foreach ($allNumbers as $n) {
+                    //dd(!in_array($n, array_column($savedNumbers, 'number')));
+                    if (!in_array($n, array_column($savedNumbers, 'number'))) {
+                        $toSave[] = $n;
+                    }
+                }
+            } else {
+                $toSave = $allNumbers;
+            }
+            //dd($toSave);
+            foreach ($toSave as $value) {
+                //dd($value);
+                $number = LotteryNumber::create(['number' => $value, 'lottery_id' => $request->lottery_id]);
+                $numbers[] = $number;
+            }
+            $response = ['code' => 200, 'message' => 'Números reservados', 'numbers' => $numbers];
+             DB::commit();
             return response()->json($response);
 
         } catch (\Throwable $th) {
@@ -96,6 +167,23 @@ class HomeController extends Controller
         // Remover los números a descontar del rango
         $result = array_diff($allNumbers, $numbersToSubtract);
 
-        return $result;
+        return $this->zeroFill($result, strlen(strval($end)));
+    }
+    function zeroFill(array $numeros, $length): array
+    {
+        return array_map(function ($numero) use ($length) {
+            return str_pad($numero, $length, '0', STR_PAD_LEFT);
+        }, $numeros);
+    }
+
+    function numbers_remove(Request $request) {
+        $savedNumbers = json_decode($request->savedNumbers);
+        try {
+            foreach ($savedNumbers as $number) {
+                LotteryNumber::find($number->id)->delete();
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 }

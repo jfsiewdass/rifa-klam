@@ -12,7 +12,8 @@
 <!-- ==== js Odometer start ==== -->
 <script src="{{ asset('assets/js/plugins/odometer.js') }}"></script>
 <!-- ==== js Nice Select start ==== -->
-<script src="{{ asset('assets/js/plugins/jquery.nice-select.min.js') }}"></script>
+{{-- <script src="{{ asset('assets/js/plugins/jquery.nice-select.min.js') }}"></script> --}}
+<script src="{{ asset('assets/fontawesome/js/all.min.js') }}"></script>
 <!-- ==== js Phosphor Icon start ==== -->
 <script src="{{ asset('https://unpkg.com/@phosphor-icons/web') }}"></script>
 <!-- ==== js Matter Js start ==== -->
@@ -21,3 +22,65 @@
 {{-- <script s{rc="{ asset('assets/js/plugins/matter-custom.js"></') }}script> --}}
 <!-- ==== js Mian start ==== -->
 <script src="{{ asset('assets/js/main.js') }}"></script>
+<script>
+    const savedNumbers = JSON.parse(localStorage.getItem('savedNumbers')) || [];
+    
+    if(savedNumbers.length > 0) {
+        $('#countdown-body').show();
+        countdown()
+    }
+    function countdown() {
+        
+        let isPaymentPage = @json(\Route::current()->getName() == 'payment');
+        if(!isPaymentPage)$('#countdown-redirect').show();
+        
+        
+        var countdown = JSON.parse(localStorage.getItem('timer')) || 180;
+
+        var timer = setInterval(function() {
+            var minutes = Math.floor(countdown / 60);
+            var seconds = countdown % 60;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            $('#countdown').text(`${minutes + ':' + seconds}`);
+
+            countdown--;
+            localStorage.setItem('timer', JSON.stringify(countdown))
+
+            if (countdown <= 0) {
+                clearInterval(timer);
+                $('#countdown').text('¡Tiempo agotado!');
+                var formData = new FormData();
+                    formData.append('savedNumbers', JSON.stringify(savedNumbers.map((s) => ({id: s.id, number: s.number}))));
+                    formData.append('_token', "{{ csrf_token() }}");
+                    formData.append('lottery_id', "{{ $lottery->id }}");
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('numbers.remove') }}",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        localStorage.removeItem('numerosSeleccionados');
+                        localStorage.removeItem('savedNumbers');
+                        localStorage.removeItem('lottery_id');
+                        localStorage.removeItem('timer');
+                        window.location.href = "{{ route('home') }}"
+                    },
+                    error: function(error) {
+                        // Manejar errores
+                        console.error(error);
+                    }
+                })
+            }
+        }, 1000);
+    }
+
+    function redirect() {
+        var baseUrl = "{{ url('/payment') }}";
+        var id = JSON.parse(localStorage.getItem('lottery_id')) || 0;
+        if (id != 0) {
+            window.location.href = `${baseUrl}/${id}`;
+        }
+    }
+</script>

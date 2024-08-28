@@ -1,5 +1,7 @@
 @extends('layouts.landingPage')
 @section('content')
+
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css" rel="stylesheet">
 <div  class="banner-section-v1 pt-70-fixed n4-bg position-relative overflow-hidden">
     <!--Banner Content -->
     <div class="container">
@@ -107,6 +109,7 @@
     </div>
     <!--Banner Content -->
     {{-- <img src="assets/images/banner/win.png" alt="img" class="shape-win"> --}}
+    
     <div class="banner-oneslider">
         <div class="banner-carslide-wrap swiper mySwiper">
             <div class="swiper-wrapper">
@@ -234,6 +237,11 @@
                     
                     <div class="row g-6">
                         @forelse ($lotteries as $lottery)
+                            @php
+                                list($start, $total) = explode('-', $lottery->number_range);
+                                $numbers = $lottery->lotteryNumbers()->where('status_number_id', '<>', '1')->count();
+                                $percent = $numbers * 100 / $total;
+                            @endphp
                             <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-duration="1000">
                                 <div class="current-lottery-item cmn-cartborder current-bg position-relative radius24">
                                     <div class="current-l-badge position-relative cus-z1 mb-xxl-10 mb-xl-8 mb-lg-6 mb-4 d-flex align-items-center justify-content-between pt-xxl-5 pt-4 pe-xxl-5 pe-4">
@@ -252,11 +260,11 @@
                                     </div>
                                     <div class="content-middle">
                                         <div class="cmn-prrice-range px-xxl-6 px-xl-5 px-lg-4 px-3 d-flex align-items-center gap-2">
-                                            <div class="range-custom position-relative">
+                                            <div class="range-custom position-relative" style="--range-width: {{ number_format($percent, 2) }}%;">
                                                 <span class="curs-range"></span>
                                             </div>
                                             <span class="n4-clr soldout fw_700 fs-eight">
-                                                0% Vendido
+                                                {{  number_format($percent, 2) }}% Vendido
                                             </span>
                                         </div>
                                         <div class="d-flex px-xxl-6 px-xl-5 px-lg-4 px-3 nw4-bb py-xxl-5 py-sm-4 py-3 flex-wrap gap-3 align-items-center justify-content-between">
@@ -290,7 +298,7 @@
                                                 </div> --}}
                                             </div>
                                             {{-- <span class="cmn-40 radius-circle act4-border n0-fillhover">
-                                                <i class="ph-bold ph-bookmark-simple act4-clr"></i>
+                                                <i class="ph-bold ph-empty act4-clr"></i>
                                             </span> --}}
                                         </div>
                                         <ul class="remaining-info px-xxl-6 px-xl-5 px-lg-4 px-3 py-xxl-5 py-xl-3 py-2 nw4-bb d-flex align-items-center gap-xxl-5 gap-lg-3 gap-2">
@@ -307,16 +315,16 @@
                                                     }
 
                                                     @endphp
-                                                    {{ $remainingDays ? $remainingDays . ' DÍAS' : 'PENDIENTE' }}
+                                                    {{ $remainingDays ? $remainingDays . ' DÍAS' : 'PROXIMAMENTE' }}
                                                 </span>
                                             </li>
                                             <li class="vline-remaing">
             
                                             </li>
                                             <li class="d-flex align-items-center gap-2">
-                                                <i class="ph ph-barbell fs-five n3-clr"></i>
+                                                {{-- <i class="ph ph-barbell fs-five n3-clr"></i> --}}
                                                 <span class="n3-clr fw_600">
-                                                    1750 Remaining
+                                                    {{ $total - $numbers }} DISPONIBLES
                                                 </span>
                                             </li>
                                         </ul>
@@ -344,4 +352,14 @@
         </div>
     </div>
 </section>
+@endsection
+@section('scripts')
+    @if (session('success'))
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js"></script>
+        <script>
+            localStorage.removeItem('numerosSeleccionados');
+            localStorage.removeItem('savedNumbers');
+            Swal.fire('Excelente', 'Compra exitosa', 'success');
+        </script>
+    @endif
 @endsection

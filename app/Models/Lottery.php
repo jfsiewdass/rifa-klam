@@ -30,4 +30,9 @@ class Lottery extends Model
 
         return $lastTwoDigits . $zeros . $idString;
     }
+
+    public function lotteryNumbers()
+    {
+       return $this->hasMany(LotteryNumber::class);
+    }
 }

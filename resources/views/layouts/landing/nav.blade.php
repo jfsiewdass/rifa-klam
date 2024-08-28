@@ -110,14 +110,14 @@
                                     </div>
                                 </div>
                             </a> --}}
-                            <div class="invisible-menuthumb d-flex">
+                            {{-- <div class="invisible-menuthumb d-flex">
                                 <a href="landing-nft1.html">
                                     <img src="assets/images/global/global-nft.png" alt="img">
                                 </a>
                                 <a href="landing-nft2.html">
                                     <img src="assets/images/global/global-nft2.png" alt="img">
                                 </a>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

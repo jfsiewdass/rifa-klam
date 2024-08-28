@@ -23,7 +23,7 @@
 @import "../css/plugins/odometer-min.css";
 @import "../css/plugins/fontawesome.min.css";
 @import "../css/plugins/nice-select.css";
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,500;6..12,600;6..12,700;6..12,800;6..12,900&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,500;6..12,600;6..12,700;6..12,800;6..12,900&display=swap"); */
 :root {
   --body-font: "Nunito Sans", sans-serif;
   --transition: all 0.5s ease-in-out;
@@ -698,8 +698,8 @@ textarea {
   outline-color: transparent;
   font-size: 14px;
   border-radius: 6px;
-  background-color: transparent;
-  border: 1px solid var(--n3) !important;
+  /* background-color: transparent; */
+  /* border: 1px solid var(--n3) !important; */
 }
 input::-moz-placeholder, textarea::-moz-placeholder {
   font-size: 16px;
@@ -2032,8 +2032,8 @@ iframe {
 }
 
 .nice-select {
-  background-color: transparent;
-  border: transparent;
+  /* background-color: transparent;
+  border: transparent; */
   float: initial;
   overflow: initial;
   height: initial;
@@ -2082,7 +2082,7 @@ iframe {
   font-weight: 500;
 }
 .nice-select .option:hover, .nice-select .option:focus, .nice-select .option.selected.focus {
-  background-color: transparent;
+  /* background-color: transparent; */
 }
 .nice-select .current {
   font-weight: 500;
@@ -4142,8 +4142,8 @@ iframe {
 
 .nice-select .list {
   overflow-y: scroll;
-  height: 20vh;
-  background: var(--n1);
+  /* height: 20vh; */
+  background: var(--n0);
 }
 
 @media (max-width: 1399px) {
@@ -10057,3 +10057,41 @@ label {
   display: flex;
   flex-direction: column;
 } */
+.was-validated .form-control:invalid, .form-control.is-invalid {
+  border-color: #dc3545 !important;
+  padding-right: calc(1.6em + 0.75rem);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right calc(0.4em + 0.1875rem) center;
+  background-size: calc(0.8em + 0.375rem) calc(0.8em + 0.375rem);
+}
+
+.range-custom::before {
+  content: '';
+  position: absolute;
+  height: 4px;
+  background-color: var(--p1);;
+  width: var(--range-width);
+}
+.range-custom .curs-range {
+  position: absolute;
+  left: var(--range-width);
+  top: 0px;
+  content: "";
+  background: var(--p1);;
+  width: 20px;
+  height: 4px;
+  z-index: 3;
+}
+.countdown-body {
+  position: fixed;
+  font-size: 45px;
+  bottom: 20px;
+  right: 20px;
+  background: #f0f0f0;
+  color: var(--p1);
+  padding: 20px 60px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+}
