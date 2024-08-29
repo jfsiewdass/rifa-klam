@@ -22,7 +22,7 @@
                 <br>
                 <h5 class="text-left" style="color: red">Rango de números {{ $lottery->number_range }}</h5>
                 <br>
-                <h3 class="text-left" style="color: red">${{ $lottery->amount }} por rifa</h3>
+                <h3 class="text-left" style="color: red">${{ $lottery->amount }} por número</h3>
                 <br>
                 <div>
                     <h3 class="text-left">Números seleccionados</h3>
@@ -38,7 +38,7 @@
         </div>
        
         <div class="col-md-10 my-10">
-            <form id="paymentForm" method="POST" action="{{ route('payment.store') }}" class="row py-3 rounded border">
+            <form id="paymentForm" method="POST" action="{{ route('payment.store') }}" class="row py-3 rounded border" enctype="multipart/form-data">
                 <input type="hidden" name="day_rate_id" value="{{ $rate->id }}">
                 <input type="hidden" name="lottery_id" value="{{ $lottery->id }}">
                 <input type="hidden" name="amount" value="{{ $lottery->id }}" id="amount">
@@ -57,6 +57,12 @@
                     <div class="form-group">
                         <strong>Apellido:</strong>
                         <input type="text" name="surname" class="form-control" placeholder="Apellido" id="surname">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
+                    <div class="form-group">
+                        <strong>Documento de identidad:</strong>
+                        <input type="text" name="document" class="form-control" placeholder="Documento de identidad" id="document">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
@@ -84,6 +90,13 @@
                     <div class="form-group">
                         <strong>Número de referencia:</strong>
                         <input type="text" name="reference_number" class="form-control" placeholder="Banco" id="reference_number">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
+                    <div class="form-group">
+                        <strong>Cargar captura de pago:</strong>
+                        <input type="file" name="capture" id="capture" class="form-control" accept="image/*">
+                        <img id="preview" src="" alt="Vista previa del capture" style="display: none; height: 200px" class="m-5">
                     </div>
                 </div>
                 <div class="col-xs-12 row row justify-content-center mt-5">
@@ -154,16 +167,31 @@
     botones.forEach(boton => $('#numeros').append(boton));
 
     function createButton(numero) {
-            const boton = $('<button>').addClass('numero').text(numero);
-            boton.data('numero', numero); // Almacenamos el número en el elemento para facilitar la búsqueda
+        const boton = $('<button>').addClass('numero').text(numero);
+        boton.data('numero', numero); // Almacenamos el número en el elemento para facilitar la búsqueda
 
-            // Marcar los números seleccionados
-            if (numerosSeleccionados.includes(numero)) {
-                boton.addClass('seleccionado');
-            }
-
-            return boton; // Retornamos el botón creado
+        // Marcar los números seleccionados
+        if (numerosSeleccionados.includes(numero)) {
+            boton.addClass('seleccionado');
         }
+
+        return boton; // Retornamos el botón creado
+    }
+
+    const captureInput = document.getElementById('capture');
+    const previewImg = document.getElementById('preview');
+    captureInput.addEventListener('change', () => {
+        const file = captureInput.files[0];
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            previewImg.src = e.target.result;
+            previewImg.style.display = 'block'; // Mostrar la imagen
+        };
+
+        reader.readAsDataURL(file);
+    });
+        
    })
 
     function closeModal() {

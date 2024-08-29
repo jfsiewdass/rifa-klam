@@ -8,7 +8,7 @@
 <div style="background-color: white;" class=" mx-md-15 mx-5 ">
     <h1 class="text-center my-10 mb-15">{{ $lottery->name }}</h1>
     @php
-        list($start, $total) = explode('-', $lottery->number_range);
+        $total = $lottery->number_range;
         $numbers = $lottery->lotteryNumbers()->where('status_number_id', '<>', '1')->count();
         $percent = $numbers * 100 / $total;
     @endphp
@@ -35,7 +35,7 @@
                 <br>
                 <h5 class="text-left" style="color: red">Rango de números {{ $lottery->number_range }}</h5>
                 <br>
-                <h3 class="text-left" style="color: red">${{ $lottery->amount }} por rifa</h3>
+                <h3 class="text-left" style="color: red">${{ $lottery->amount }} por número</h3>
                 
             </div>
             <div class="col-xl-5 col-xs-12 text-center bg-light rounded border">
@@ -112,7 +112,7 @@
         const numerosNuevos = encontrarYAgregarNumeros();
         
         const totalNumeros = todosLosNumeros.length;
-        const numerosPorPagina = 100;
+        const numerosPorPagina = 101;
         
         let numerosAFiltrar = [];
         

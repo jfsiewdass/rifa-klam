@@ -238,7 +238,7 @@
                     <div class="row g-6">
                         @forelse ($lotteries as $lottery)
                             @php
-                                list($start, $total) = explode('-', $lottery->number_range);
+                                $total = $lottery->number_range;
                                 $numbers = $lottery->lotteryNumbers()->where('status_number_id', '<>', '1')->count();
                                 $percent = $numbers * 100 / $total;
                             @endphp
@@ -307,9 +307,9 @@
                                                 <span class="n3-clr fw_600">
                                                     @php
                                                     $remainingDays = null;
-                                                    if (isset($lottery->end_date)) {
+                                                    if (isset($lottery->date)) {
                                                         $now = Carbon\Carbon::now();
-                                                        $lotteryDate = Carbon\Carbon::createFromFormat('Y-m-d', $lottery->end_date);
+                                                        $lotteryDate = Carbon\Carbon::createFromFormat('Y-m-d', $lottery->date);
                                                         $remainingDays = $lotteryDate->diffInDays($now);
                                                         
                                                     }
@@ -322,7 +322,7 @@
             
                                             </li>
                                             <li class="d-flex align-items-center gap-2">
-                                                {{-- <i class="ph ph-barbell fs-five n3-clr"></i> --}}
+                                                <i class="ph ph-ticket fs-five n3-clr"></i>
                                                 <span class="n3-clr fw_600">
                                                     {{ $total - $numbers }} DISPONIBLES
                                                 </span>
@@ -359,7 +359,9 @@
         <script>
             localStorage.removeItem('numerosSeleccionados');
             localStorage.removeItem('savedNumbers');
-            Swal.fire('Excelente', 'Compra exitosa', 'success');
+            localStorage.removeItem('lottery_id');
+            localStorage.removeItem('timmer');
+            Swal.fire('Excelente', 'Compra exitosa', 'success')
         </script>
     @endif
 @endsection

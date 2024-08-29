@@ -24,10 +24,16 @@
 <script src="{{ asset('assets/js/main.js') }}"></script>
 <script>
     const savedNumbers = JSON.parse(localStorage.getItem('savedNumbers')) || [];
+    var lottery_id = JSON.parse(localStorage.getItem('lottery_id')) || 0;
     
-    if(savedNumbers.length > 0) {
+    if(savedNumbers.length > 0 && lottery_id != 0) {
         $('#countdown-body').show();
         countdown()
+    } else {
+        localStorage.removeItem('numerosSeleccionados');
+        localStorage.removeItem('savedNumbers');
+        localStorage.removeItem('lottery_id');
+        localStorage.removeItem('timer');
     }
     function countdown() {
         
@@ -36,8 +42,15 @@
         
         
         var countdown = JSON.parse(localStorage.getItem('timer')) || 180;
+        
 
         var timer = setInterval(function() {
+            var lottery_id = JSON.parse(localStorage.getItem('lottery_id')) || 0;
+            if (lottery_id == 0) {
+                $('#countdown-body').hide();
+                clearInterval(timer);
+                localStorage.removeItem('timer');
+            }
             var minutes = Math.floor(countdown / 60);
             var seconds = countdown % 60;
             seconds = seconds < 10 ? '0' + seconds : seconds;
@@ -49,11 +62,11 @@
 
             if (countdown <= 0) {
                 clearInterval(timer);
-                $('#countdown').text('¡Tiempo agotado!');
+                $('#countdown').text(`${minutes + ':' + seconds}`);
                 var formData = new FormData();
                     formData.append('savedNumbers', JSON.stringify(savedNumbers.map((s) => ({id: s.id, number: s.number}))));
                     formData.append('_token', "{{ csrf_token() }}");
-                    formData.append('lottery_id', "{{ $lottery->id }}");
+                    formData.append('lottery_id', lottery_id);
                 $.ajax({
                     type: "POST",
                     url: "{{ route('numbers.remove') }}",

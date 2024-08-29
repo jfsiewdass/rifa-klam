@@ -78,6 +78,7 @@ class HomeController extends Controller
         if ($lottery == null) {
            return redirect()->route('home');
         }
+        // dd($request->all());
         try {
             DB::beginTransaction();
             $voucher = Voucher::create([
@@ -86,13 +87,17 @@ class HomeController extends Controller
                 'amount' => $request->amount,
                 'name'=>$request->name,
                 'surname'=>$request->surname,
-                'document' => $request->surname,
+                'document' => $request->document,
                 'phone'=>$request->phone,
                 'payment_type'=>$request->payment_type,
                 'bank_code'=>$request->bank_code,
                 'reference_number'=>$request->reference_number,
+                'bank_code'=>$request->bank_code,
+                'capture' => $this->saveImage('captures/' . $request->lottery_id . '/' . $request->document, $request->file('capture')),
             ]);
-
+            
+            //Storage::disk('public')->put('captures/' . $request->lottery_id . '/' . $request->document, $request->file('capture'));
+            
             $numbers = json_decode($request->numbers);
             //dd($numbers);
             foreach ($numbers as $number) {
@@ -150,10 +155,9 @@ class HomeController extends Controller
 
     function generateAndSubtractNumbers($rangeString, $numbersToSubtract)
     {
-        // Separar el rango
-        list($start, $end) = explode('-', $rangeString);
-        $start = (int) $start;
-        $end = (int) $end;
+        
+        $start = 0;
+        $end = (int) $rangeString;
 
         // Generar el rango de números
         $allNumbers = range($start, $end);
@@ -185,5 +189,15 @@ class HomeController extends Controller
         } catch (\Throwable $th) {
             //throw $th;
         }
+    }
+
+    private function saveImage($path, $file)
+    {
+        $fileName = time() . '.' . $file->getClientOriginalExtension();
+        $filePath = $path . $fileName;
+
+        Storage::disk('public')->put($filePath, file_get_contents($file));
+
+        return $filePath;
     }
 }

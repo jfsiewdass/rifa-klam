@@ -85,7 +85,7 @@ class LotteryController extends Controller
                 "start_date" => $request->startDate,
                 "end_date" => $request->endDate,
                 'amount' => $request->amount,
-                "number_range" => $request->starNumber."-".$request->endNumber,
+                "number_range" => $request->qty_numbers,
                 "user_id" => Auth::id(),
             ];
             
@@ -118,9 +118,10 @@ class LotteryController extends Controller
      * @param  \App\Lottery  $rifa
      * @return \Illuminate\Http\Response
      */
-    public function show(Lottery $rifa): View
+    public function show(Lottery $lottery): View
     {
-        return view('lotteries.show',compact('rifa'));
+        $purchased_numbers = $lottery->vouchers()->with(['lotteryNumbers', 'status_voucher'])->paginate(10);
+        return view('lotteries.numbers',compact('lottery', 'purchased_numbers'));
     }
     
     /**

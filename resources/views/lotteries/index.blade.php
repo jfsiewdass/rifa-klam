@@ -25,7 +25,7 @@
             <th>#</th>
             <th>Nombre</th>
             <th>Detalle</th>
-            <th>Rango de numeros</th>
+            <th>Cantidad de números</th>
             <th>Monto</th>
             <th>Imágenes</th>
 

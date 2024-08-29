@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('document');
             $table->string('payment_type');
             $table->string('reference_number');
+            $table->string('capture');
             $table->unsignedBigInteger('status_voucher_id')->default(1);
             
             $table->foreign('lottery_id')->references('id')->on('lotteries')
@@ -51,7 +52,7 @@ return new class extends Migration
 
         Schema::create('lottery_numbers', function (Blueprint $table) {
             $table->id();
-            $table->integer('number');
+            $table->string('number');
             $table->unsignedBigInteger('lottery_id');
             
             $table->unsignedBigInteger('voucher_id')->nullable();

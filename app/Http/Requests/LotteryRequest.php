@@ -24,11 +24,8 @@ class LotteryRequest extends FormRequest
         return [
             'name' => 'required|min:3',
             'detail' => 'required|min:3',
-            'startDate' => 'required',
-            // 'endDate' => 'required',
             'amount' => 'required',
-            'starNumber' => 'required_with:endNumber|integer|min:1',
-            'endNumber' => 'required_with:starNumber|integer|gt:starNumber',
+            'qty_numbers' => 'required',
             'file.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }

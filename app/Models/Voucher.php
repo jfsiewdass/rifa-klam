@@ -9,5 +9,15 @@ class Voucher extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['lottery_id', 'day_rate_id', 'name', 'surname', 'phone', 'bank_code', 'amount', 'document', 'status_voucher_id', 'payment_type', 'reference_number'];
+    protected $fillable = ['lottery_id', 'day_rate_id', 'name', 'surname', 'phone', 'bank_code', 'amount', 'document', 'status_voucher_id', 'payment_type', 'reference_number', 'capture'];
+
+    public function lotteryNumbers()
+    {
+       return $this->hasMany(LotteryNumber::class);
+    }
+
+    public function status_voucher()
+    {
+       return $this->belongsTo(StatusVoucher::class);
+    }
 }

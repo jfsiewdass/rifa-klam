@@ -16,7 +16,7 @@ class Lottery extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'detail', 'number_range', 'start_date', 'end_date', 'user_id', 'images', 'unique_id', 'amount'
+        'name', 'detail', 'number_range', 'date', 'user_id', 'images', 'unique_id', 'amount'
     ];
     protected $appends = ['unique_id'];
 
@@ -34,5 +34,10 @@ class Lottery extends Model
     public function lotteryNumbers()
     {
        return $this->hasMany(LotteryNumber::class);
+    }
+
+    public function vouchers()
+    {
+       return $this->hasMany(Voucher::class);
     }
 }

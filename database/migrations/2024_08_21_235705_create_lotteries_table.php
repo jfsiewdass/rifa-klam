@@ -17,8 +17,7 @@ return new class extends Migration
             $table->text('detail');
             $table->text('amount');
             $table->string('number_range');
-            $table->date('start_date');
-            $table->date('end_date')->nullable();
+            $table->date('date')->nullable();
             $table->integer('user_id');
             $table->timestamps();
         });

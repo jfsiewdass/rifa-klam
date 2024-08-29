@@ -26,6 +26,7 @@ class PaymentRequest extends FormRequest
             'day_rate_id' => 'required',
             'name' => 'required',
             'surname' => 'required',
+            'document' => 'required',
             'phone' => 'required',
             'bank_code' => 'required',
             'amount' => 'required',
@@ -34,6 +35,7 @@ class PaymentRequest extends FormRequest
             'reference_number' => 'required',
             'status_voucher_id' => 'required',
             'numbers' => 'required',
+            'capture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 

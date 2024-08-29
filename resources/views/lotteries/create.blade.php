@@ -9,6 +9,12 @@
       height: 100% !important;
       object-fit: cover;
     }
+    .dropzone {
+    min-height: 150px;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        padding: 20px 20px;
+    }
   </style>
 <div class="row">
     <div class="col-lg-12 margin-tb d-flex justify-content-between align-items-center">
@@ -53,25 +59,21 @@
             <div class="col-xs-12 col-sm-12 col-md-6">
                 <div class="form-group">
                     <strong>Fecha:</strong>
-                    <input type="date" name="startDate" class="form-control" placeholder="Nombre" id="startDate">
-                    <span class="invalid-feedback" id="startDate-error"></span>
+                    <input type="date" name="date" class="form-control" placeholder="Nombre" id="date">
+                    <span class="invalid-feedback" id="date-error"></span>
                 </div>
             </div>
             
             <div class="col-xs-12 col-sm-12 col-md-6">
                 <div class="form-group">
                     <strong>Cantidad de números:</strong>
-                    <div class="row">
-                        <div class="form-group col-md-6" >
-                            <select name="qty_numbers" class="form-control" placeholder="Tipo de pago" id="qty_numbers">
-                                <option value="100">100</option>
-                                <option value="1000">1000</option>
-                                <option value="10000">10000</option>
-                            </select>
-                            <span class="invalid-feedback" id="starNumber-error"></span>
-                        </div>
+                    <select name="qty_numbers" class="form-control" placeholder="Tipo de pago" id="qty_numbers">
+                        <option value="100">100</option>
+                        <option value="1000">1000</option>
+                        <option value="10000">10000</option>
+                    </select>
+                    <span class="invalid-feedback" id="starNumber-error"></span>
                         
-                    </div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6">
@@ -184,20 +186,19 @@
         var $this = $(this);
         $('#name-error').text('');
         $('#detail-error').text('');
-        $('#startDate-error').text('');
-        $('#endDate-error').text('');
-        $('#starNumber-error').text('');
-        $('#endNumber-error').text('');
+        $('#date-error').text('');
+        $('#qty_numbers-error').text('');
         $('#name').removeClass('is-invalid');
         $('#detail').removeClass('is-invalid');
-        $('#startDate').removeClass('is-invalid');
-        $('#endDate').removeClass('is-invalid');
+        $('#date').removeClass('is-invalid');
         $('#starNumber').removeClass('is-invalid');
-        $('#endNumber').removeClass('is-invalid');
+        $('#qty_numbers').removeClass('is-invalid');
         
        
-        console.log($('#rifa-form')[0].checkValidity());
-        
+        // console.log($('#rifa-form')[0].checkValidity());
+        if (!validateForm()) {
+            return false;
+        }
         // validate form & submit if valid
         if ($('#rifa-form')[0].checkValidity() === true  && !validateForm()) {
             event.stopPropagation();
@@ -219,10 +220,7 @@
     function validateForm() {
         const name = $('#name').val();
         const detail = $('#detail').val();
-        const startDate = $('#startDate').val();
-        const endDate = $('#endDate').val();
-        const starNumber = $('#starNumber').val();
-        const endNumber = $('#endNumber').val();
+        const date = $('#date').val();
         const amount = $('#amount').val();
         const images = $('#images').find('img');
         
@@ -249,56 +247,15 @@
         }
         if (amount.length < 1) {
             $('#amount').addClass('is-invalid');
-            $('#amount-error').text('El detalle debe tener al menos 1 caracter.');
+            $('#amount-error').text('Campo requerido');
             isValid = false;
         } else {
             $('#amount').removeClass('is-invalid');
             $('#amount-error').text('');
         }
 
-        // Validación de fechas (ajusta según tu formato de fecha)
-        if (!startDate) {
-            $('#startDate').addClass('is-invalid');
-            //$('#endDate').addClass('is-invalid');
-            $('#startDate-error').text('Las fechas de inicio y fin son obligatorias.');
-            //$('#endDate-error').text('Las fechas de inicio y fin son obligatorias.');
-            isValid = false;
-        } else {
-            // Aquí puedes agregar lógica para validar que startDate sea menor que endDate
-            // ...
-        }
-
-        // Validación de números
-        if (starNumber && endNumber) {
-            // console.log(starNumber, endNumber);
-            
-            if (isNaN(starNumber) || isNaN(endNumber)) {
-                $('#starNumber').addClass('is-invalid');
-                $('#endNumber').addClass('is-invalid');
-                $('#starNumber-error').text('Debe ser un numero');
-                $('#endNumber-error').text('Debe ser un numero');
-                isValid = false;
-            } else if (starNumber < 1 || endNumber <= starNumber) {
-                $('#starNumber').addClass('is-invalid');
-                $('#endNumber').addClass('is-invalid');
-                $('#starNumber-error').text('El número de inicio debe ser mayor o igual a 0 y menor que el número final.');
-                $('#endNumber-error').text('El número final debe ser mayor que el número de inicio.');
-                isValid = false;
-            } else {
-                $('#starNumber').removeClass('is-invalid');
-                $('#endNumber').removeClass('is-invalid');
-                $('#starNumber-error').text('');
-                $('#endNumber-error').text('');
-            }
-        } else  {
-            // console.log(starNumber, endNumber, 'or');
-            $('#starNumber').addClass('is-invalid');
-            $('#endNumber').addClass('is-invalid');
-            $('#starNumber-error').text('Campo requerido');
-            $('#endNumber-error').text('Campo requerido');
-            isValid = false;
-        }
-
+       
+        
         if (images.length === 0) {
             isValid = false;
         }
