@@ -50,7 +50,10 @@
                         <img src="{{ Storage::url($img) }}" class="img-fluid img-thumbnail" style="width: 80px">
                     @endforeach
                 </div>
-                {{-- <div class="d-md-none"> <img src="{{ Storage::url($lottery->images[0]) }}" class="img-fluid img-thumbnail" style="width: 80px"></div> --}}
+                @if (isset($lottery->images[0]))
+                    
+                    <div class="d-md-none"> <img src="{{ Storage::url($lottery->images[0]) }}" class="img-fluid img-thumbnail" style="width: 80px"></div>
+                @endif
             </td>
             <td width="120px">
                 <form action="{{ route('lotteries.destroy',$lottery->id) }}" method="POST">

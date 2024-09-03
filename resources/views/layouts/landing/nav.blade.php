@@ -38,7 +38,7 @@
                             </li> --}}
                            
                             <li class="menu-item itembg__1 position-relative">
-                                <a href="contact.html" class="fw_500 {{ \Route::current()->getName() == 'home' ? 'active' : '' }}">
+                                <a href="{{ route('home') }}" class="fw_500 {{ \Route::current()->getName() == 'home' ? 'active' : '' }}">
                                     Inicio
                                 </a>
                             </li>
@@ -48,7 +48,7 @@
                                 </a>
                             </li>
                             <li class="menu-item itembg__1 position-relative">
-                                <a href="contact.html" class="fw_500 {{ \Route::current()->getName() == 'winners' ? 'active' : '' }}">
+                                <a  href="{{ route('winners') }}" class="fw_500 {{ \Route::current()->getName() == 'winners' ? 'active' : '' }}">
                                     Ganadores
                                 </a>
                             </li>

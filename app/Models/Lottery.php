@@ -40,4 +40,9 @@ class Lottery extends Model
     {
        return $this->hasMany(Voucher::class);
     }
+
+    public function winnerVoucher()
+    {
+       return $this->hasMany(Voucher::class)->where('is_winner', true);
+    }
 }

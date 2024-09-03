@@ -81,9 +81,9 @@
                             como funciona
                         </a>
                     </div>
-                    <div class="bn1-odometer d-flex align-items-center gap-xxl-11 gap-xl-8 gap-lg-6 gap-5">
+                    {{-- <div class="bn1-odometer d-flex align-items-center gap-xxl-11 gap-xl-8 gap-lg-6 gap-5">
                         <div class="odometer__items" data-aos="zoom-in-down" data-aos-duration="1000">
-                            {{-- <div class="cont d-flex align-items-center">
+                            <div class="cont d-flex align-items-center">
                                 <span class="odometer display-four nw1-clr fw_800">
                                 1750
                                 </span>
@@ -91,17 +91,17 @@
                                 +
                                 </span>
                             </div>
-                            <p>Verified Users</p> --}}
+                            <p>Verified Users</p>
                         </div>
                         <div class="odometer__items" data-aos="zoom-in-up" data-aos-duration="1000">
-                            {{-- <div class="cont d-flex align-items-center">
+                            <div class="cont d-flex align-items-center">
                                 <span class="odometer display-four nw1-clr fw_800">
                                     15
                                 </span>
                             </div>
-                            <p>Years on the market</p> --}}
+                            <p>Years on the market</p>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             
@@ -138,6 +138,7 @@
     <!--Slide Click Button -->
 
     <!--Scroll Top -->
+    <br><br>
     <a href="#down-scroll" class="scroll-bn1 act3-bg radius100 d-flex justify-content-center align-items-center justify-content-center">
         <span class="d-grid gap-xxl-5 gap-xl-4 gap-3 justify-content-center text-center m-auto">
             <span class="n4-clr fs18 d-block fw_600">
@@ -152,7 +153,7 @@
     </a>
     <!--Scroll Top -->
 </div>
-<section  class="current-lottery pt-120 pb-120" id="down-scroll">
+<section class="current-lottery pb-120 n0-bg" id="down-scroll">
     <div class="container" >
         <!--Section Header-->
         {{-- <div class="row g-xl-4 g-3 align-items-center justify-content-between mb-xxl-15 mb-xl-10 mb-8">

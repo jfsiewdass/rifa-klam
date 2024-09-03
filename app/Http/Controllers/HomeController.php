@@ -200,4 +200,18 @@ class HomeController extends Controller
 
         return $filePath;
     }
+    public function winners()
+    {
+        $lotteries = Lottery::whereHas('winnerVoucher')->with('winnerVoucher')->where('winner', '<>', null)->orderBy('date', 'desc')->get();        
+        $lotteries->transform(function ($lottery) {
+            //dd($rifa);
+            if ($lottery == null ) return null;
+            $images = Storage::disk('public')->allFiles('images/' . $lottery?->id);
+            $lottery->images = $images;
+            return $lottery;
+        });
+
+        // dd($lotteries);
+        return view('landing.winner', compact('lotteries'));
+    }
 }
