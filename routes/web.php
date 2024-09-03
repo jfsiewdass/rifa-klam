@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\DayRateController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LotteryController;
+use App\Models\DayRate;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,5 +40,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('users', UserController::class);
     Route::resource('lotteries', LotteryController::class);
     
-    // Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('dayrate/index', [DayRateController::class, 'index'])->name('dayrate.index');
+    Route::post('dayrate/store', [DayRateController::class, 'store'])->name('dayrate.store');
+    Route::post('lotteries/voucher/accept', [LotteryController::class, 'lotteries_voucher_accept'])->name('lotteries.voucher.accept');
+    Route::post('lotteries/voucher/reject', [LotteryController::class, 'lotteries_voucher_reject'])->name('lotteries.voucher.reject');
+    Route::post('lotteries/select/winner', [LotteryController::class, 'lotteries_select_winner'])->name('lotteries.select.winner');
 });

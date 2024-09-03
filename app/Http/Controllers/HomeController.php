@@ -44,26 +44,26 @@ class HomeController extends Controller
     public function detail($id)
     {
         $lottery = Lottery::find($id);
-        if ($lottery == null) {
+        if ($lottery == null || $lottery->status_lottery_id == 2) {
            return redirect()->route('home');
         }
         $lottery->images = $images = Storage::disk('public')->allFiles('images/' . $lottery->id);
 
         $rate = DayRate::get()->last();
 
-        $getNumbers = LotteryNumber::where('lottery_id', $lottery->id)->where('status_number_id', '<>', 3)->select('number')->get()->toArray();
+        $getNumbers = LotteryNumber::where('lottery_id', $lottery->id)->whereIn('status_number_id', [1, 2, 3])->select('number')->get()->toArray();
         $occupiedNumbers = array_column($getNumbers, 'number');
-        //dd($occupiedNumbers);
+        // dd($occupiedNumbers);
         $range = array_values($this->generateAndSubtractNumbers($lottery->number_range, $occupiedNumbers));
 
-        //dd($range);
+        // dd($range);
         return view('landing.lottery-detail', compact('id', 'lottery', 'rate', 'range'));
     }
 
     public function payment($id)
     {
         $lottery = Lottery::find($id);
-        if ($lottery == null) {
+        if ($lottery == null || $lottery->status_lottery_id == 2) {
            return redirect()->route('home');
         }
         $rate = DayRate::get()->last();
@@ -167,9 +167,9 @@ class HomeController extends Controller
             $numbersToSubtract = explode(',', $numbersToSubtract);
             $numbersToSubtract = array_map('intval', $numbersToSubtract);
         }
-
         // Remover los números a descontar del rango
-        $result = array_diff($allNumbers, $numbersToSubtract);
+        // dd($numbersToSubtract);
+        $result = array_diff($this->zeroFill($allNumbers, strlen(strval($end))), $numbersToSubtract);
 
         return $this->zeroFill($result, strlen(strval($end)));
     }

@@ -20,7 +20,12 @@
     <!-- ==== Tabler Icon ==== -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.36.0/tabler-icons.min.css">
     <!-- ==== #style.min ==== -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    {{-- @vite(['resources/sass/app.scss', 
+        'resources/js/app.js', 
+        'public/assets/js/plugins/jquery.js',
+        'public/assets/js/plugins/bootstrap.js'
+    ]) --}}
 </head>
 
 <body class="winbg">

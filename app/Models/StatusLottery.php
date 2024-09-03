@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DayRate extends Model
+class StatusLottery extends Model
 {
     use HasFactory;
-    protected $fillable = ['rate'];
 }

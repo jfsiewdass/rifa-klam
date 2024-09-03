@@ -37,6 +37,7 @@ return new class extends Migration
             $table->string('reference_number');
             $table->string('capture');
             $table->unsignedBigInteger('status_voucher_id')->default(1);
+            $table->boolean('is_winner')->default(false);
             
             $table->foreign('lottery_id')->references('id')->on('lotteries')
                 ->onUpdate('cascade')->onDelete('cascade');
@@ -53,6 +54,7 @@ return new class extends Migration
         Schema::create('lottery_numbers', function (Blueprint $table) {
             $table->id();
             $table->string('number');
+            $table->boolean('is_winner')->default(false);
             $table->unsignedBigInteger('lottery_id');
             
             $table->unsignedBigInteger('voucher_id')->nullable();

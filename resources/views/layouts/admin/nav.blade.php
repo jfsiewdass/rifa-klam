@@ -25,19 +25,21 @@
 
                 @else
                     <li><a class="nav-link {{ 
+                        \Route::current()->getName() == 'lotteries.index' ||
+                        \Route::current()->getName() == 'lotteries.create' ||
+                        \Route::current()->getName() == 'lotteries.edit' ? 'active' : ''
+                        }}" href="{{ route('lotteries.index') }}">Rifas</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ \Route::current()->getName() == 'dayrate.index' ? 'active' : '' }}" href="{{ route('dayrate.index') }}">Tasa del día</a>
+                    </li>
+                    <li><a class="nav-link {{ 
                                                 \Route::current()->getName() == 'users.index' ||
                                                 \Route::current()->getName() == 'users.create' ||
                                                 \Route::current()->getName() == 'users.edit' ? 'active' : ''
                                             }}" href="{{ route('users.index') }}">Usuarios</a></li>
                     {{-- <li><a class="nav-link" href="{{ route('roles.index') }}">Manage Role</a></li> --}}
-                    <li><a class="nav-link {{ 
-                                                \Route::current()->getName() == 'lotteries.index' ||
-                                                \Route::current()->getName() == 'lotteries.create' ||
-                                                \Route::current()->getName() == 'lotteries.edit' ? 'active' : ''
-                                            }}" href="{{ route('lotteries.index') }}">Rifas</a></li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('home') }}">Tasa del día</a>
-                    </li>
+                    
+                    
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }}

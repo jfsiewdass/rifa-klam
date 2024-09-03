@@ -16,7 +16,7 @@ class Lottery extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'detail', 'number_range', 'date', 'user_id', 'images', 'unique_id', 'amount'
+        'name', 'detail', 'number_range', 'date', 'user_id', 'images', 'unique_id', 'amount', 'status_lottery_id', 'winner'
     ];
     protected $appends = ['unique_id'];
 

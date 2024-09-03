@@ -60,7 +60,7 @@
                             @guest
                             @else
                             <li class="menu-item itembg__1 position-relative">
-                                <a href="{{ url('/admin') }}" class="fw_500">
+                                <a href="{{ route('lotteries.index') }}" class="fw_500">
                                     Administración
                                 </a>
                             </li>

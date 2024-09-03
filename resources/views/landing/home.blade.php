@@ -260,12 +260,14 @@
                                     </div>
                                     <div class="content-middle">
                                         <div class="cmn-prrice-range px-xxl-6 px-xl-5 px-lg-4 px-3 d-flex align-items-center gap-2">
-                                            <div class="range-custom position-relative" style="--range-width: {{ number_format($percent, 2) }}%;">
-                                                <span class="curs-range"></span>
-                                            </div>
-                                            <span class="n4-clr soldout fw_700 fs-eight">
-                                                {{  number_format($percent, 2) }}% Vendido
-                                            </span>
+                                            @if ($lottery->status_lottery_id == 1)
+                                                <div class="range-custom position-relative" style="--range-width: {{ number_format($percent, 2) }}%;">
+                                                    <span class="curs-range"></span>
+                                                </div>
+                                                <span class="n4-clr soldout fw_700 fs-eight">
+                                                    {{  number_format($percent, 2) }}% Vendido
+                                                </span>
+                                            @endif
                                         </div>
                                         <div class="d-flex px-xxl-6 px-xl-5 px-lg-4 px-3 nw4-bb py-xxl-5 py-sm-4 py-3 flex-wrap gap-3 align-items-center justify-content-between">
                                             <div class="box">
@@ -315,28 +317,32 @@
                                                     }
 
                                                     @endphp
-                                                    {{ $remainingDays ? $remainingDays . ' DÍAS' : 'PROXIMAMENTE' }}
+                                                    {{ $lottery->status_lottery_id == 2 ? 'CULMINADA' : ($remainingDays ? $remainingDays . ' DÍAS' : 'PROXIMAMENTE') }}
                                                 </span>
                                             </li>
                                             <li class="vline-remaing">
             
                                             </li>
-                                            <li class="d-flex align-items-center gap-2">
-                                                <i class="ph ph-ticket fs-five n3-clr"></i>
-                                                <span class="n3-clr fw_600">
-                                                    {{ $total - $numbers }} DISPONIBLES
-                                                </span>
-                                            </li>
+                                            @if ($lottery->status_lottery_id == 1)
+                                                <li class="d-flex align-items-center gap-2">
+                                                    <i class="ph ph-ticket fs-five n3-clr"></i>
+                                                    <span class="n3-clr fw_600">
+                                                        {{ $total - $numbers }} DISPONIBLES
+                                                    </span>
+                                                </li>
+                                            @endif
                                         </ul>
                                         <div class="d-flex px-xxl-6 px-xl-5 px-lg-4 px-3 py-xxl-8 py-xl-6 py-lg-4 py-3 align-items-center justify-content-between">
                                             <h3 class="d-flex align-items-center gap-3 n4-clr">
-                                                <span class="pr">${{ number_format($lottery->amount, 2) }}</span> <span class="fs-six text-uppercase">POR NÚMERO</span>
+                                                <span class="pr">${{ number_format($lottery->amount, 2, ',', '.') }}</span> <span class="fs-six text-uppercase">POR NÚMERO</span>
                                             </h3>
+                                            @if ($lottery->status_lottery_id == 1)
                                             <a href="{{ route('detail', $lottery->id) }}" class="cmn-40 radius-circle btn btn-success">
                                                 <span>
                                                     <i class="ph-bold ph-arrow-up-right n0-clr lh"></i>
                                                 </span>
                                             </a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

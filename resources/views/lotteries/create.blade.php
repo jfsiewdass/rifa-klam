@@ -38,7 +38,7 @@
     </div>
 @endif
 
-    <form action="{{ route('lotteries.store') }}" method="POST" id="rifa-form" enctype="multipart/form-data" class="dropzone mt-4 " novalidate>
+    <form action="{{ route('lotteries.store') }}" method="POST" id="lottery-form" enctype="multipart/form-data" class="dropzone mt-4 " novalidate>
         @csrf
 
         <div class="row">
@@ -134,7 +134,7 @@
     
     // $('#detail').summernote();
 
-    $('#rifa-form').dropzone({
+    $('#lottery-form').dropzone({
         previewTemplate: $('#dzPreviewContainer').html(),
         url: "{{ route('lotteries.store') }}",
         addRemoveLinks: true,
@@ -148,7 +148,6 @@
         timeout: 0,
         init: function() 
         {
-           
             myDropzone = this;
 
             // when file is dragged in
@@ -195,16 +194,16 @@
         $('#qty_numbers').removeClass('is-invalid');
         
        
-        // console.log($('#rifa-form')[0].checkValidity());
+        // console.log($('#lottery-form')[0].checkValidity());
         if (!validateForm()) {
             return false;
         }
         // validate form & submit if valid
-        if ($('#rifa-form')[0].checkValidity() === true  && !validateForm()) {
+        if ($('#lottery-form')[0].checkValidity() === true  && !validateForm()) {
             event.stopPropagation();
 
             // show error messages & hide button spinner    
-            $('#rifa-form').addClass('was-validated'); 
+            $('#lottery-form').addClass('was-validated'); 
             // $this.children('.spinner-border').addClass('d-none');
 
             // if dropzone is empty show error message

@@ -83,12 +83,12 @@ document.addEventListener("DOMContentLoaded", () => {
       // magnific-popup//
 
       // gridGallery//
-        $('.popup_img').magnificPopup({
-            type:'image',
-            gallery:{
-                enabled:true
-            }
-        });
+        // $('.popup_img')?.magnificPopup({
+        //     type:'image',
+        //     gallery:{
+        //         enabled:true
+        //     }
+        // });
       // gridGallery//
       
       // Navbar Auto Active Class //

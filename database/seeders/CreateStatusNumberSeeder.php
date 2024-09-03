@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\StatusLottery;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\StatusNumber;
@@ -14,11 +15,14 @@ class CreateStatusNumberSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (['RESERVADO', 'PENDIENTE', 'PAGADO'] as $status) {
+        foreach (['DISPONIBLE', 'CULMINADO'] as $status) {
+            StatusLottery::create(['description' => $status]);
+        }
+        foreach (['RESERVADO', 'PENDIENTE', 'PAGADO', 'RECHAZADO'] as $status) {
             StatusNumber::create(['description' => $status]);
-       }
-       foreach (['PENDIENTE', 'PAGADO'] as $status) {
-        StatusVoucher::create(['description' => $status]);
-   }
+        }
+        foreach (['PENDIENTE', 'PAGADO', 'RECHAZADO'] as $status) {
+            StatusVoucher::create(['description' => $status]);
+        }
     }
 }

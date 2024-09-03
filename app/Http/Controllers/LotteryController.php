@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LotteryRequest;
 use App\Models\Lottery;
+use App\Models\LotteryNumber;
+use App\Models\Voucher;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -82,24 +84,23 @@ class LotteryController extends Controller
             $inputs = [
                 "name" => $request->name,
                 "detail" => $request->detail,
-                "start_date" => $request->startDate,
-                "end_date" => $request->endDate,
+                "date" => $request->date,
                 'amount' => $request->amount,
                 "number_range" => $request->qty_numbers,
                 "user_id" => Auth::id(),
             ];
             
-            $rifa = Lottery::create($inputs);
+            $lottery = Lottery::create($inputs);
         
             foreach($request->file('file') as $image) {
-                Storage::disk('public')->put('images/' . $rifa->id, $image);
+                Storage::disk('public')->put('images/' . $lottery->id, $image);
             }
             DB::commit();
             
         } catch (\Throwable $th) {
             //throw $th;
             DB::rollBack();
-            Log::error('RifaController.store -> '.$th->getMessage());
+            Log::error('LotteryController.store -> '.$th->getMessage());
             return response()->json([
                 'message' => 'El post ha sido creado exitosamente',
                 'post' => $inputs
@@ -118,9 +119,30 @@ class LotteryController extends Controller
      * @param  \App\Lottery  $rifa
      * @return \Illuminate\Http\Response
      */
-    public function show(Lottery $lottery): View
+    public function show(Lottery $lottery, Request $request): View
     {
-        $purchased_numbers = $lottery->vouchers()->with(['lotteryNumbers', 'status_voucher'])->paginate(10);
+        
+        $number = $request->input('number');
+        $document = $request->input('document');
+
+        $purchased_numbers = $lottery->vouchers();
+
+        if (isset($number)) {
+            $purchased_numbers = $purchased_numbers->whereHas('lotteryNumbers', function ($query) use ($number) {
+                $query->where('number', $number);
+            });
+        }
+
+        if (isset($document)) {
+            $purchased_numbers = $purchased_numbers->where('document', $document);
+        }
+        
+        $purchased_numbers = $purchased_numbers
+            ->with(['lotteryNumbers', 'status_voucher'])
+            ->orderBy('is_winner', 'DESC')
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+
         return view('lotteries.numbers',compact('lottery', 'purchased_numbers'));
     }
     
@@ -130,9 +152,12 @@ class LotteryController extends Controller
      * @param  \App\RLotteryifa  $rifa
      * @return \Illuminate\Http\Response
      */
-    public function edit(Lottery $rifa): View
+    public function edit(Lottery $lottery): View
     {
-        return view('lotteries.edit',compact('rifa'));
+        $images = Storage::disk('public')->allFiles('images/' . $lottery->id);
+        $lottery->images = $images;
+        // dd($lottery);
+        return view('lotteries.edit',compact('lottery'));
     }
     
     /**
@@ -142,17 +167,48 @@ class LotteryController extends Controller
      * @param  \App\Rifa  $rifa
      * @return \Iltype =luminate\Http\Response
      */
-    public function update(Request $request, Lottery $rifa): RedirectResponse
+    public function update(Request $request, Lottery $lottery)
     {
-         request()->validate([
-            'name' => 'required',
-            'detail' => 'required',
-        ]);
+       // dd($request->all(), json_decode($request->deletedImages, true));
+        try {
+            DB::beginTransaction();
+            //dd($request->all());
+            $inputs = [
+                "name" => $request->name,
+                "detail" => $request->detail,
+                "date" => $request->date,
+                // 'amount' => $request->amount,
+                // "number_range" => $request->qty_numbers,
+                "user_id" => Auth::id(),
+            ];
+            // dd($inputs);
+            $lottery->update($inputs);
+            if ($request->deletedImages != '' && $request->deletedImages != null) {
+                foreach (json_decode($request->deletedImages, true) as $image) {
+                    Storage::delete('public/' . $image);
+                }
+            }
+            foreach($request->file('images') as $image) {
+                Storage::disk('public')->put('images/' . $lottery->id, $image);
+            }
+            Db::commit();
     
-        $rifa->update($request->all());
-    
-        return redirect()->route('lotteries.index')
-                        ->with('success','rifa actualizado exitosamente');
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            Log::error('LotteryController.update -> '.$th->getMessage());
+            // return response()->json([
+            //     'message' => 'El post ha sido actualizado exitosamente',
+            //     'post' => $inputs
+            // ], 201);
+        }
+
+        // return response()->json([
+        //     'message' => 'El post ha sido actualizado exitosamente',
+        //     'post' => $inputs
+        // ], 201);
+
+        return redirect()->route('lotteries.index')->with('success', 'la rifa se actualizó correctamente');
     }
     
     /**
@@ -192,5 +248,72 @@ class LotteryController extends Controller
         }
      
         return response()->json(['success'=>$images]);
+    }
+
+    public function lotteries_voucher_accept(Request $request) {
+        try {
+            DB::beginTransaction();
+            $response = ['success', 'Comprobante aceptado con exito'];
+
+            $voucher = Voucher::find($request->voucherId);
+
+            if($voucher->status_voucher_id != 1) {
+                $response = ['error', 'El comprobante ya esta actualizado'];
+            } 
+
+            $voucher->update(['status_voucher_id' => 2]);
+
+            LotteryNumber::where('voucher_id', $request->voucherId)->update(['status_number_id' => 3]);
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            $response = ['error', 'El comprobante no se actualizó, por favor intente mas tarde'];
+        }
+        return redirect()->route('lotteries.show', $voucher->lottery_id)->with($response);
+    }
+    public function lotteries_voucher_reject(Request $request) {
+        try {
+            DB::beginTransaction();
+            $response = ['success', 'Comprobante rechazado con exito'];
+
+            $voucher = Voucher::find($request->voucherId);
+
+            if($voucher->status_voucher_id != 1) {
+                $response = ['error', 'El comprobante ya esta actualizado'];
+            } 
+
+            $voucher->update(['status_voucher_id' => 3]);
+
+            LotteryNumber::where('voucher_id', $request->voucherId)->update(['status_number_id' => 4]);
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            $response = ['error', 'El comprobante no se actualizó, por favor intente mas tarde'];
+        }
+        return redirect()->route('lotteries.show', $voucher->lottery_id)->with($response);
+    }
+
+    public function lotteries_select_winner(Request $request) {
+        try {
+            DB::beginTransaction();
+            $response = ['success', 'Se culmuno la rifa sin ganador'];
+
+            $existWinnerNumber = LotteryNumber::where('number', $request->number)->first();
+            if ($existWinnerNumber) {
+                $existWinnerNumber->update(['is_winner' => true]);
+                //dd($existWinnerNumber);
+                Voucher::find($existWinnerNumber->voucher_id)->update(['is_winner' => true]);
+                $response = ['success', 'Se obtuvo un ganador'];
+            }
+            Lottery::find($request->lotterId)->update(['status_lottery_id' => 2, 'winner' => $request->number]);    
+            DB::commit();
+        } catch (\Throwable $th) {
+            $response = ['error', 'Error al seleccionar un ganador'];
+            DB::rollBack();
+
+        }
+        return redirect()->route('lotteries.index')->with($response);
     }
 }

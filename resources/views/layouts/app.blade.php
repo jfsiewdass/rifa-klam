@@ -21,7 +21,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.36.0/tabler-icons.min.css">
     <!-- ==== #style.min ==== -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    {{-- @vite(['resources/sass/app.scss', 
+            'resources/js/app.js',
+            ]) --}}
 </head>
 
 <body class="winbg">
@@ -60,7 +63,7 @@
 
 
 
-    {{-- <!-- ==== js Jquery start ==== -->
+    <!-- ==== js Jquery start ==== -->
     <script src="{{ asset('assets/js/plugins/jquery.js') }}"></script>
     <!-- ==== js Viewport js start ==== -->
     <script src="{{ asset('assets/js/plugins/viewpot.js') }}"></script>
@@ -69,7 +72,7 @@
     <!-- ==== js Bootstrap start ==== -->
     <script src="{{ asset('assets/js/plugins/bootstrap.js') }}"></script>
     <!-- ==== js Magnific start ==== -->
-    <script src="{{ asset('assets/js/plugins/magnific-popup.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/plugins/magnific-popup.js"></') }}script> --}}
     <!-- ==== js Swiper start ==== -->
     <script src="{{ asset('assets/js/plugins/swiper.js') }}"></script>
     <!-- ==== js Odometer start ==== -->
@@ -77,9 +80,9 @@
     <!-- ==== js Nice Select start ==== -->
     <script src="{{ asset('assets/js/plugins/jquery.nice-select.min.js') }}"></script>
     <!-- ==== js Phosphor Icon start ==== -->
-    <script src="{{ asset('https://unpkg.com/@phosphor-icons/web') }}"></script> --}}
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <!-- ==== js Mian start ==== -->
-    {{-- <script src="{{ asset('assets/js/main.js') }}"></script> --}}
+    <script src="{{ asset('assets/js/main.js') }}"></script>
     @yield('scripts')
 </body>
 

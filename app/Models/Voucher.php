@@ -9,7 +9,7 @@ class Voucher extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['lottery_id', 'day_rate_id', 'name', 'surname', 'phone', 'bank_code', 'amount', 'document', 'status_voucher_id', 'payment_type', 'reference_number', 'capture'];
+    protected $fillable = ['lottery_id', 'day_rate_id', 'name', 'surname', 'phone', 'bank_code', 'amount', 'document', 'status_voucher_id', 'payment_type', 'reference_number', 'capture', 'is_winner'];
 
     public function lotteryNumbers()
     {

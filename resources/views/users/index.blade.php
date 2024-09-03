@@ -38,14 +38,14 @@
             @endforeach
           @endif
         </td>
-        <td  class="d-flex">
+        <td>
              {{-- <a class="btn btn-info btn-sm" href="{{ route('users.show',$user->id) }}"><i class="fa-solid fa-list"></i> </a> --}}
-             <a class="btn btn-primary btn-sm" href="{{ route('users.edit',$user->id) }}"><i class="fa-solid fa-pen-to-square"></i> </a>
+             <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}"><i class="fa-solid fa-pen-to-square"></i> </a>
               <form method="POST" action="{{ route('users.destroy', $user->id) }}" style="display:inline">
                   @csrf
                   @method('DELETE')
 
-                  <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i> </button>
+                  <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i> </button>
               </form>
         </td>
     </tr>

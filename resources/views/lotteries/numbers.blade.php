@@ -11,21 +11,49 @@
         </div>
     </div>
 </div>
+<form action="{{ route('lotteries.show', $lottery->id) }}">
 
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>Producto:</strong>
-            {{ $lottery->name }}
+    <div class="row mb-4">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Producto:</strong>
+                {{ $lottery->name }}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong># {{ $lottery->unique_id }}</strong>
+                
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group" style="text-align: justify">
+                <strong>Detalle:</strong>
+                {{ $lottery->detail }}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4">
+            <div class="form-group">
+                <strong>Cédula:</strong>
+                <input type="text" class="form-control" placeholder="Ingrese una cédula" name="document" id="document">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4">
+            <div class="form-group">
+                <strong>Número:</strong>
+                <input type="text" class="form-control" placeholder="Ingrese un número" name="number" id="number">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 mt-6 d-flex">
+            <div class="form-group me-3">
+               <button type="submit" class="btn btn-success" disabled id="find">Buscar</button>
+            </div>
+            <div class="form-group">
+                <a href="{{ route('lotteries.show', $lottery->id) }}" class="btn btn-secondary">Cancelar búsqueda</a>
+             </div>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>Detalle:</strong>
-            {{ $lottery->detail }}
-        </div>
-    </div>
-</div>
+</form>
 <div class="table-responsive">
     <table class="table table-bordered">
         <tr>
@@ -37,58 +65,165 @@
             <th>Referencia</th>
             <th>Monto</th>
             <th>Estatus</th>
-
+            @if ($lottery->status_lottery_id == 2)
+                <th>Ganador</th>
+            @endif
             <th >Acción</th>
         </tr>
         @forelse ($purchased_numbers as $i => $number)
         {{-- {{ dd($number->status_voucher()) }} --}}
+        
         <tr>
-            <td><img src="{{ asset('storage/'.$number->capture) }}" style="width: 100px" alt="Mi imagen" class="img-thumbnail"></td>
+            <td>
+                @php $capture = asset('storage/'.$number->capture); @endphp
+                <img 
+                src="{{ asset('storage/'.$number->capture) }}" 
+                style="width: 100px" alt="Mi imagen" 
+                class="img-thumbnail"
+                onclick="displayCapture('{{ $capture }}')">
+            </td>
             <td>{{ ++$i }}</td>
             <td>{{ $number->name.' '.$number->surname }}</td>
             <td>{{ $number->document }}</td>
-            <td>
+            <td class="d-flex" style="width: 250px">
                 
                 <div> 
                     @foreach ($number->lotteryNumbers()->get() as $item)
-                        <button class="numero">
+                        <button class="numero {{ $item->number == $lottery->winner ? 'seleccionado' : '' }}">
                         {{ $item->number }}
                     </button>
                     @endforeach
                 </div>
             </td>
             <td>{{ $number->reference_number }}</td>
-            <td>${{ $number->amount }}</td>
+            <td>{{ number_format($number->amount, 2, ',', '.') }} <strong>Bs.</strong></td>
             <td>
                 @if(!empty($number->status_voucher()))
-                    <label class="badge bg-{{ $number->status_voucher->id == 1 ? 'danger' : 'success' }}">{{ $number->status_voucher->description }}</label>
+                    <label class="badge bg-{{ $number->status_voucher->id == 2 ? 'success' : 'danger' }}">{{ $number->status_voucher->description }}</label>
                 @endif
             </td>
+            @if ($lottery->status_lottery_id == 2)
+                <td>{{ $number->is_winner ? 'SI' : 'NO' }}</td>
+            @endif
             <td width="120px">
-                <form action="{{ route('lotteries.destroy',$lottery->id) }}" method="POST">
-                    
                     @can('lottery-edit')
-                    <a class="btn btn-success btn-sm" href="{{ route('lotteries.edit',$number->id) }}" title="Aceptar"><i class="fa-solid fa-check"></i></a>
+                        <a class="btn btn-success @if( $number->status_voucher_id == 2 || $number->status_voucher_id == 3) visually-hidden @endif" href="#" title="Aceptar" onclick="accept('{{ $number->id }}')" >
+                            <i class="fa-solid fa-check"></i>
+                        </a>
+                        <a class="btn btn-danger  @if( $number->status_voucher_id == 2 || $number->status_voucher_id == 3) visually-hidden @endif" href="#" title="Rechazar" onclick="reject('{{ $number->id }}')">
+                            <i class="fa-solid fa-ban"></i>
+                        </a>
                     @endcan
-
-                    @csrf
-                    @method('DELETE')
-
-                    @can('lottery-delete')
-                    <button type="submit" class="btn btn-danger btn-sm" title="rechazar"><i class="fa-solid fa-ban"></i></button>
-                    @endcan
-                </form>
             </td>
         </tr>
         @empty
         <tr>
-            <td colspan="7"><p class="text-center "><small>No hay resultados</small></p></td>
+            <td colspan="9"><p class="text-center "><small>No hay resultados</small></p></td>
             
         </tr>
         
         @endforelse
     </table>
+    <div id="imagePopup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Captura de pantalla</h4>
+                <button type="button" class="close" data-dismiss="modal" onclick="closeModal('#imagePopup')">&times;</button>
+            </div>
+            <div class="modal-body">
+              <img id="largeImage" src="" alt="Imagen grande">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="acceptModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Desea aprobar el comprobante</h4>
+                <button type="button" class="close" data-dismiss="modal" onclick="closeModal('#acceptModal')">&times;</button>
+            </div>
+            <div class="modal-footer">
+                <form action="{{ route('lotteries.voucher.accept') }}" method="POST">
+                    @csrf
+                    @method('POST')
+                    <input type="hidden" id="voucherAcceptId", name="voucherId">
+                    @can('lottery-delete')
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" nclick="closeModal('#acceptModal')">Cerrar</button>
+                        <button type="submit" class="btn btn-success" >Aceptar</button>
+                    @endcan
+                </form>
+                
+              </div>
+          </div>
+        </div>
+      </div>
+      <div id="rejectModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Desea rechazar el comprobante</h4>
+                <button type="button" class="close" data-dismiss="modal" onclick="closeModal('#rejectModal')">&times;</button>
+            </div>
+            <form action="{{ route('lotteries.voucher.reject') }}" method="POST">
+                <div class="modal-footer">
+                    @csrf
+                    @method('POST')
+                    <input type="hidden" id="voucherRejectId", name="voucherId">
+                    @can('lottery-delete')
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" nclick="closeModal('#acceptModal')">Cerrar</button>
+                        <button type="submit" class="btn btn-danger">Rechazar</button>
+                    @endcan
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
 </div>
 {!! $purchased_numbers->links('pagination::bootstrap-5') !!}
 <p class="text-center text-primary"><small></small></p>
+@endsection
+
+@section('scripts')
+<script>
+        function displayCapture(path) {
+            
+            $('#largeImage').attr('src', path);
+            
+            $('#imagePopup').modal('show');
+            
+        }
+        function closeModal(modal) {
+            $(modal).modal('hide');
+            if (modal == '#acceptModal') 
+                $('#voucherAcceptId').val('')
+            
+            if (modal == '#rejectModal')
+                $('#voucherRejectId').val('')
+            
+        }
+        function accept(id) {
+            $('#acceptModal').modal('show');
+            $('#voucherAcceptId').val(id)
+        }
+
+        function reject(id) {
+            $('#rejectModal').modal('show');
+            $('#voucherRejectId').val(id)
+        }
+
+        $(document).ready(function() {
+    $('#document, #number').on('input', function() {
+        var documentValue = $('#document').val();
+        var numberValue = $('#number').val();
+
+        if (documentValue.trim() !== '' || numberValue.trim() !== '') {
+            $('#find').prop('disabled', false);
+        } else {
+            $('#find').prop('disabled', true);
+        }
+    });
+});
+</script>
 @endsection
