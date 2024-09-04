@@ -46,7 +46,9 @@
         <td>
              {{-- <a class="btn btn-info btn-sm" href="{{ route('users.show',$user->id) }}"><i class="fa-solid fa-list"></i> </a> --}}
             <form method="POST" action="{{ route('users.destroy', $user->id) }}" style="width: 100px">
-                <a class="btn btn-primary btn-sm" href="{{ route('users.edit',$user->id) }}"><i class="fa-solid fa-pen-to-square"></i> </a>
+                <a class="btn btn-primary btn-sm" href="{{ route('users.edit',$user->id) }}">
+                    <i class="fa-solid fa-pencil"></i>
+                </a>
                 @csrf
                 @method('DELETE')
 
