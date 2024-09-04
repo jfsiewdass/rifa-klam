@@ -2,7 +2,6 @@
     
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LotteryRequest;
 use App\Models\Lottery;
 use App\Models\LotteryNumber;
 use App\Models\Voucher;
@@ -64,23 +63,10 @@ class LotteryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(LotteryRequest $request)
+    public function store(Request $request)
     {
-            // request()->validate([
-            //     'name' => 'required|min:3',
-            //     'detail' => 'required|min:3',
-            //     'startDate' => 'required',
-            //     // 'endDate' => 'required',
-            //     'amount' => 'required',
-            //     'starNumber' => 'required_with:endNumber|integer|min:1',
-            //     'endNumber' => 'required_with:starNumber|integer|gt:starNumber',
-            //     'file.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-            // ]);
-        
-        
         try {
             DB::beginTransaction();
-            //dd($request->all());
             $inputs = [
                 "name" => $request->name,
                 "detail" => $request->detail,
@@ -91,26 +77,21 @@ class LotteryController extends Controller
             ];
             
             $lottery = Lottery::create($inputs);
-        
-            foreach($request->file('file') as $image) {
+            
+            foreach($request->file('images') as $image) {
                 Storage::disk('public')->put('images/' . $lottery->id, $image);
             }
+            
             DB::commit();
             
         } catch (\Throwable $th) {
             //throw $th;
             DB::rollBack();
             Log::error('LotteryController.store -> '.$th->getMessage());
-            return response()->json([
-                'message' => 'El post ha sido creado exitosamente',
-                'post' => $inputs
-            ], 201);
+            return redirect()->back()->with('error', 'Hubo un problema al guardar la rifa');
         }
 
-        return response()->json([
-            'message' => 'El post ha sido creado exitosamente',
-            'post' => $inputs
-        ], 201);
+        return redirect()->route('lotteries.index')->with('succes', 'La rifa ha sido creado exitosamente');
     }
     
     /**
@@ -169,7 +150,6 @@ class LotteryController extends Controller
      */
     public function update(Request $request, Lottery $lottery)
     {
-       // dd($request->all(), json_decode($request->deletedImages, true));
         try {
             DB::beginTransaction();
             //dd($request->all());
@@ -177,8 +157,6 @@ class LotteryController extends Controller
                 "name" => $request->name,
                 "detail" => $request->detail,
                 "date" => $request->date,
-                // 'amount' => $request->amount,
-                // "number_range" => $request->qty_numbers,
                 "user_id" => Auth::id(),
             ];
             // dd($inputs);
@@ -194,19 +172,11 @@ class LotteryController extends Controller
             Db::commit();
     
         } catch (\Throwable $th) {
-            //throw $th;
             DB::rollBack();
             Log::error('LotteryController.update -> '.$th->getMessage());
-            // return response()->json([
-            //     'message' => 'El post ha sido actualizado exitosamente',
-            //     'post' => $inputs
-            // ], 201);
-        }
 
-        // return response()->json([
-        //     'message' => 'El post ha sido actualizado exitosamente',
-        //     'post' => $inputs
-        // ], 201);
+            return redirect()->route('lotteries.index')->with('error', 'Hubo un problema al actualizar la rifa');
+        }
 
         return redirect()->route('lotteries.index')->with('success', 'la rifa se actualizó correctamente');
     }
@@ -253,12 +223,14 @@ class LotteryController extends Controller
     public function lotteries_voucher_accept(Request $request) {
         try {
             DB::beginTransaction();
-            $response = ['success', 'Comprobante aceptado con exito'];
+            $type = 'success';
+            $response = 'Comprobante aceptado con exito';
 
             $voucher = Voucher::find($request->voucherId);
 
             if($voucher->status_voucher_id != 1) {
-                $response = ['error', 'El comprobante ya esta actualizado'];
+                $type = 'error';
+                $response = 'El comprobante ya esta actualizado';
             } 
 
             $voucher->update(['status_voucher_id' => 2]);
@@ -268,19 +240,22 @@ class LotteryController extends Controller
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
-            $response = ['error', 'El comprobante no se actualizó, por favor intente mas tarde'];
+            $type = 'error';
+            $response = 'El comprobante no se actualizó, por favor intente mas tarde';
         }
-        return redirect()->route('lotteries.show', $voucher->lottery_id)->with($response);
+        return redirect()->route('lotteries.show', $voucher->lottery_id)->with($type, $response);
     }
     public function lotteries_voucher_reject(Request $request) {
         try {
             DB::beginTransaction();
-            $response = ['success', 'Comprobante rechazado con exito'];
+            $type = 'success';
+            $response = 'Comprobante rechazado con exito';
 
             $voucher = Voucher::find($request->voucherId);
 
             if($voucher->status_voucher_id != 1) {
-                $response = ['error', 'El comprobante ya esta actualizado'];
+                $type = 'error';
+                $response ='El comprobante ya esta actualizado';
             } 
 
             $voucher->update(['status_voucher_id' => 3]);
@@ -290,30 +265,38 @@ class LotteryController extends Controller
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
-            $response = ['error', 'El comprobante no se actualizó, por favor intente mas tarde'];
+            $response ='El comprobante no se actualizó, por favor intente mas tarde';
         }
-        return redirect()->route('lotteries.show', $voucher->lottery_id)->with($response);
+        return redirect()->route('lotteries.show', $voucher->lottery_id)->with($type, $response);
     }
 
     public function lotteries_select_winner(Request $request) {
         try {
             DB::beginTransaction();
-            $response = ['success', 'Se culmuno la rifa sin ganador'];
-
-            $existWinnerNumber = LotteryNumber::where('number', $request->number)->first();
-            if ($existWinnerNumber) {
-                $existWinnerNumber->update(['is_winner' => true]);
-                //dd($existWinnerNumber);
-                Voucher::find($existWinnerNumber->voucher_id)->update(['is_winner' => true]);
-                $response = ['success', 'Se obtuvo un ganador'];
+            $type = 'success';
+            $response = 'Se culmuno la rifa sin ganador';
+            $lottery = Lottery::find($request->lotterId);
+            if ($lottery->winner == null) {
+                $existWinnerNumber = LotteryNumber::where('number', $request->number)->first();
+                if ($existWinnerNumber) {
+                    $existWinnerNumber->update(['is_winner' => true]);
+                    //dd($existWinnerNumber);
+                    Voucher::find($existWinnerNumber->voucher_id)->update(['is_winner' => true]);
+                    $response = 'Se obtuvo un ganador';
+                } else {
+                    $response = 'No hubo un ganador';
+                }
+                $lottery->update(['status_lottery_id' => 2, 'winner' => $request->number]);    
+            }else {
+                $response = 'Ya existe un ganador';
             }
-            Lottery::find($request->lotterId)->update(['status_lottery_id' => 2, 'winner' => $request->number]);    
             DB::commit();
         } catch (\Throwable $th) {
-            $response = ['error', 'Error al seleccionar un ganador'];
+            $type = 'error';
+            $response = 'Error al seleccionar un ganador';
             DB::rollBack();
 
         }
-        return redirect()->route('lotteries.index')->with($response);
+        return redirect()->route('lotteries.index')->with($type, $response);
     }
 }

@@ -23,7 +23,7 @@
     </div>
 @endif --}}
 
-<form method="POST" action="{{ route('users.store') }}">
+<form method="POST" action="{{ route('users.store') }}" id="user-form">
     @csrf
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
@@ -69,4 +69,8 @@
 </form>
 
 <p class="text-center text-primary"><small></small></p>
+@endsection
+@section('scripts')
+<script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+{!! JsValidator::formRequest('App\Http\Requests\User\CreateUserRequest', '#user-form') !!}
 @endsection

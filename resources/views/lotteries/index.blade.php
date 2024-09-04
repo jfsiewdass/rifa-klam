@@ -19,6 +19,11 @@
         {{ $value }}
     </div>
 @endsession
+@session('error')
+    <div class="alert alert-danger" role="alert"> 
+        {{ $value }}
+    </div>
+@endsession
 <div class="table-responsive">
     <table class="table table-bordered">
         <tr>
@@ -55,19 +60,19 @@
                     <div class="d-md-none"> <img src="{{ Storage::url($lottery->images[0]) }}" class="img-fluid img-thumbnail" style="width: 80px"></div>
                 @endif
             </td>
-            <td width="120px">
-                <form action="{{ route('lotteries.destroy',$lottery->id) }}" method="POST">
-                    <a class="btn btn-info mt-1" href="{{ route('lotteries.show',$lottery->id) }}" title="Números comprados">
+            <td>
+                <form action="{{ route('lotteries.destroy',$lottery->id) }}" method="POST" style="width: 100px">
+                    <a class="btn btn-primary btn-sm mt-1" href="{{ route('lotteries.show',$lottery->id) }}" title="Números comprados">
                         <i class="fa-solid fa-list"></i>
                     </a>
                     
-                    <a class="btn btn-warning mt-1" href="#" title="Ganador" onclick="winner('{{ $lottery->id }}', '{{ $lottery->status_lottery_id }}', '{{ $lottery->winner }}')">
+                    <a class="btn btn-warning btn-sm mt-1" href="#" title="Ganador" onclick="winner('{{ $lottery->id }}', '{{ $lottery->status_lottery_id }}', '{{ $lottery->winner }}')">
                         <i class="fa-solid fa-medal"></i>
                     </a>
 
                     @if ($lottery->status_lottery_id == 1)    
                         @can('lottery-edit')
-                        <a class="btn btn-primary mt-1" href="{{ route('lotteries.edit',$lottery->id) }}" title="Editar" >
+                        <a class="btn btn-primary btn-sm mt-1" href="{{ route('lotteries.edit',$lottery->id) }}" title="Editar" >
                             <i class="fa-solid fa-pencil"></i>
                         </a>
                         @endcan
@@ -76,7 +81,7 @@
                         @method('DELETE')
                         
                         @can('lottery-delete')
-                            <button type="submit" class="btn btn-danger mt-1" title="Inhabilitar la rifa">
+                            <button type="submit" class="btn btn-danger btn-sm mt-1" title="Inhabilitar la rifa">
                                 <i class="fa-solid fa-ban"></i>
                             </button>
                         @endcan

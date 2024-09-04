@@ -44,7 +44,11 @@
         </ul>
     </div>
 @endif
-
+@session('error')
+    <div class="alert alert-danger" role="alert"> 
+        {{ $value }}
+    </div>
+@endsession
 <form action="{{ route('lotteries.update', $lottery->id) }}" id="lottery-form" method="POST" enctype="multipart/form-data" class="mt-4 ">
     @csrf
     @method('PUT')
@@ -129,7 +133,7 @@
 @endsection
 @section('scripts')
 <script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\LotteryRequest', '#lottery-form') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\Lottery\UpdateLotteryRequest', '#lottery-form') !!}
 {{-- <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script> --}}
 <script type="text/javascript">
     $(document).ready(function() {

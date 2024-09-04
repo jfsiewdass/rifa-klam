@@ -175,6 +175,28 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">¿Desea continuar?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                onclick="closeCancelModal()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Se liberarán los números reservados</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                onclick="closeCancelModal()">Cancelar</button>
+                            <button type="button" class="btn btn-success" id="cancelNumbers">Continuar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 @endsection
@@ -392,7 +414,7 @@
                     contentType: false,
                     processData: false,
                     success: function(response) {
-                        console.log(response);
+                        // console.log(response);
 
                         if (response.code == 401) {
                             Swal.fire(
@@ -429,53 +451,15 @@
                 botonesNumero.forEach(boton => {
                     const savedNumbers = JSON.parse(localStorage.getItem('savedNumbers')) || [];
                     if (savedNumbers.length > 0) {
-                        var formData = new FormData();
-                        formData.append('savedNumbers', JSON.stringify(savedNumbers.map((s) => ({
-                            id: s.id,
-                            number: s.number
-                        }))));
-                        formData.append('_token', "{{ csrf_token() }}");
-                        formData.append('lottery_id', "{{ $lottery->id }}");
-                        $.ajax({
-                            type: "POST",
-                            url: "{{ route('numbers.remove') }}",
-                            data: formData,
-                            contentType: false,
-                            processData: false,
-                            success: function(response) {
-                                console.log(response);
-
-                                // if (response.code == 401) {
-                                //     Swal.fire(
-                                //         'Atención', 
-                                //         `${numerosSeleccionados.length == 1 ? 'El número seleccionado se encuentra ocupado' : 'Uno o varios números seleccionados se encuentran ocupados'}, por favor seleccione otro número`, 
-                                //         'error'
-                                //     );
-                                // } 
-
-                                // if (response.code == 200) {
-
-                                //     let numbers = response.numbers.map((n) => {
-                                //         savedNumbers.push(n)
-                                //     })
-                                //     localStorage.setItem('savedNumbers', JSON.stringify(savedNumbers));
-
-                                //     window.location.href = '{{ route('payment', $id) }}';
-
-                                // }
-                                closeModal()
-                            },
-                            error: function(error) {
-                                // Manejar errores
-                                console.error(error);
-                            }
-                        });
+                        $("#cancelModal").modal('show');
+                    } else {
+                        localStorage.removeItem('numerosSeleccionados');
+                        localStorage.removeItem('savedNumbers');
+                        localStorage.removeItem('lottery_id');
+                        boton.click();
                     }
 
-                    localStorage.removeItem('numerosSeleccionados');
-                    localStorage.removeItem('savedNumbers');
-                    localStorage.removeItem('lottery_id');
-                    boton.click();
+                    
                 });
             })
 
@@ -494,5 +478,41 @@
         function closeModal() {
             $("#exampleModal").modal('toggle');
         }
+        function closeCancelModal() {
+            $("#cancelModal").modal('toggle');
+        }
+        $('#cancelNumbers').on('click', function() {
+            const savedNumbers = JSON.parse(localStorage.getItem('savedNumbers')) || [];
+            var formData = new FormData();
+            formData.append('savedNumbers', JSON.stringify(savedNumbers.map((s) => ({
+                id: s.id,
+                number: s.number
+            }))));
+            formData.append('_token', "{{ csrf_token() }}");
+            formData.append('lottery_id', "{{ $lottery->id }}");
+            $.ajax({
+                type: "POST",
+                url: "{{ route('numbers.remove') }}",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    console.log(response);
+                    closeCancelModal()
+                },
+                error: function(error) {
+                    // Manejar errores
+                    console.error(error);
+                }
+            });
+            const botonesNumero = document.querySelectorAll('.seleccionado');
+
+            botonesNumero.forEach(boton => {
+                localStorage.removeItem('numerosSeleccionados');
+                localStorage.removeItem('savedNumbers');
+                localStorage.removeItem('lottery_id');
+                boton.click();
+            })
+        })
     </script>
 @endsection

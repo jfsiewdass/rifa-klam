@@ -1,20 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
-<link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-bs4.min.css" rel="stylesheet">
 <style type="text/css">
-    .dz-preview .dz-image img{
-      width: 100% !important;
-      height: 100% !important;
-      object-fit: cover;
-    }
-    .dropzone {
-    min-height: 150px;
-        border: 1px solid transparent;
-        border-radius: 5px;
-        padding: 20px 20px;
-    }
+    .drop-zone {
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    color: #666;
+    outline: none;
+    transition: border .3s ease-in-out;
+}
+
+.drop-zone.highlight {
+    border-color: #007bff;
+}
+
+.image-preview {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
   </style>
 <div class="row">
     <div class="col-lg-12 margin-tb d-flex justify-content-between align-items-center">
@@ -38,7 +45,7 @@
     </div>
 @endif
 
-    <form action="{{ route('lotteries.store') }}" method="POST" id="lottery-form" enctype="multipart/form-data" class="dropzone mt-4 " novalidate>
+    <form action="{{ route('lotteries.store') }}" method="POST" id="lottery-form" enctype="multipart/form-data" class="mt-4 " novalidate>
         @csrf
 
         <div class="row">
@@ -83,31 +90,22 @@
                     <span class="invalid-feedback" id="amount-error"></span>
                 </div>
             </div>
-            <div class="form-group mb-4">
+            <div class="col-xs-12 col-sm-12 col-md-12 mb-4">
                 <label class="form-label text-muted opacity-75 fw-medium" for="formImage">Imagen</label>
-                <div class="dropzone-drag-area form-control" id="images">
-                    <div class="dz-message text-muted opacity-50" data-dz-message>
-                        <span>Arrastre las imagenes aquí</span>
-                    </div>    
-                    <div class="d-none" id="dzPreviewContainer">
-                        <div class="dz-preview dz-file-preview">
-                            <div class="dz-photo">
-                                <img class="dz-thumbnail" data-dz-thumbnail>
-                            </div>
-                            <button class="dz-delete border-0 p-0" type="button" data-dz-remove>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="times"><path fill="#FFFFFF" d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l4.29,4.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"></path></svg>
-                            </button>
-                        </div>
-                    </div>
+                <div id="drop-zone" class="drop-zone form-control">
+                    Arrastra y suelta tus imágenes aquí
+                    <input type="file" id="imageInput" name="images[]" multiple id="images" style="display: none">
+                    <div id="imagePreviews" class="row"></div>
                 </div>
+                <div id="progress-bar"></div>
+                <div id="messages"></div>
                 <div class="invalid-feedback" id="images-error">Campo requerido.</div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center mt-3" >
             <div class="form-container">
-                <button type="button" 
-                    class="btn btn-success cmn-btn radius12 fw_600 justify-content-center d-inline-flex align-items-center gap-2 py-xxl-2 py-3 px-xl-6 px-5 n0-clr mt-1"
-                    id="btn-rifa">
+                <button type="submit" 
+                    class="btn btn-success cmn-btn radius12 fw_600 justify-content-center d-inline-flex align-items-center gap-2 py-xxl-2 py-3 px-xl-6 px-5 n0-clr mt-1">
                     <span class="spinner-border spinner-border-sm d-none me-2" aria-hidden="true"></span>
                     <i class="fa-solid fa-floppy-disk"></i> Guardar
                 </button>
@@ -125,142 +123,180 @@
 @endsection
 
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-bs4.min.js"></script>
+{{-- {!! JsValidator::formRequest('App\Http\Requests\Lottery\CreateLotteryRequest', '#lottery-form') !!} --}}
 <script type="text/javascript">
-    
+    jQuery(document).ready(function () {
+
+        $("#lottery-form").each(function () {
+            $(this).validate({
+                errorElement: 'div',
+                errorClass: 'invalid-feedback',
+
+                errorPlacement: function (error, element) {
+                    //console.log(element[0].name);
+                    if (element[0].name == 'images[]') {
+                        error.insertAfter(element.parent());
+                    } else {
+
+                        error.insertAfter(element);
+                    }
+                },
+                highlight: function (element) {
+                    // console.log(element.id);
+                    
+                    if (element.id == 'imageInput') {
+                        $(element).parent().removeClass('is-valid').addClass('is-invalid');
+                    } else {
+
+                        $(element).removeClass('is-valid').addClass('is-invalid');
+                    }
+                    // $(element).removeClass('is-valid').addClass('is-invalid'); // add the Bootstrap error class to the control group
+                },
+
+                
+                ignore: "[contenteditable='true']",
+                
+
+                unhighlight: function (element) {
+                    if (element.id == 'imageInput') {
+                        $(element).parent().removeClass('is-invalid').addClass('is-valid');
+                    } else {
+
+                        $(element).removeClass('is-invalid').addClass('is-valid');
+                    }
+                    
+                },
+
+                success: function (element) {
+                    if (element.id == 'imageInput') {
+                        $(element).parent().removeClass('is-invalid').addClass('is-valid');
+                    } else {
+
+                        $(element).removeClass('is-invalid').addClass('is-valid');
+                    }
+                    //$(element).removeClass('is-invalid').addClass('is-valid'); // remove the Boostrap error class from the control group
+                },
+
+                focusInvalid: true,
+                
+                rules: {"name":{"laravelValidation":[
+                    ["Required",[],"Campo requerido",true,"name"],
+                    ["Min",["3"],"El campo name debe contener al menos 3 caracteres.",false,"name"]]},
+                    "detail":{"laravelValidation":[["Required",[],"Campo requerido",true,"detail"],
+                    ["Min",["3"],"El campo detail debe contener al menos 3 caracteres.",false,"detail"]]},
+                    "amount":{"laravelValidation":[["Required",[],"Campo requerido",true,"amount"]]},
+                    "qty_numbers":{"laravelValidation":[["Required",[],"Campo requerido",true,"qty_numbers"]]},
+                    "images[*]":{"laravelValidation":[["Required",[],"El campo imagen es obligatorio.",true,
+                    //"images[*]"],["Max",["2048"],"El campo imagen debe contener 2048 caracteres como m\u00e1ximo.",false,
+                    //"images[*]"]],"laravelValidationRemote":[[{},["images[*]","eyJpdiI6IkRDVTJxTkFLQ0dkd0FZd3dKSUJuaHc9PSIsInZhbHVlIjoiYkhXUTdMbVlhSENaeGpXWDhyZ0VFUHZFWTcrZFNnYnlOSHlKTEJWYnYvcnBQRjVGd2kxN3J0Z1NQOVBMOVBBTkszSHRYZUgzSEJDakRTTDVGWEpqUmc9PSIsIm1hYyI6IjM4MTkwODQwZDgwNzA4NzQzZTc4ZDViYjIxOTgyMTFhZjhhOTQyOTU0NGUzMzRjMmU1N2VhMDUzNjAzNDFkNmQiLCJ0YWciOiIifQ==",false],
+                    "validation.illuminate\\_validation\\_rules\\_image_file",false,"images[*]"]]}}           
+            });
+        });
+    });
+    $('.img-thumbnail').hover(function() {
+        $(this).find('.delete-image').show();
+    }, function() {
+        $(this).find('.delete-image').hide();
+    });
+
+    $('.delete-image').click(function() {
+        var image = $(this).data('image');
+        var key = $(this).data('key');
+        $('#imageContainer_'+ key).fadeOut()
+        var deletedImagesArray = $('#deletedImages').val() ? JSON.parse($('#deletedImages').val()) : [];
+        deletedImagesArray.push(image);
+        $('#deletedImages').val(JSON.stringify(deletedImagesArray));
+
+    });
     // $('#detail').summernote();
 
-    $('#lottery-form').dropzone({
-        previewTemplate: $('#dzPreviewContainer').html(),
-        url: "{{ route('lotteries.store') }}",
-        addRemoveLinks: true,
-        autoProcessQueue: false,       
-        uploadMultiple: true,
-        parallelUploads: 5,
-        maxFiles: 5,
-        acceptedFiles: '.jpeg, .jpg, .png, .gif, webp',
-       
-        previewsContainer: "#images",
-        timeout: 0,
-        init: function() 
-        {
-            myDropzone = this;
-
-            // when file is dragged in
-            this.on('addedfile', function(file) { 
-                $('.dropzone-drag-area').removeClass('is-invalid').next('.invalid-feedback').hide();
-            });
-        },
-        success: function(file, response) 
-        {
-           
-            window.location.href = '{{ route("lotteries.index") }}'
-        },
-        error: function(xhr, status, error) {
-            console.log(status.errors);
-            
-            if (status.errors) {
-                //console.log('aqui');
-                
-                $.each(status.errors, function(key, value) {
-                        console.log(key, value);
-                        
-                            $('#' + key + '-error').text(value[0]);
-                            $('#' + key).addClass('is-invalid');
-                        });
-            }
-        
-        }
+    const dropZone = document.getElementById('drop-zone');
+    const imageInput = document.getElementById('imageInput');
+    const imagePreviews = document.getElementById('imagePreviews');
+    dropZone.addEventListener('click', () => {
+        imageInput.click();
+    });
+    // Prevent default actions for drag events
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
     });
 
-    /**
-     * Form on submit
-     */
-    $('#btn-rifa').on('click', function(event) {
-        event.preventDefault();
-        var $this = $(this);
-        $('#name-error').text('');
-        $('#detail-error').text('');
-        $('#date-error').text('');
-        $('#qty_numbers-error').text('');
-        $('#name').removeClass('is-invalid');
-        $('#detail').removeClass('is-invalid');
-        $('#date').removeClass('is-invalid');
-        $('#starNumber').removeClass('is-invalid');
-        $('#qty_numbers').removeClass('is-invalid');
-        
-       
-        // console.log($('#lottery-form')[0].checkValidity());
-        if (!validateForm()) {
-            return false;
-        }
-        // validate form & submit if valid
-        if ($('#lottery-form')[0].checkValidity() === true  && !validateForm()) {
-            event.stopPropagation();
-
-            // show error messages & hide button spinner    
-            $('#lottery-form').addClass('was-validated'); 
-            // $this.children('.spinner-border').addClass('d-none');
-
-            // if dropzone is empty show error message
-            if (!myDropzone.getQueuedFiles().length > 0) {                        
-                $('.dropzone-drag-area').addClass('is-invalid').next('.invalid-feedback').show();
-            }
-        } else {
-
-            // if everything is ok, submit the form
-            myDropzone.processQueue();
-        }
+    // Highlight   
+   //drop zone on dragenter/dragover
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, highlight, false);
     });
-    function validateForm() {
-        const name = $('#name').val();
-        const detail = $('#detail').val();
-        const date = $('#date').val();
-        const amount = $('#amount').val();
-        const images = $('#images').find('img');
-        
-        let isValid = true;
 
-        // Validación del nombre
-        if (name.length < 3) {
-            $('#name').addClass('is-invalid');
-            $('#name-error').text('El nombre debe tener al menos 3 caracteres.');
-            isValid = false;
-        } else {
-            $('#name').removeClass('is-invalid');
-            $('#name-error').text('');
-        }
+    // Unhighlight drop zone on dragleave/drop
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, unhighlight, false);
+    });
 
-        // Validación del detalle
-        if (detail.length < 3) {
-            $('#detail').addClass('is-invalid');
-            $('#detail-error').text('El detalle debe tener al menos 3 caracteres.');
-            isValid = false;
-        } else {
-            $('#detail').removeClass('is-invalid');
-            $('#detail-error').text('');
-        }
-        if (amount.length < 1) {
-            $('#amount').addClass('is-invalid');
-            $('#amount-error').text('Campo requerido');
-            isValid = false;
-        } else {
-            $('#amount').removeClass('is-invalid');
-            $('#amount-error').text('');
-        }
+    // Handle dropped files
+    dropZone.addEventListener('drop', handleDrop, false);
 
-       
-        
-        if (images.length === 0) {
-            isValid = false;
-        }
-
-        return isValid;
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
     }
 
+    function highlight(e)   
+    {
+        dropZone.classList.add('highlight');
+    }
+
+    function unhighlight(e) {
+        dropZone.classList.remove('highlight');
+    }
+
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;   
+
+
+        // Clear any existing files in the input
+        imageInput.value = '';
+
+        // Add the dropped files to the input element (if supported)
+        if (typeof imageInput.files === 'object') {
+            imageInput.files = files; // Modern browsers
+        } else {
+            // Fallback for older browsers (manually create File objects)
+            for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            imageInput.files[i] = new File([file], file.name, { type: file.type });
+            }
+        }
+
+        handleFiles(files);
+    }
+
+    // Handle file selection from both drag-and-drop and input change
+    imageInput.addEventListener('change', () => {
+        const files = imageInput.files;
+        handleFiles(files);
+    });
+
+    function handleFiles(files) {
+        for (let i = 0; i < files.length; i++) {
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+            const img = document.createElement('img');
+            img.className = 'img-thumbnail';
+            img.src = e.target.result;
+            const div = document.createElement('div');
+            div.className = 'col-xs-12 col-sm-12 col-md-3 cl-lg-3 mt-2';
+            div.appendChild(img);
+            imagePreviews.appendChild(div);
+            };
+
+            reader.readAsDataURL(files[i]);
+        }
+
+    // You can still send the files to the server here using FormData and $.ajax or other methods
+    // ... (your server-side code)
+    }
 </script>
 @endsection

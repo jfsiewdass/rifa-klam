@@ -7,7 +7,7 @@
             <h2>Edit User</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-secondary btn-sm mb-2" href="{{ route('users.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
+            <a class="btn btn-secondary btn-sm mb-2" href="{{ route('users.index') }}"><i class="fa fa-arrow-left"></i> Atras</a>
         </div>
     </div>
 </div>
@@ -23,39 +23,39 @@
     </div>
 @endif
 
-<form method="POST" action="{{ route('users.update', $user->id) }}">
+<form method="POST" action="{{ route('users.update', $user->id) }}" id="user-form">
     @csrf
     @method('PUT')
 
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
             <div class="form-group">
-                <strong>Name:</strong>
-                <input type="text" name="name" placeholder="Name" class="form-control" value="{{ $user->name }}">
+                <strong>Nombre:</strong>
+                <input type="text" name="name" placeholder="Nombre" class="form-control" value="{{ $user->name }}">
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
             <div class="form-group">
-                <strong>Email:</strong>
-                <input type="email" name="email" placeholder="Email" class="form-control" value="{{ $user->email }}">
+                <strong>Correo electrónico:</strong>
+                <input type="email" name="email" placeholder="Correo electrónico" class="form-control" value="{{ $user->email }}">
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
             <div class="form-group">
-                <strong>Password:</strong>
-                <input type="password" name="password" placeholder="Password" class="form-control">
+                <strong>Contraseña:</strong>
+                <input type="password" name="password" placeholder="Contraseña" class="form-control">
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
             <div class="form-group">
-                <strong>Confirm Password:</strong>
+                <strong>Confirme Contraseña:</strong>
                 <input type="password" name="confirm-password" placeholder="Confirm Password" class="form-control">
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
             <div class="form-group">
-                <strong>Role:</strong>
-                <select name="roles[]" class="form-control" multiple="multiple">
+                <strong>Perfil:</strong>
+                <select name="roles[]" class="form-control">
                     @foreach ($roles as $value => $label)
                         <option value="{{ $value }}" {{ isset($userRole[$value]) ? 'selected' : ''}}>
                             {{ $label }}
@@ -64,11 +64,16 @@
                 </select>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button type="submit" class="btn btn-primary btn-sm mt-2 mb-3"><i class="fa-solid fa-floppy-disk"></i> Submit</button>
+        <div class="col-xs-12 col-sm-12 col-md-12 text-center mt-3">
+            <button type="submit" class="btn btn-success cmn-btn s1-bg radius12 fw_600 justify-content-center d-inline-flex align-items-center gap-2 py-xxl-2 py-3 px-xl-6 px-5 n0-clr mt-1"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>
         </div>
     </div>
 </form>
 
 <p class="text-center text-primary"><small></small></p>
+@endsection
+
+@section('scripts')
+<script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+{!! JsValidator::formRequest('App\Http\Requests\User\UpdateUserRequest', '#user-form') !!}
 @endsection

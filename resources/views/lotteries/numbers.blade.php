@@ -107,10 +107,10 @@
             @endif
             <td width="120px">
                     @can('lottery-edit')
-                        <a class="btn btn-success @if( $number->status_voucher_id == 2 || $number->status_voucher_id == 3) visually-hidden @endif" href="#" title="Aceptar" onclick="accept('{{ $number->id }}')" >
+                        <a class="btn btn-success btn-sm @if( $number->status_voucher_id == 2 || $number->status_voucher_id == 3) visually-hidden @endif" href="#" title="Aceptar" onclick="accept('{{ $number->id }}')" >
                             <i class="fa-solid fa-check"></i>
                         </a>
-                        <a class="btn btn-danger  @if( $number->status_voucher_id == 2 || $number->status_voucher_id == 3) visually-hidden @endif" href="#" title="Rechazar" onclick="reject('{{ $number->id }}')">
+                        <a class="btn btn-danger btn-sm  @if( $number->status_voucher_id == 2 || $number->status_voucher_id == 3) visually-hidden @endif" href="#" title="Rechazar" onclick="reject('{{ $number->id }}')">
                             <i class="fa-solid fa-ban"></i>
                         </a>
                     @endcan

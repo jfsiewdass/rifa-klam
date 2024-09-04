@@ -17,6 +17,11 @@
         {{ $value }}
     </div>
 @endsession
+@session('error')
+    <div class="alert alert-danger" role="alert"> 
+        {{ $value }}
+    </div>
+@endsession
 <div class="table-responsive">
 <table class="table table-bordered">
    <tr>
@@ -40,13 +45,13 @@
         </td>
         <td>
              {{-- <a class="btn btn-info btn-sm" href="{{ route('users.show',$user->id) }}"><i class="fa-solid fa-list"></i> </a> --}}
-             <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}"><i class="fa-solid fa-pen-to-square"></i> </a>
-              <form method="POST" action="{{ route('users.destroy', $user->id) }}" style="display:inline">
-                  @csrf
-                  @method('DELETE')
+            <form method="POST" action="{{ route('users.destroy', $user->id) }}" style="width: 100px">
+                <a class="btn btn-primary btn-sm" href="{{ route('users.edit',$user->id) }}"><i class="fa-solid fa-pen-to-square"></i> </a>
+                @csrf
+                @method('DELETE')
 
-                  <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i> </button>
-              </form>
+                <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i> </button>
+            </form>
         </td>
     </tr>
  @endforeach

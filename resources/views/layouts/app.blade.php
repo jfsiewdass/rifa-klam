@@ -1,116 +1,95 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<!-- saved from url=(0064)https://preview.keenthemes.com/keen/demo1/index.html?mode=light# -->
+<html lang="en" data-bs-theme-mode="dark" data-bs-theme="dark">
+<!--begin::Head-->
+@include('layouts.keen.head')
+<!--end::Head-->
 
-<head>
+<!--begin::Body-->
+<body id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-header-fixed="true" data-kt-app-sidebar-enabled="true"
+    data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true" data-kt-app-sidebar-push-header="true"
+    data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true"
+    class="app-default" cz-shortcut-listen="true">
+    <!--begin::Theme mode setup on page load-->
+    <script>
+        var defaultThemeMode = "light";
+        var themeMode;
 
-    <!-- ==== Required Meta ==== -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- ==== #Keywords ==== -->
-    <meta name="keywords" content="boot, Bootstrap, LottoVibe - Multipurpose HTML Template">
-    <!-- ==== #Description ==== -->
-    <meta name="description" content="LottoVibe - Multipurpose HTML Template">
-    <!-- ==== #Title ==== -->
-    <title>{{ config('app.name', 'Laravel') }}</title>
-    <!-- ==== #Favicon ==== -->
-    <link rel="shortcut icon" href="assets/images/logo/favicon.png" type="image/x-icon">
+        if (document.documentElement) {
+            if (document.documentElement.hasAttribute("data-bs-theme-mode")) {
+                themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
+            } else {
+                if (localStorage.getItem("data-bs-theme") !== null) {
+                    themeMode = localStorage.getItem("data-bs-theme");
+                } else {
+                    themeMode = defaultThemeMode;
+                }
+            }
 
+            if (themeMode === "system") {
+                themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            }
 
-    <!-- ==== Tabler Icon ==== -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.36.0/tabler-icons.min.css">
-    <!-- ==== #style.min ==== -->
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-    {{-- @vite(['resources/sass/app.scss', 
-            'resources/js/app.js',
-            ]) --}}
-</head>
+            document.documentElement.setAttribute("data-bs-theme", themeMode);
+        }
+    </script>
 
-<body class="winbg">
-    @include('layouts.admin.nav')
-    <!-- ==== Custom Cursor Pointer ==== -->
-    <div class="mouse-follower">
-        <span class="cursor-outline"></span>
-        <span class="cursor-dot"></span>
-    </div>
-    <!-- ==== Custom Cursor Pointer ==== -->
-
-
+    <!--begin::App-->
+    <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
+        <!--begin::Page-->
+        <div class="app-page  flex-column flex-column-fluid " id="kt_app_page">
+            <!--begin::Header-->
+            @include('layouts.keen.nav')
+            <!--end::Header-->
+            <!--begin::Wrapper-->
+            <div class="app-wrapper  flex-column flex-row-fluid " id="kt_app_wrapper">
+                <!--begin::Sidebar-->
+                @include('layouts.keen.sidebar')
+                <!--end::Sidebar-->
+                <div class="app-main flex-column flex-row-fluid " id="kt_app_main">
+                    <!--begin::Content wrapper-->
+                    <div class="d-flex flex-column flex-column-fluid">
+                        <div id="kt_app_content" class="app-content  flex-column-fluid ">
     
-    <!-- ==== Main ==== -->
-    <main class="overflow-hidden">
-
-
-    <!-- ==== Login ==== -->
-    <main class="py-4">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            @yield('content')
+           
+                            <!--begin::Content container-->
+                            <div id="kt_app_content_container" class="app-container  container-fluid ">
+                                <!--begin::Row-->
+                                <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                                    <!--begin::Col-->
+                                    <div class="col-12 mb-md-5 mb-xl-10 ">
+                                       
+                                        <div class="card mt-10">
+                                            <div class="card-body">
+                                                @yield('content')
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Row-->
+                            </div>
+                             <!--end::Content container-->
                         </div>
                     </div>
+                    <!--end::Content wrapper-->
                 </div>
             </div>
+            <!--end::Wrapper-->
         </div>
-    </main>
-    <!-- ==== Login ==== -->
-
-
-    </main>
-
-
-
-    <!-- ==== js Jquery start ==== -->
-    <script src="{{ asset('assets/js/plugins/jquery.js') }}"></script>
-    <!-- ==== js Viewport js start ==== -->
-    <script src="{{ asset('assets/js/plugins/viewpot.js') }}"></script>
-    <!-- ==== js Aos Animation start ==== -->
-    <script src="{{ asset('assets/js/plugins/aos.js') }}"></script>
-    <!-- ==== js Bootstrap start ==== -->
-    <script src="{{ asset('assets/js/plugins/bootstrap.js') }}"></script>
-    <!-- ==== js Magnific start ==== -->
-    {{-- <script src="{{ asset('assets/js/plugins/magnific-popup.js"></') }}script> --}}
-    <!-- ==== js Swiper start ==== -->
-    <script src="{{ asset('assets/js/plugins/swiper.js') }}"></script>
-    <!-- ==== js Odometer start ==== -->
-    <script src="{{ asset('assets/js/plugins/odometer.js') }}"></script>
-    <!-- ==== js Nice Select start ==== -->
-    <script src="{{ asset('assets/js/plugins/jquery.nice-select.min.js') }}"></script>
-    <!-- ==== js Phosphor Icon start ==== -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <!-- ==== js Mian start ==== -->
-    <script src="{{ asset('assets/js/main.js') }}"></script>
+        <!--end::Page-->
+    </div>
+    <!--end::App-->
+    <!--end::Engage toolbar--><!--begin::Scrolltop-->
+    <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
+        <i class="ki-duotone ki-arrow-up"><span class="path1"></span><span class="path2"></span></i>
+    </div>
+    @include('layouts.keen.footer')
+    <!--end::Scrolltop-->
+    <!--begin::Javascript-->
+    @include('layouts.keen.script')
     @yield('scripts')
-</body>
+    <!--end::Javascript-->
+</body><!--end::Body-->
 
 </html>
-
-{{-- <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-@include('layouts.admin.head')
-<body>
-    <div id="app">
-        @include('layouts.admin.nav')
-
-        <main class="py-4">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                @yield('content')
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-        
-    </div>
-    
-</body>
-
-</html> --}}

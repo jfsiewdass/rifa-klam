@@ -1,7 +1,8 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
-            Administrador lotteries Klam
+            <img class="w-25 d-none d-sm-block" src="{{ asset('assets/images/logo-with-name.png') }}" alt="logo">
+            <img class="w-25 d-block d-sm-none" src="{{ asset('assets/images/logo.png') }}" alt="logo">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
