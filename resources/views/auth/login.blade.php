@@ -1,12 +1,13 @@
 @extends('layouts.auth')
 
 @section('content')
-    <section class="login-sectionv py-15 position-relative overflow-hidden w-100 h-100 ">
-        <div class="cmn-scroll-wrapper d-center">
-            <div class="cmn-scroll">
+   
+        <div class="row d-flex" style="height: 90vh;">
+            <div class="col d-none d-md-block"></div>
+            <div class="col align-self-center align-middle justify-content-center">
                 
-                <div class="left-logwrap d-center p-xxl-10 p-xl-8 p-6 radius24">
-                    <div class="authentication-cmn">
+                <div class="card">
+                    <div class="card-body">
                        
                         <div class="log-title text-center mb-xxl-15 mb-xl-10 mb-6">
                             <h3 class="mb-xxl-6 mb-4">
@@ -83,9 +84,8 @@
                     </div>
                 </div>
             </div>
+            <div class="col d-none d-md-block"></div>
         </div>
-        </div>
-    </section>
 @endsection
 @section('scripts')
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

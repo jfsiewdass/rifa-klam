@@ -1,35 +1,35 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme-mode="dark" data-bs-theme="dark">
 
-<head>
+@include('layouts.keen.head')
 
-    <!-- ==== Required Meta ==== -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- ==== #Keywords ==== -->
-    <meta name="keywords" content="boot, Bootstrap, LottoVibe - Multipurpose HTML Template">
-    <!-- ==== #Description ==== -->
-    <meta name="description" content="LottoVibe - Multipurpose HTML Template">
-    <!-- ==== #Title ==== -->
-    <title>{{ config('app.name', 'Laravel') }}</title>
-    <!-- ==== #Favicon ==== -->
-    <link rel="shortcut icon" href="assets/images/logo/favicon.png" type="image/x-icon">
+<body id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-header-fixed="true" data-kt-app-sidebar-enabled="true"
+data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true" data-kt-app-sidebar-push-header="true"
+data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true"
+class="app-default" cz-shortcut-listen="true">
+    <script>
+        var defaultThemeMode = "light";
+        var themeMode;
 
+        if (document.documentElement) {
+            if (document.documentElement.hasAttribute("data-bs-theme-mode")) {
+                themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
+            } else {
+                if (localStorage.getItem("data-bs-theme") !== null) {
+                    themeMode = localStorage.getItem("data-bs-theme");
+                } else {
+                    themeMode = defaultThemeMode;
+                }
+            }
 
-    <!-- ==== Tabler Icon ==== -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.36.0/tabler-icons.min.css">
-    <!-- ==== #style.min ==== -->
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    {{-- @vite(['resources/sass/app.scss', 
-        'resources/js/app.js', 
-        'public/assets/js/plugins/jquery.js',
-        'public/assets/js/plugins/bootstrap.js'
-    ]) --}}
-</head>
+            if (themeMode === "system") {
+                themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            }
 
-<body data-theme="dark">
-    @include('layouts.admin.nav')
+            document.documentElement.setAttribute("data-bs-theme", themeMode);
+        }
+    </script>
+    @include('layouts.keen.nav')
     
     <!-- ==== Custom Cursor Pointer ==== -->
     <div class="mouse-follower">
@@ -45,16 +45,8 @@
 
 
     <!-- ==== Login ==== -->
-    <section class="login-sectionv py-15 position-relative overflow-hidden w-100 h-100">
-        <div class="cmn-scroll-wrapper d-center">
-            <div class="cmn-scroll">
-                {{-- <a href="index.html" class="pb-10 text-center d-block">
-                    <img src="assets/images/logo/logo-black.png" alt="img">
-                </a> --}}
-                
-                    @yield('content')
-            </div>
-        </div>
+    <section class="container" style="height: 100vh;">       
+        @yield('content')
     </section>
     <!-- ==== Login ==== -->
 
@@ -63,26 +55,10 @@
 
 
 
-    <!-- ==== js Jquery start ==== -->
-    <script src="assets/js/plugins/jquery.js"></script>
-    <!-- ==== js Viewport js start ==== -->
-    <script src="assets/js/plugins/viewpot.js"></script>
-    <!-- ==== js Aos Animation start ==== -->
-    <script src="assets/js/plugins/aos.js"></script>
-    <!-- ==== js Bootstrap start ==== -->
-    <script src="assets/js/plugins/bootstrap.js"></script>
-    <!-- ==== js Magnific start ==== -->
-    <script src="assets/js/plugins/magnific-popup.js"></script>
-    <!-- ==== js Swiper start ==== -->
-    <script src="assets/js/plugins/swiper.js"></script>
-    <!-- ==== js Odometer start ==== -->
-    <script src="assets/js/plugins/odometer.js"></script>
-    <!-- ==== js Nice Select start ==== -->
-    <script src="assets/js/plugins/jquery.nice-select.min.js"></script>
-    <!-- ==== js Phosphor Icon start ==== -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <!-- ==== js Mian start ==== -->
-    <script src="assets/js/main.js"></script>
+    @include('layouts.keen.footer')
+    <!--end::Scrolltop-->
+    <!--begin::Javascript-->
+    @include('layouts.keen.script')
     @yield('scripts')
 </body>
 

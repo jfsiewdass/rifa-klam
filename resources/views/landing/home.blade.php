@@ -349,7 +349,7 @@
                                 </div>
                             </div>
                         @empty
-                            <h1 class="text-center">No existen lotteries disponibles</h1>
+                            <h1 class="text-center">No existen rifas disponibles</h1>
                         @endforelse
                        
                     </div>

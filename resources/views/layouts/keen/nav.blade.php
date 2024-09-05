@@ -5,12 +5,15 @@
         id="kt_app_header_container">
 
         <!--begin::sidebar mobile toggle-->
+        @guest
+        @else
         <div class="d-flex align-items-center d-lg-none ms-n3 me-2" title="Show sidebar menu">
             <div class="btn btn-icon btn-active-color-primary w-35px h-35px"
                 id="kt_app_sidebar_mobile_toggle">
                 <i class="fa-solid fa-bars rotate-180"></i>
             </div>
         </div>
+        @endguest
         <!--end::sidebar mobile toggle-->
 
 
@@ -61,7 +64,24 @@
 
             <!--begin::Navbar-->
             <div class="app-navbar flex-shrink-0">
-                
+                @guest
+                <div class="app-navbar-item ms-1 ms-lg-">
+                    <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-45px h-35px w-md-40px h-md-40px me-5"
+                        data-kt-menu-trigger="{default: &#39;click&#39;, lg: &#39;hover&#39;}"
+                        data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+                        <span class="symbol symbol-20px">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </span>
+                    </div>
+                    <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-45px h-35px w-md-40px h-md-40px"
+                        data-kt-menu-trigger="{default: &#39;click&#39;, lg: &#39;hover&#39;}"
+                        data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+                        <span class="symbol symbol-20px">
+                            <a class="nav-link" href="{{ route('home') }}">Ir a inicio</a>
+                        </span>
+                    </div>
+                </div>
+                @endguest
                 <!--begin::Languages-->
                 <!-- <div class="app-navbar-item ms-1 ms-lg-3">
                     
@@ -193,13 +213,16 @@
 
                 <!--begin::User menu-->
                 <div class="app-navbar-item ms-2 ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
+                    @auth
                     <!--begin::Menu wrapper-->
                     <div class="cursor-pointer symbol symbol-35px symbol-md-40px"
                         data-kt-menu-trigger="{default: &#39;click&#39;, lg: &#39;hover&#39;}"
                         data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
                         <i class="fa-solid fa-circle-user" style="font-size: 28px"></i>
                     </div>
-
+                   
+                        
+                    
                     <!--begin::User account menu-->
                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px"
                         data-kt-menu="true">
@@ -250,6 +273,7 @@
                         </div>
                         <!--end::Menu item-->
                     </div>
+                    @endauth
                     <!--end::User account menu-->
                     <!--end::Menu wrapper-->
                 </div>
