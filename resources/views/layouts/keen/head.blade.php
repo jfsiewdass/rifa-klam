@@ -35,4 +35,25 @@
     <link href="{{ asset('assets/fontawesome/css/fontawesome.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/fontawesome/css/brands.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/fontawesome/css/solid.css') }}" rel="stylesheet" />
+    <style>
+        .numero {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            text-align: center;
+            line-height: 40px;
+            display: inline-block;
+            margin: 5px;
+            cursor: pointer;
+            color: black;
+        }
+
+        .seleccionado {
+            background-color: green;
+            color: white;
+        }
+
+    </style>
 </head>

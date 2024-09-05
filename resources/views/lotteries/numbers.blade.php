@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    @media (max-width: 1224px) {
+        .movil-width {
+            min-width: 350px;
+        }
+    }
+</style>
 <div class="row">
     <div class="col-lg-12 d-flex justify-content-between align-items-center margin-tb">
         <div class="pull-left">
@@ -86,14 +93,14 @@
             <td>{{ ++$i }}</td>
             <td>{{ $number->name.' '.$number->surname }}</td>
             <td>{{ $number->document }}</td>
-            <td class="d-flex" style="width: 250px">
+            <td  >
                 
-                <div> 
+                <div class="{{ count($number->lotteryNumbers()->get()) > 6 ? 'movil-width' : '' }}">
                     @foreach ($number->lotteryNumbers()->get() as $item)
                         <button class="numero {{ $item->number == $lottery->winner ? 'seleccionado' : '' }}">
                         {{ $item->number }}
                     </button>
-                    @endforeach
+                    @endforeach 
                 </div>
             </td>
             <td>{{ $number->reference_number }}</td>
@@ -106,15 +113,18 @@
             @if ($lottery->status_lottery_id == 2)
                 <td>{{ $number->is_winner ? 'SI' : 'NO' }}</td>
             @endif
-            <td width="120px">
-                    @can('lottery-edit')
-                        <a class="btn btn-success btn-sm @if( $number->status_voucher_id == 2 || $number->status_voucher_id == 3) visually-hidden @endif" href="#" title="Aceptar" onclick="accept('{{ $number->id }}')" >
-                            <i class="fa-solid fa-check"></i>
-                        </a>
-                        <a class="btn btn-danger btn-sm  @if( $number->status_voucher_id == 2 || $number->status_voucher_id == 3) visually-hidden @endif" href="#" title="Rechazar" onclick="reject('{{ $number->id }}')">
-                            <i class="fa-solid fa-ban"></i>
-                        </a>
-                    @endcan
+            <td >
+                @can('lottery-edit')
+                <div style="width: 100px">
+
+                    <a class="btn btn-success btn-sm @if( $number->status_voucher_id == 2 || $number->status_voucher_id == 3) visually-hidden @endif" href="#" title="Aceptar" onclick="accept('{{ $number->id }}')" >
+                        <i class="fa-solid fa-check"></i>
+                    </a>
+                    <a class="btn btn-danger btn-sm  @if( $number->status_voucher_id == 2 || $number->status_voucher_id == 3) visually-hidden @endif" href="#" title="Rechazar" onclick="reject('{{ $number->id }}')">
+                        <i class="fa-solid fa-ban"></i>
+                    </a>
+                </div>
+                @endcan
             </td>
         </tr>
         @empty
