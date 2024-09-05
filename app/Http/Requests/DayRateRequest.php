@@ -22,7 +22,7 @@ class DayRateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'dayrate'=>'required'
+            'dayrate'=>'required|numeric|min:0|max:9999.99'
         ];
     }
     public function messages(): array

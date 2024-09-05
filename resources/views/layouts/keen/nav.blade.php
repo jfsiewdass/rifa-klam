@@ -10,7 +10,7 @@
         <div class="d-flex align-items-center d-lg-none ms-n3 me-2" title="Show sidebar menu">
             <div class="btn btn-icon btn-active-color-primary w-35px h-35px"
                 id="kt_app_sidebar_mobile_toggle">
-                <i class="fa-solid fa-bars rotate-180"></i>
+                <i class="fa-solid fa-bars rotate-180" style="font-size: 24px"></i>
             </div>
         </div>
         @endguest

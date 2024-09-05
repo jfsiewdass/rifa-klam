@@ -95,8 +95,8 @@
                 <div id="drop-zone" class="drop-zone form-control">
                     Arrastra y suelta tus imágenes aquí
                     <input type="file" id="imageInput" name="images[]" multiple id="images" style="display: none">
-                    <div id="imagePreviews" class="row"></div>
                 </div>
+                <div id="imagePreviews" class="row"></div>
                 <div id="progress-bar"></div>
                 <div id="messages"></div>
                 <div class="invalid-feedback" id="images-error">Campo requerido.</div>
@@ -217,23 +217,19 @@
     dropZone.addEventListener('click', () => {
         imageInput.click();
     });
-    // Prevent default actions for drag events
+    
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         dropZone.addEventListener(eventName, preventDefaults, false);
     });
 
-    // Highlight   
-   //drop zone on dragenter/dragover
     ['dragenter', 'dragover'].forEach(eventName => {
         dropZone.addEventListener(eventName, highlight, false);
     });
 
-    // Unhighlight drop zone on dragleave/drop
     ['dragleave', 'drop'].forEach(eventName => {
         dropZone.addEventListener(eventName, unhighlight, false);
     });
 
-    // Handle dropped files
     dropZone.addEventListener('drop', handleDrop, false);
 
     function preventDefaults(e) {
@@ -252,27 +248,20 @@
 
     function handleDrop(e) {
         const dt = e.dataTransfer;
-        const files = dt.files;   
-
-
-        // Clear any existing files in the input
+        const files = dt.files;
         imageInput.value = '';
 
-        // Add the dropped files to the input element (if supported)
         if (typeof imageInput.files === 'object') {
-            imageInput.files = files; // Modern browsers
+            imageInput.files = files; 
         } else {
-            // Fallback for older browsers (manually create File objects)
             for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            imageInput.files[i] = new File([file], file.name, { type: file.type });
+                const file = files[i];
+                imageInput.files[i] = new File([file], file.name, { type: file.type });
             }
         }
 
         handleFiles(files);
     }
-
-    // Handle file selection from both drag-and-drop and input change
     imageInput.addEventListener('change', () => {
         const files = imageInput.files;
         handleFiles(files);
@@ -281,22 +270,54 @@
     function handleFiles(files) {
         for (let i = 0; i < files.length; i++) {
             const reader = new FileReader();
-
+            
             reader.onload = (e) => {
-            const img = document.createElement('img');
-            img.className = 'img-thumbnail';
-            img.src = e.target.result;
-            const div = document.createElement('div');
-            div.className = 'col-xs-12 col-sm-12 col-md-3 cl-lg-3 mt-2';
-            div.appendChild(img);
-            imagePreviews.appendChild(div);
+                const img = document.createElement('img');
+                const button = createDeleteButton(e.target.result);
+                img.className = 'img-thumbnail';
+                img.src = e.target.result;
+                img.setAttribute('data-file-name', files[i].name);
+                const div = document.createElement('div');
+                const divChild = document.createElement('div');
+                div.className = 'col-xs-12 col-sm-12 col-md-3 cl-lg-3 mt-2';
+                divChild.className = 'position-relative';
+                divChild.appendChild(img);
+                divChild.appendChild(button);
+                div.appendChild(divChild);
+                imagePreviews.appendChild(div);
+                button.addEventListener('click', () => {
+                    removeImage(img);
+                    div.remove();
+                });
+                
             };
 
             reader.readAsDataURL(files[i]);
         }
+    }
+    function createDeleteButton(image) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'btn btn-default btn-sm position-absolute top-0 end-0 delete-image';
+        button.setAttribute('data-image', image);
 
-    // You can still send the files to the server here using FormData and $.ajax or other methods
-    // ... (your server-side code)
+        const icon = document.createElement('i');
+        icon.className = 'fas fa-trash';
+        icon.style.color = 'red';
+
+        button.appendChild(icon);
+
+        return button;
+    }
+
+    function removeImage(previewElement) {
+        const fileName = previewElement.getAttribute('data-file-name');
+
+        const dataTransfer = new DataTransfer();
+        let result = Array.from(imageInput.files).filter((file) => file.name !== fileName)
+        
+        result.map(file => dataTransfer.items.add(file));
+        imageInput.files = dataTransfer.files
     }
 </script>
 @endsection

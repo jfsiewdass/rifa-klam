@@ -224,24 +224,56 @@
     });
 
     function handleFiles(files) {
-    for (let i = 0; i < files.length; i++) {
-        const reader = new FileReader();
+        for (let i = 0; i < files.length; i++) {
+            const reader = new FileReader();
+            
+            reader.onload = (e) => {
+                const img = document.createElement('img');
+                const button = createDeleteButton(e.target.result);
+                img.className = 'img-thumbnail';
+                img.src = e.target.result;
+                img.setAttribute('data-file-name', files[i].name);
+                const div = document.createElement('div');
+                const divChild = document.createElement('div');
+                div.className = 'col-xs-12 col-sm-12 col-md-3 cl-lg-3 mt-2';
+                divChild.className = 'position-relative';
+                divChild.appendChild(img);
+                divChild.appendChild(button);
+                div.appendChild(divChild);
+                imagePreviews.appendChild(div);
+                button.addEventListener('click', () => {
+                    removeImage(img);
+                    div.remove();
+                });
+                
+            };
 
-        reader.onload = (e) => {
-        const img = document.createElement('img');
-        img.className = 'img-thumbnail';
-        img.src = e.target.result;
-        const div = document.createElement('div');
-        div.className = 'col-xs-12 col-sm-12 col-md-3 cl-lg-3 mt-2';
-        div.appendChild(img);
-        imagePreviews.appendChild(div);
-        };
+            reader.readAsDataURL(files[i]);
+        }
+    }
+    function createDeleteButton(image) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'btn btn-default btn-sm position-absolute top-0 end-0 delete-image';
+        button.setAttribute('data-image', image);
 
-        reader.readAsDataURL(files[i]);
+        const icon = document.createElement('i');
+        icon.className = 'fas fa-trash';
+        icon.style.color = 'red';
+
+        button.appendChild(icon);
+
+        return button;
     }
 
-    // You can still send the files to the server here using FormData and $.ajax or other methods
-    // ... (your server-side code)
+    function removeImage(previewElement) {
+        const fileName = previewElement.getAttribute('data-file-name');
+
+        const dataTransfer = new DataTransfer();
+        let result = Array.from(imageInput.files).filter((file) => file.name !== fileName)
+        
+        result.map(file => dataTransfer.items.add(file));
+        imageInput.files = dataTransfer.files
     }
 });
 </script>

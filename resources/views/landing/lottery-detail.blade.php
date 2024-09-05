@@ -137,7 +137,7 @@
                         </div>
 
                     </div>
-                    <div id="numeros"></div>
+                    <div id="numeros" class="text-center"></div>
                     <div class="row row justify-content-center py-3">
                         <div class="col-md-4">
                             @csrf
@@ -230,7 +230,7 @@
                 $('#btnNext').prop('disabled', false)
                 $('#btnCancel').prop('disabled', false)
                 $('#quantity').html(
-                    `Números seleccionados ${numerosSeleccionados.length} total a pagar ${parseInt(dollar.rate) * (numerosSeleccionados.length * amount)} Bs.`
+                    `Números seleccionados ${numerosSeleccionados.length} total a pagar ${(parseFloat(dollar.rate) * (numerosSeleccionados.length * amount))?.toFixed(2)} Bs.`
                     )
             } else {
 
@@ -284,7 +284,7 @@
                             $('#btnNext').prop('disabled', false)
                             $('#btnCancel').prop('disabled', false)
                             $('#quantity').html(
-                                `Números seleccionados ${numerosSeleccionados.length} total a pagar ${parseInt(dollar.rate) * (numerosSeleccionados.length * amount)} Bs.`
+                                `Números seleccionados ${numerosSeleccionados.length} total a pagar ${(parseFloat(dollar.rate) * (numerosSeleccionados.length * amount))?.toFixed(2)} Bs.`
                                 )
                         } else {
 

@@ -166,8 +166,12 @@ class LotteryController extends Controller
                     Storage::delete('public/' . $image);
                 }
             }
-            foreach($request->file('images') as $image) {
-                Storage::disk('public')->put('images/' . $lottery->id, $image);
+            
+            if ($request->file('images') != null) {
+                # code...
+                foreach($request->file('images') as $image) {
+                    Storage::disk('public')->put('images/' . $lottery->id, $image);
+                }
             }
             Db::commit();
     

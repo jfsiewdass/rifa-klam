@@ -62,7 +62,7 @@
             </td>
             <td>
                 <form action="{{ route('lotteries.destroy',$lottery->id) }}" method="POST" style="width: 100px">
-                    <a class="btn btn-primary btn-sm mt-1" href="{{ route('lotteries.show',$lottery->id) }}" title="Números comprados">
+                    <a class="btn btn-secondary btn-sm mt-1" href="{{ route('lotteries.show',$lottery->id) }}" title="Números comprados">
                         <i class="fa-solid fa-list"></i>
                     </a>
                     

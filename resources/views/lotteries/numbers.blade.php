@@ -35,18 +35,19 @@
         <div class="col-xs-12 col-sm-12 col-md-4">
             <div class="form-group">
                 <strong>Cédula:</strong>
-                <input type="text" class="form-control" placeholder="Ingrese una cédula" name="document" id="document">
+                <input type="text" class="form-control" placeholder="Ingrese una cédula" name="document" id="document" value="{{ request()->input('document') }}">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4">
             <div class="form-group">
                 <strong>Número:</strong>
-                <input type="text" class="form-control" placeholder="Ingrese un número" name="number" id="number">
+                <input type="text" class="form-control" placeholder="Ingrese un número" name="number" id="number" value="{{ request()->input('number') }}">
             </div>
         </div>
+        
         <div class="col-xs-12 col-sm-12 col-md-4 mt-6 d-flex">
             <div class="form-group me-3">
-               <button type="submit" class="btn btn-success" disabled id="find">Buscar</button>
+               <button type="submit" class="btn btn-success" id="find">Buscar</button>
             </div>
             <div class="form-group">
                 <a href="{{ route('lotteries.show', $lottery->id) }}" class="btn btn-secondary">Cancelar búsqueda</a>
@@ -214,16 +215,25 @@
         }
 
         $(document).ready(function() {
-    $('#document, #number').on('input', function() {
-        var documentValue = $('#document').val();
-        var numberValue = $('#number').val();
+            let document = "{{ request()->input('document') }}";
+            let number = "{{ request()->input('number') }}";
+            
+            if (document == '' || number == '') {
+                $('#find').prop('disabled', false);
+            } else {
+                $('#find').prop('disabled', true);
+            }
+            
+            $('#document, #number').on('input', function() {
+                var documentValue = $('#document').val();
+                var numberValue = $('#number').val();
 
-        if (documentValue.trim() !== '' || numberValue.trim() !== '') {
-            $('#find').prop('disabled', false);
-        } else {
-            $('#find').prop('disabled', true);
-        }
-    });
-});
+                if (documentValue.trim() !== '' || numberValue.trim() !== '') {
+                    $('#find').prop('disabled', false);
+                } else {
+                    $('#find').prop('disabled', true);
+                }
+            });
+        });
 </script>
 @endsection
