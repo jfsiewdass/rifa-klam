@@ -23,77 +23,165 @@
 <!-- ==== js Mian start ==== -->
 <script src="{{ asset('assets/js/main.js') }}"></script>
 <script>
-    const savedNumbers = JSON.parse(localStorage.getItem('savedNumbers')) || [];
-    var lottery_id = JSON.parse(localStorage.getItem('lottery_id')) || 0;
-    
-    if(savedNumbers.length > 0 && lottery_id != 0) {
-        $('#countdown-body').show();
-        countdown()
-    } else {
-        localStorage.removeItem('numerosSeleccionados');
-        localStorage.removeItem('savedNumbers');
-        localStorage.removeItem('lottery_id');
-        localStorage.removeItem('timer');
-    }
-    function countdown() {
-        
-        let isPaymentPage = @json(\Route::current()->getName() == 'payment');
-        if(!isPaymentPage)$('#countdown-redirect').show();
-        
-        
-        var countdown = JSON.parse(localStorage.getItem('timer')) || 180;
-        
+const worker = new Worker("{{ asset('assets/js/worker.js') }}");
 
-        var timer = setInterval(function() {
-            var lottery_id = JSON.parse(localStorage.getItem('lottery_id')) || 0;
-            if (lottery_id == 0) {
-                $('#countdown-body').hide();
-                clearInterval(timer);
-                localStorage.removeItem('timer');
+// Enviar el valor inicial del contador al worker
+var countdown = (localStorage.getItem('timer') != "undefined" ? JSON.parse(localStorage.getItem('timer')) : 10) || 10;
+
+const savedNumbers = JSON.parse(localStorage.getItem('savedNumbers')) || [];
+
+var lottery_id = JSON.parse(localStorage.getItem('lottery_id')) || 0;
+
+let isPaymentPage = @json(\Route::current()->getName() == 'payment');
+
+if(!isPaymentPage)$('#countdown-redirect').show();
+
+let sendDataExecuted = false;
+
+worker.postMessage({ type: 'start', initialCountdown: countdown });
+if (savedNumbers.length > 0 && lottery_id !== 0) {
+    $('#countdown-body').show();
+    worker.onmessage = async (event) => {
+        
+        localStorage.setItem('timer', JSON.stringify(event.data.timeRemaining))
+        if (event.data.timeRemaining >= 0) {
+            const timeRemaining = event.data.timeRemaining;
+            const formattedTime = formatTime(timeRemaining);
+            document.getElementById('countdown').textContent = formattedTime;
+        } else {
+            const compressedData = compressData(savedNumbers, lottery_id);
+            if (!sendDataExecuted) {
+                try {
+                    await sendData();
+                    worker.postMessage({ type: 'sendData', data: compressedData });
+                    sendDataExecuted = true;
+                } catch (error) {
+                    console.error('Error al enviar datos:', error);
+                }
             }
-            var minutes = Math.floor(countdown / 60);
-            var seconds = countdown % 60;
-            seconds = seconds < 10 ? '0' + seconds : seconds;
-
-            $('#countdown').text(`${minutes + ':' + seconds}`);
-
-            countdown--;
-            localStorage.setItem('timer', JSON.stringify(countdown))
-
-            if (countdown <= 0) {
-                clearInterval(timer);
-                $('#countdown').text(`${minutes + ':' + seconds}`);
-                var formData = new FormData();
-                    formData.append('savedNumbers', JSON.stringify(savedNumbers.map((s) => ({id: s.id, number: s.number}))));
-                    formData.append('_token', "{{ csrf_token() }}");
-                    formData.append('lottery_id', lottery_id);
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('numbers.remove') }}",
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(response) {
-                        localStorage.removeItem('numerosSeleccionados');
-                        localStorage.removeItem('savedNumbers');
-                        localStorage.removeItem('lottery_id');
-                        localStorage.removeItem('timer');
-                        window.location.href = "{{ route('home') }}"
-                    },
-                    error: function(error) {
-                        // Manejar errores
-                        console.error(error);
-                    }
-                })
-            }
-        }, 1000);
-    }
-
-    function redirect() {
-        var baseUrl = "{{ url('/payment') }}";
-        var id = JSON.parse(localStorage.getItem('lottery_id')) || 0;
-        if (id != 0) {
-            window.location.href = `${baseUrl}/${id}`;
+            console.log("Contador finalizado");
         }
+    };
+} else {
+    localStorage.removeItem('numerosSeleccionados');
+    localStorage.removeItem('savedNumbers');
+    localStorage.removeItem('lottery_id');
+    localStorage.removeItem('timer');
+
+    $('#countdown-body').hide();
+}
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    seconds = seconds % 60;
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
+const sendData = async () => {
+    var formData = new FormData();
+    formData.append('savedNumbers', JSON.stringify(savedNumbers.map((s) => ({id: s.id, number: s.number}))));
+    formData.append('_token', "{{ csrf_token() }}");
+    formData.append('lottery_id', lottery_id);
+
+    await $.ajax({
+        type: "POST",
+        url: "{{ route('numbers.remove') }}",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            localStorage.removeItem('numerosSeleccionados');
+            localStorage.removeItem('savedNumbers');
+            localStorage.removeItem('lottery_id');
+            localStorage.removeItem('timer');
+            window.location.href = "{{ route('home') }}"
+        },
+        error: function(error) {
+            console.error(error);
+        }
+    })
+}
+
+function redirect() {
+    var baseUrl = "{{ url('/payment') }}";
+    var id = JSON.parse(localStorage.getItem('lottery_id')) || 0;
+    if (id != 0) {
+        window.location.href = `${baseUrl}/${id}`;
     }
+}
+function compressData(data, lotteryId) {
+    return { savedNumbers: JSON.stringify(data.map(s => ({ id: s.id, number: s.number }))), lotteryId };
+}
+
+// const savedNumbers = JSON.parse(localStorage.getItem('savedNumbers')) || [];
+//     var lottery_id = JSON.parse(localStorage.getItem('lottery_id')) || 0;
+    
+//     if(savedNumbers.length > 0 && lottery_id != 0) {
+//         $('#countdown-body').show();
+//         countdown()
+//     } else {
+//         localStorage.removeItem('numerosSeleccionados');
+//         localStorage.removeItem('savedNumbers');
+//         localStorage.removeItem('lottery_id');
+//         localStorage.removeItem('timer');
+//     }
+//     function countdown() {
+        
+//         let isPaymentPage = @json(\Route::current()->getName() == 'payment');
+//         if(!isPaymentPage)$('#countdown-redirect').show();
+        
+        
+//         var countdown = JSON.parse(localStorage.getItem('timer')) || 180;
+        
+
+//         var timer = setInterval(function() {
+//             var lottery_id = JSON.parse(localStorage.getItem('lottery_id')) || 0;
+//             if (lottery_id == 0) {
+//                 $('#countdown-body').hide();
+//                 clearInterval(timer);
+//                 localStorage.removeItem('timer');
+//             }
+//             var minutes = Math.floor(countdown / 60);
+//             var seconds = countdown % 60;
+//             seconds = seconds < 10 ? '0' + seconds : seconds;
+
+//             $('#countdown').text(`${minutes + ':' + seconds}`);
+
+//             countdown--;
+//             localStorage.setItem('timer', JSON.stringify(countdown))
+
+//             if (countdown <= 0) {
+//                 clearInterval(timer);
+//                 $('#countdown').text(`${minutes + ':' + seconds}`);
+//                 var formData = new FormData();
+//                     formData.append('savedNumbers', JSON.stringify(savedNumbers.map((s) => ({id: s.id, number: s.number}))));
+//                     formData.append('_token', "{{ csrf_token() }}");
+//                     formData.append('lottery_id', lottery_id);
+//                 $.ajax({
+//                     type: "POST",
+//                     url: "{{ route('numbers.remove') }}",
+//                     data: formData,
+//                     contentType: false,
+//                     processData: false,
+//                     success: function(response) {
+//                         localStorage.removeItem('numerosSeleccionados');
+//                         localStorage.removeItem('savedNumbers');
+//                         localStorage.removeItem('lottery_id');
+//                         localStorage.removeItem('timer');
+//                         window.location.href = "{{ route('home') }}"
+//                     },
+//                     error: function(error) {
+//                         // Manejar errores
+//                         console.error(error);
+//                     }
+//                 })
+//             }
+//         }, 1000);
+//     }
+
+//     function redirect() {
+//         var baseUrl = "{{ url('/payment') }}";
+//         var id = JSON.parse(localStorage.getItem('lottery_id')) || 0;
+//         if (id != 0) {
+//             window.location.href = `${baseUrl}/${id}`;
+//         }
+//     }
 </script>

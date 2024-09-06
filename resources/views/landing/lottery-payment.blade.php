@@ -117,7 +117,7 @@
         </div>
        
         <div class="col-md-6">
-            <form id="paymentForm" method="POST" action="{{ route('payment.store') }}" class="row py-3 rounded border mx-3" enctype="multipart/form-data">
+            <form id="paymentForm" method="POST" action="{{ route('payment.store') }}" class="row py-3 rounded border mx-0 mx-md-3" enctype="multipart/form-data">
                 <input type="hidden" name="day_rate_id" value="{{ $rate->id }}">
                 <input type="hidden" name="lottery_id" value="{{ $lottery->id }}">
                 <input type="hidden" name="amount" value="{{ $lottery->id }}" id="amount">
