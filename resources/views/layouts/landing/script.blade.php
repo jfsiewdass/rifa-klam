@@ -22,15 +22,39 @@
 {{-- <script s{rc="{ asset('assets/js/plugins/matter-custom.js"></') }}script> --}}
 <!-- ==== js Mian start ==== -->
 <script src="{{ asset('assets/js/main.js') }}"></script>
+
+
 <script>
+const savedNumbers = JSON.parse(localStorage.getItem('savedNumbers')) || [];
+let lottery_id = JSON.parse(localStorage.getItem('lottery_id')) || 0;
+
+function sendBeforeUnloadData() {
+    if (savedNumbers.length > 0 && lottery_id !== 0) {
+        const formData = new FormData();
+        formData.append('savedNumbers', JSON.stringify(savedNumbers));
+        formData.append('_token', '{{ csrf_token() }}');
+        formData.append('lottery_id', lottery_id);
+
+        navigator.sendBeacon('{{ route('numbers.remove') }}', formData);
+        
+        localStorage.removeItem('numerosSeleccionados');
+        localStorage.removeItem('savedNumbers');
+        localStorage.removeItem('lottery_id');
+        localStorage.removeItem('timer');
+    }
+}
+
+// Agregar el evento antes de que el usuario pueda interactuar con la página
+document.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('beforeunload', sendBeforeUnloadData);
+});
+
 const worker = new Worker("{{ asset('assets/js/worker.js') }}");
 
 // Enviar el valor inicial del contador al worker
-var countdown = (localStorage.getItem('timer') != "undefined" ? JSON.parse(localStorage.getItem('timer')) : 10) || 10;
+var countdown = (localStorage.getItem('timer') != "undefined" ? JSON.parse(localStorage.getItem('timer')) : 180) || 180;
 
-const savedNumbers = JSON.parse(localStorage.getItem('savedNumbers')) || [];
 
-var lottery_id = JSON.parse(localStorage.getItem('lottery_id')) || 0;
 
 let isPaymentPage = @json(\Route::current()->getName() == 'payment');
 
@@ -52,7 +76,7 @@ if (savedNumbers.length > 0 && lottery_id !== 0) {
             const compressedData = compressData(savedNumbers, lottery_id);
             if (!sendDataExecuted) {
                 try {
-                    await sendData();
+                    sendData();
                     worker.postMessage({ type: 'sendData', data: compressedData });
                     sendDataExecuted = true;
                 } catch (error) {
