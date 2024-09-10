@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\DayRateController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -43,6 +44,8 @@ Route::group(['middleware' => ['auth']], function() {
     
     Route::get('dayrate/index', [DayRateController::class, 'index'])->name('dayrate.index');
     Route::post('dayrate/store', [DayRateController::class, 'store'])->name('dayrate.store');
+    // Route::get('banner/index', [BannerController::class, 'index'])->name('banner.index');
+    // Route::post('banner/store', [BannerController::class, 'store'])->name('banner.store');
     Route::post('lotteries/voucher/accept', [LotteryController::class, 'lotteries_voucher_accept'])->name('lotteries.voucher.accept');
     Route::post('lotteries/voucher/reject', [LotteryController::class, 'lotteries_voucher_reject'])->name('lotteries.voucher.reject');
     Route::post('lotteries/select/winner', [LotteryController::class, 'lotteries_select_winner'])->name('lotteries.select.winner');

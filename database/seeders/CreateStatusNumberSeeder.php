@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\NumberRange;
 use App\Models\StatusLottery;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -23,6 +24,9 @@ class CreateStatusNumberSeeder extends Seeder
         }
         foreach (['PENDIENTE', 'PAGADO', 'RECHAZADO'] as $status) {
             StatusVoucher::create(['description' => $status]);
+        }
+        foreach ([100, 1000, 10000] as $range) {
+            NumberRange::create(['range' => $range]);
         }
     }
 }

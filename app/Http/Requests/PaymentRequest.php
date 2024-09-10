@@ -26,13 +26,12 @@ class PaymentRequest extends FormRequest
             'day_rate_id' => 'required',
             'name' => 'required',
             'surname' => 'required',
-            'document' => 'required',
+            'document' => 'required|numeric|digits_between:6,9',
             'phone' => 'required',
-            'bank_code' => 'required',
             'amount' => 'required',
-            'document' => 'required',
+            // 'document' => 'required',
             'payment_type' => 'required',
-            'reference_number' => 'required',
+            'reference_number' => 'required|numeric|digits:6',
             'status_voucher_id' => 'required',
             'numbers' => 'required',
             'capture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -42,7 +41,11 @@ class PaymentRequest extends FormRequest
     public function messages(): array
     {
         return [
-            '*.required' => 'Campo requerido'
+            '*.required' => 'Campo requerido',
+            'reference_number.digits' => 'Mínimo 6 números',
+            'phone.digits' => 'Mínimo 11 números',
+            'document.numeric' => 'Debe ser numerico',
+            'document.digits_between' => 'Mínimo 6 a 9 números ',
         ];
     }
 }

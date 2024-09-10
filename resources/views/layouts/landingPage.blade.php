@@ -38,10 +38,6 @@
             <i class="ph-light ph-clock-countdown text-center"></i>
         </div>
         <div id="countdown" class=""></div>
-        <div class="text-center" style="display: none" id="countdown-redirect">
-            <a href="#" onclick="redirect()" style="color: var(--n); font-size: 24px"><i class="ph-bold ph-arrow-right text-center"></i></a>
-            {{-- Ir a pagar --}}
-        </div>
     </div>
 
     <!-- ==== Footer section ==== -->

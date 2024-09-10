@@ -54,6 +54,13 @@
             background-color: green;
             color: white;
         }
-
+        [data-kt-app-layout=dark-sidebar] .app-sidebar .menu .menu-item .menu-link.active {
+            transition: color .2s ease;
+            background-color: #00A261;
+            color: var(--bs-primary-inverse);
+        }
+        .btn-check:active+[data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle .svg-icon, .btn-check:active+[data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle i, .btn-check:checked+[data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle .svg-icon, .btn-check:checked+[data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle i, .show>[data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle .svg-icon, .show>[data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle i, [data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle.active .svg-icon, [data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle.active i, [data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle.show .svg-icon, [data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle.show i, [data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle:active:not(.btn-active) .svg-icon, [data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle:active:not(.btn-active) i, [data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle:focus:not(.btn-active) .svg-icon, [data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle:focus:not(.btn-active) i, [data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle:hover:not(.btn-active) .svg-icon, [data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle:hover:not(.btn-active) i {
+            color: #00A261;
+        }
     </style>
 </head>

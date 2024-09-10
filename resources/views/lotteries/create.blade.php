@@ -75,9 +75,11 @@
                 <div class="form-group">
                     <strong>Cantidad de números:</strong>
                     <select name="qty_numbers" class="form-control" placeholder="Tipo de pago" id="qty_numbers">
-                        <option value="100">100</option>
-                        <option value="1000">1000</option>
-                        <option value="10000">10000</option>
+                        @foreach ($ranges as $item)
+                            
+                        <option value="{{ $item->range }}">{{ $item->range }}</option>
+                        @endforeach
+                        
                     </select>
                     <span class="invalid-feedback" id="starNumber-error"></span>
                         

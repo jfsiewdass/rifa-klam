@@ -1,4 +1,5 @@
 <footer  class="footer-section3 n5-bg position-relative cus-z1 overflow-hidden">
+    
     {{-- <img src="assets/images/global/v3star.png" alt="star" class="v3-star"> --}}
     {{-- <div class="call-sun">
         <img src="assets/images/global/call-sunv3.png" alt="call-sun">
@@ -62,9 +63,9 @@
                                 Politicas de privacidad
                             </a>
                         </li> --}}
-                        <li>
-                            <a href="https://wa.me/+584123962387" class="n4-clr hover-act4 d-flex align-items-center" target="_blank"><i class="ph ph-whatsapp-logo fs-five"></i> Contactanos</a>
-                        </li>
+                        {{-- <li>
+                            <a href="https://wa.me/+584143007221" class="n4-clr hover-act4 d-flex align-items-center" target="_blank"><i class="ph ph-whatsapp-logo fs-five"></i> Contactanos</a>
+                        </li> --}}
                     </ul>
                 </div>
             </div>
@@ -88,3 +89,7 @@
         </div>
     </div>
 </footer>
+
+<a href="https://wa.me/584120936698" class="whatsapp" target="_blank" style="text-decoration: none;"> 
+    <img src="{{ asset('assets/images/whatsapp.png') }}" style="width: 60px">
+</a>

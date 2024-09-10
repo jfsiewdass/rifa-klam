@@ -2,8 +2,10 @@
     
 namespace App\Http\Controllers;
 
+use App\Mail\ConfirmedPurchaseMail;
 use App\Models\Lottery;
 use App\Models\LotteryNumber;
+use App\Models\NumberRange;
 use App\Models\Voucher;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -11,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class LotteryController extends Controller
@@ -54,7 +57,8 @@ class LotteryController extends Controller
     public function create(): View
     {
         $images = [];
-        return view('lotteries.create', compact('images'));
+        $ranges = NumberRange::get();
+        return view('lotteries.create', compact('images', 'ranges'));
     }
     
     /**
@@ -225,28 +229,35 @@ class LotteryController extends Controller
     }
 
     public function lotteries_voucher_accept(Request $request) {
-        try {
-            DB::beginTransaction();
+        // try {
+        //     DB::beginTransaction();
             $type = 'success';
             $response = 'Comprobante aceptado con exito';
 
             $voucher = Voucher::find($request->voucherId);
+            // dd($voucher);
+            Mail::to('israel.sdass@gmail.com')
+                ->send(
+                    new ConfirmedPurchaseMail($voucher)
+                );
+        //     if($voucher->status_voucher_id != 1) {
+        //         $type = 'error';
+        //         $response = 'El comprobante ya esta actualizado';
+        //     } 
 
-            if($voucher->status_voucher_id != 1) {
-                $type = 'error';
-                $response = 'El comprobante ya esta actualizado';
-            } 
+        //     $voucher->update([
+        //         'status_voucher_id' => 2, 
+        //         'user_id' =>Auth::id()
+        //     ]);
 
-            $voucher->update(['status_voucher_id' => 2]);
-
-            LotteryNumber::where('voucher_id', $request->voucherId)->update(['status_number_id' => 3]);
-
-            DB::commit();
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            $type = 'error';
-            $response = 'El comprobante no se actualizó, por favor intente mas tarde';
-        }
+        //     LotteryNumber::where('voucher_id', $request->voucherId)->update(['status_number_id' => 3]);
+            
+        //     DB::commit();
+        // } catch (\Throwable $th) {
+        //     DB::rollBack();
+        //     $type = 'error';
+        //     $response = 'El comprobante no se actualizó, por favor intente mas tarde';
+        // }
         return redirect()->route('lotteries.show', $voucher->lottery_id)->with($type, $response);
     }
     public function lotteries_voucher_reject(Request $request) {
@@ -262,7 +273,10 @@ class LotteryController extends Controller
                 $response ='El comprobante ya esta actualizado';
             } 
 
-            $voucher->update(['status_voucher_id' => 3]);
+            $voucher->update([
+                'status_voucher_id' => 3, 
+                'user_id' =>Auth::id()
+            ]);
 
             LotteryNumber::where('voucher_id', $request->voucherId)->update(['status_number_id' => 4]);
 
@@ -285,7 +299,8 @@ class LotteryController extends Controller
                 if ($existWinnerNumber) {
                     $existWinnerNumber->update(['is_winner' => true]);
                     //dd($existWinnerNumber);
-                    Voucher::find($existWinnerNumber->voucher_id)->update(['is_winner' => true]);
+                    Voucher::find($existWinnerNumber->voucher_id)
+                        ->update(['is_winner' => true, 'user_id' =>Auth::id()]);
                     $response = 'Se obtuvo un ganador';
                 } else {
                     $response = 'No hubo un ganador';

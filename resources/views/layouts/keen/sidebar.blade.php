@@ -113,8 +113,7 @@
                                         </a>
                                         <!--end:Menu link-->
                                     </div>
-                                     <!--begin:Menu item-->
-                                     <div class="menu-item">
+                                    <div class="menu-item">
                                         <!--begin:Menu link-->
                                         <a class="menu-link " href="{{ route('home') }}">
                                             <span class="menu-icon">
@@ -124,6 +123,17 @@
                                         </a>
                                         <!--end:Menu link-->
                                     </div>
+                                     <!--begin:Menu item-->
+                                    {{-- <div class="menu-item">
+                                        <!--begin:Menu link-->
+                                        <a class="menu-link {{ \Route::current()->getName() == 'banner.index' ? 'active' : '' }}" href="{{ route('banner.index') }}">
+                                            <span class="menu-icon">
+                                                <i class="fa-solid fa-image"></i>
+                                            </span>
+                                            <span class="menu-title">Banner</span>
+                                        </a>
+                                        <!--end:Menu link-->
+                                    </div> --}}
                                     <!--end:Menu item-->
                                     <!--begin:Menu item-->
                                     <div class="menu-item">

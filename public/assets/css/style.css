@@ -2309,10 +2309,10 @@ iframe {
   line-height: 2;
 }
 .cmn-s1-slide:hover {
-  background: var(--act4);
+  /* background: var(--act4); */
 }
 .cmn-s1-slide:hover i {
-  color: var(--n0) !important;
+  color: black !important;
 }
 @media (max-width: 1399px) {
   .cmn-s1-slide i {
@@ -8377,10 +8377,10 @@ iframe {
 }
 @media (max-width: 1399px) {
   .contest-details-carslidewrap button {
-    background: var(--act4);
+    /* background: var(--act4); */
   }
   .contest-details-carslidewrap button i {
-    color: var(--n0) !important;
+    color: black !important;
   }
 }
 @media (max-width: 767px) {
@@ -10095,4 +10095,21 @@ label {
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   z-index: 9999;
+}
+.whatsapp {
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
+  color: #FFF;
+  text-align: center;
+  z-index: 100;
+}
+
+div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
+  border: 0;
+  border-radius: .25em;
+  background: initial;
+  background-color: rgb(16, 152, 86);
+  color: #fff;
+  font-size: 1em;
 }

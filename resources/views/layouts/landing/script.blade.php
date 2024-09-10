@@ -27,7 +27,53 @@
 <script>
 const savedNumbers = JSON.parse(localStorage.getItem('savedNumbers')) || [];
 let lottery_id = JSON.parse(localStorage.getItem('lottery_id')) || 0;
+const whatsapp = document.querySelector('.whatsapp');
+const currentRoute = '{{ \Route::current()->getName() }}';
 
+function adjustWhatsappPosition() {
+    
+    if (savedNumbers.length > 0 && lottery_id !== 0) {
+        console.log(lottery_id, savedNumbers.length);
+        if (currentRoute == 'payment') whatsapp.style.bottom = '140px';
+        
+        if (savedNumbers.length > 0 && lottery_id !== 0) {
+            const formData = new FormData();
+            formData.append('savedNumbers', JSON.stringify(savedNumbers));
+            formData.append('_token', '{{ csrf_token() }}');
+            formData.append('lottery_id', lottery_id);
+
+            $.ajax({
+                type: "POST",
+                url: '{{ route("numbers.remove") }}',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    if (response.code != 200) {
+                        localStorage.removeItem('numerosSeleccionados');
+                        localStorage.removeItem('savedNumbers');
+                        localStorage.removeItem('lottery_id');
+                        localStorage.removeItem('timer');
+                    }
+                },
+                error: function(error) {
+                    localStorage.removeItem('numerosSeleccionados');
+                    localStorage.removeItem('savedNumbers');
+                    localStorage.removeItem('lottery_id');
+                    localStorage.removeItem('timer');
+                }
+            });
+            
+            // localStorage.removeItem('numerosSeleccionados');
+            // localStorage.removeItem('savedNumbers');
+            // localStorage.removeItem('lottery_id');
+            // localStorage.removeItem('timer');
+        }
+    }
+}
+
+// Llama a la función al cargar la página y cuando se muestre u oculte el contador
+adjustWhatsappPosition();
 function sendBeforeUnloadData() {
     if (savedNumbers.length > 0 && lottery_id !== 0) {
         const formData = new FormData();
@@ -35,18 +81,13 @@ function sendBeforeUnloadData() {
         formData.append('_token', '{{ csrf_token() }}');
         formData.append('lottery_id', lottery_id);
 
-        navigator.sendBeacon('{{ route('numbers.remove') }}', formData);
-        
-        localStorage.removeItem('numerosSeleccionados');
-        localStorage.removeItem('savedNumbers');
-        localStorage.removeItem('lottery_id');
-        localStorage.removeItem('timer');
+        navigator.sendBeacon('{{ route("numbers.remove") }}', formData);
     }
 }
 
 // Agregar el evento antes de que el usuario pueda interactuar con la página
 document.addEventListener('DOMContentLoaded', () => {
-    window.addEventListener('beforeunload', sendBeforeUnloadData);
+   window.addEventListener('beforeunload', sendBeforeUnloadData);
 });
 
 const worker = new Worker("{{ asset('assets/js/worker.js') }}");
@@ -55,16 +96,14 @@ const worker = new Worker("{{ asset('assets/js/worker.js') }}");
 var countdown = (localStorage.getItem('timer') != "undefined" ? JSON.parse(localStorage.getItem('timer')) : 180) || 180;
 
 
-
-let isPaymentPage = @json(\Route::current()->getName() == 'payment');
-
-if(!isPaymentPage)$('#countdown-redirect').show();
-
 let sendDataExecuted = false;
 
 worker.postMessage({ type: 'start', initialCountdown: countdown });
 if (savedNumbers.length > 0 && lottery_id !== 0) {
-    $('#countdown-body').show();
+    if (currentRoute == 'payment') {
+        
+        $('#countdown-body').show();
+    }
     worker.onmessage = async (event) => {
         
         localStorage.setItem('timer', JSON.stringify(event.data.timeRemaining))
@@ -124,13 +163,6 @@ const sendData = async () => {
     })
 }
 
-function redirect() {
-    var baseUrl = "{{ url('/payment') }}";
-    var id = JSON.parse(localStorage.getItem('lottery_id')) || 0;
-    if (id != 0) {
-        window.location.href = `${baseUrl}/${id}`;
-    }
-}
 function compressData(data, lotteryId) {
     return { savedNumbers: JSON.stringify(data.map(s => ({ id: s.id, number: s.number }))), lotteryId };
 }

@@ -30,18 +30,23 @@ return new class extends Migration
             $table->string('name');
             $table->string('surname');
             $table->string('phone');
-            $table->integer('bank_code');
             $table->double('amount');
             $table->string('document');
             $table->string('payment_type');
             $table->string('reference_number');
             $table->string('capture');
             $table->unsignedBigInteger('status_voucher_id')->default(1);
+            $table->unsignedBigInteger('bank_id')->default(1);
             $table->boolean('is_winner')->default(false);
-            
-            $table->foreign('lottery_id')->references('id')->on('lotteries')
+            $table->unsignedBigInteger('user_id')->default(1);
+
+            $table->foreign('bank_id')->references('id')->on('banks')
+            ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
 
+            $table->foreign('lottery_id')->references('id')->on('lotteries')
+                ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('day_rate_id')->references('id')->on('day_rates')
                 ->onUpdate('cascade')->onDelete('cascade');
 
@@ -74,7 +79,11 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        
+        Schema::create('number_ranges', function (Blueprint $table) {
+            $table->id();
+            $table->integer('range');
+            $table->timestamps();
+        });
     }
 
     /**

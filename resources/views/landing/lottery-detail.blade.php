@@ -145,7 +145,7 @@
                                 class="btn btn-success cmn-btn radius12 w-100 fw_600 justify-content-center d-inline-flex align-items-center gap-2 py-xxl-4 py-3 px-xl-6 px-5 n0-clr mt-1"
                                 id="btnNext">
                                 <span class="fw_600 n0-clr">
-                                    Siguiente
+                                    Pagar
                                 </span>
                             </button>
                         </div>
@@ -199,6 +199,48 @@
             </div>
         </div>
     </section>
+    <div class="modal fade" id="termModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Términos y Condiciones</h5>
+                    {{-- <button type="button" class="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button> --}}
+                </div>
+                <div class="modal-body">
+                    <p>
+                        1.- Los números disponibles para la compra en cada una de nuestros sorteos se especificarán en la página de detalles correspondientes a cada sorteo.
+                    </p>
+
+                    <p>
+                        2.- Solo podrán participar en nuestros sorteos personas naturales mayores de 18 años con nacionalidad venezolana o extranjeros que residan legalmente en Venezuela.
+                    </p>
+
+                    <p>
+                        3.- Los premios deberán ser retirados en persona en la ubicación designada para cada Sorteo. Solo se realizará entregas personales en la dirección indicada por el ganado del primer premio o premio mayor.
+                    </p>
+
+                    <p>
+                        4.- La compra mínima requerida para participar en nuestros sorteos en de dos tickets. Los ticket serán asignado de manera aleatoria y los recibirás a través del correo electrónico proporcionado.
+                    </p>
+
+                    <p>
+                        5.- Para reclamar tu premio tienes un lapso de 72 horas.
+                    </p>
+
+                    <p>
+                        6.- Los ganadores aceptan aparecer en el contenido audio visual de el sorteo mostrando su presencia en las redes y entrega de los premios. Esto es OBLIGATORIO.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-secondary" href="{{ route('home') }}">Cancelar</a>
+                    <button type="button" class="btn btn-success" id="cancelNumbers" data-dismiss="modal" onclick="closeTermModal()">Continuar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
@@ -206,6 +248,11 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js"></script>
     <script>
         $(document).ready(function() {
+            $('#termModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            }).modal('show');
+            
             // countdown()
             let amount = parseInt("{{ $lottery->amount }}");
 
@@ -398,14 +445,10 @@
                 const savedNumbers = JSON.parse(localStorage.getItem('savedNumbers')) || [];
 
                 const numbersRangeSet = new Set(numerosNuevos);
-                formData.append('numbers', JSON.stringify(numerosSeleccionados.filter(f => !numbersRangeSet
-                    .has(f))));
+                formData.append('numbers', JSON.stringify(numerosSeleccionados.filter(f => !numbersRangeSet.has(f))));
                 formData.append('_token', "{{ csrf_token() }}");
                 formData.append('lottery_id', "{{ $lottery->id }}");
-                formData.append('savedNumbers', JSON.stringify(savedNumbers.map((s) => ({
-                    id: s.id,
-                    number: s.number
-                }))));
+                formData.append('savedNumbers', JSON.stringify(savedNumbers.map((s) => ({id: s.id,number: s.number}))));
 
                 $.ajax({
                     type: "POST",
@@ -417,11 +460,13 @@
                         // console.log(response);
 
                         if (response.code == 401) {
-                            Swal.fire(
-                                'Atención',
-                                `${numerosSeleccionados.length == 1 ? 'El número seleccionado se encuentra ocupado' : 'Uno o varios números seleccionados se encuentran ocupados'}, por favor seleccione otro número`,
-                                'error'
-                            );
+                            Swal.fire({
+                                title: 'Atención',
+                                text: `${numerosSeleccionados.length == 1 ? 'El número seleccionado se encuentra ocupado' : 'Uno o varios números seleccionados se encuentran ocupados'}, por favor seleccione otro número`,
+                                icon: 'error',
+                                confirmButtonColor: '#109856' // Cambia '#3085d6' por el color deseado
+                            })
+                           
                         }
 
                         if (response.code == 200) {
@@ -480,6 +525,9 @@
         }
         function closeCancelModal() {
             $("#cancelModal").modal('toggle');
+        }
+        function closeTermModal() {
+            $("#termModal").modal('toggle');
         }
         $('#cancelNumbers').on('click', function() {
             const savedNumbers = JSON.parse(localStorage.getItem('savedNumbers')) || [];

@@ -147,7 +147,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
                     <div class="form-group">
                         <strong>Telefono:</strong>
-                        <input type="text" name="phone" class="form-control" placeholder="Apellido" id="phone">
+                        <input type="text" name="phone" class="form-control" placeholder="Telefono" id="phone">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
@@ -162,12 +162,18 @@
                 <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
                     <div class="form-group">
                         <strong>Banco:</strong>
-                        <input type="text" name="bank_code" class="form-control" placeholder="Banco" id="bank_code">
+                        <select name="bank" class="form-control" id="bank">
+                            <option value="">Seleccione</option>
+                            @foreach ($banks as $bank)
+                                <option value="{{ $bank->id }}">{{ $bank->code . ' - ' .$bank->name }}</option>
+                            @endforeach
+                            
+                        </select>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
                     <div class="form-group">
-                        <strong>Número de referencia:</strong>
+                        <strong>Número de referencia(los ultimos 6 digitos):</strong>
                         <input type="text" name="reference_number" class="form-control" placeholder="Banco" id="reference_number">
                     </div>
                 </div>
@@ -216,21 +222,33 @@
       </div>
 </div>
 </section>
+<div class="countdown-body justify-content-center" style="display: none" id="countdown-body">
+    <div class="text-center">
+        <i class="ph-light ph-clock-countdown text-center"></i>
+    </div>
+    <div id="countdown" class=""></div>
+    
+</div>
 @endsection
 
 @section('scripts')
 <script src="{{ asset('assets/js/plugins/bootstrap.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 <script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\PaymentRequest', '#paymentForm') !!}
+{!! JsValidator::formRequest('App\Http\Requests\PaymentRequest', '#paymentForm') !!}
 <script>
    $(document).ready(function() {
+    $('#phone').mask("(0000) 000-0000");
     const savedNumbers = JSON.parse(localStorage.getItem('savedNumbers')) || [];
     const numerosSeleccionados = JSON.parse(localStorage.getItem('numerosSeleccionados')) || [];
     
     
     if (savedNumbers.length == 0) {
         window.location.href = '{{ route("home") }}';
+    } else {
+        reserveNumbers();
     }
 
 
@@ -241,7 +259,7 @@
     $('#subtotal').text(`Total a pagar ${(parseFloat(dollar.rate) * (numerosSeleccionados.length * amount).toFixed(2))} Bs`);
     
     $('#amount').val(numerosSeleccionados.length * amount * parseInt(dollar.rate));
-    $('#numbers').val(`${JSON.stringify(savedNumbers)}`)
+    $('#numbers').val(`${JSON.stringify(savedNumbers)}`);
     const botones = numerosSeleccionados.map(createButton);
     
     botones.forEach(boton => $('#numeros').append(boton));
@@ -277,6 +295,30 @@
     function closeModal() {
         $("#exampleModal").modal('toggle');
     }
-    
+    function reserveNumbers() {
+        var formData = new FormData();
+        const savedNumbers = JSON.parse(localStorage.getItem('savedNumbers')) || [];
+        // const numerosSeleccionados = JSON.parse(localStorage.getItem('numerosSeleccionados')) || [];
+        formData.append('numbers', JSON.stringify([]));
+        formData.append('_token', "{{ csrf_token() }}");
+        formData.append('lottery_id', "{{ $lottery->id }}");
+        formData.append('reserveAgain', true);
+        formData.append('savedNumbers', JSON.stringify(savedNumbers.map((s) => ({id: s.id,number: s.number}))));
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('numbers.check') }}",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                response.numbers.map(n => savedNumbers.push(n))
+                localStorage.setItem('savedNumbers', JSON.stringify(savedNumbers));
+            },
+            error: function(error) {
+                console.error(error);
+            }
+        });
+    }
 </script>
 @endsection

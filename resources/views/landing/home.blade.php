@@ -32,13 +32,6 @@
                                 </a>
                             </li>
                         </ul>
-                        {{-- <a href="contest.html" class="custom-bigarrow">
-                            <span class="icon">
-                                <svg width="137" height="16" viewBox="0 0 137 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M136.707 8.70712C137.098 8.31659 137.098 7.68343 136.707 7.29291L130.343 0.928944C129.953 0.538419 129.319 0.538419 128.929 0.928943C128.538 1.31947 128.538 1.95263 128.929 2.34316L134.586 8.00001L128.929 13.6569C128.538 14.0474 128.538 14.6806 128.929 15.0711C129.319 15.4616 129.953 15.4616 130.343 15.0711L136.707 8.70712ZM-8.74228e-08 9L136 9.00001L136 7.00001L8.74228e-08 7L-8.74228e-08 9Z" fill="white"/>
-                                </svg>
-                            </span>                                    
-                        </a> --}}
                     </div>
                     <div class="custom-display n0-clr mb-6" data-aos="zoom-in-up" data-aos-duration="1000">
                         Puedes ser tu el
@@ -46,65 +39,26 @@
                             <span class="wins nw1-clr d-flex align-items-center gap-6" data-aos="zoom-in-down" data-aos-duration="2000">
                                 proximo 
                                 <span class="wins p1-clr">
-                                    ganador?
+                                ganador?
                                     <svg viewBox="0 0 355 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M0.92099 12.8063C56.8373 3.14121 205.75 -10.0362 354.071 14.5747" stroke="#AEFE3A"/>
                                     </svg>                                            
                                 </span>
                             </span>
-                            {{-- <div class="thumb">
-                                <img src="assets/images/global/play-text.png" alt="img" class="radius100">
-                                <a href="https://www.youtube.com/watch?v=668nUCeBHyY" class="bn-vid popup-video">
-                                    <i class="ti ti-player-play-filled n4-clr fs-six"></i>
-                                </a>
-                            </div> --}}
                         </div>
                     </div>
                     <p class="nw2-clr bn-pra mb-xxl-10 mb-sm-8 mb-6" data-aos="zoom-out-up" data-aos-duration="1000">
                         Now's your chance to win a car! Check out the prestige cars you can win in our car prize draws. Will you be our next lucky winner?
                     </p>
                     <div class="d-flex align-items-center gap-xl-8 gap-3 flex-wrap mb-xxl-20 pb-xl-20 pb-5">
-                        <a href="contest.html" class="kewta-btn kewta-alt d-inline-flex align-items-center" data-aos="zoom-in-right" data-aos-duration="1000">
+                        <a href="#down-scroll" class="kewta-btn kewta-alt d-inline-flex align-items-center">
                             <span class="kew-text s1-bg n4-clr act3-bg">
                                 Participa ahora
                             </span>
-                            <div class="kew-arrow act3-bg">
-                                <div class="kt-one">
-                                    <i class="ti ti-arrow-right n4-clr"></i>                                
-                                </div>
-                                <div class="kt-two">
-                                    <i class="ti ti-arrow-right n4-clr"></i>                               
-                                </div>
-                            </div>
-                        </a>
-                        <a href="howtoplay.html" class="how-cont nw1-clr fw_700" data-aos="zoom-in-left" data-aos-duration="800">
-                            como funciona
                         </a>
                     </div>
-                    {{-- <div class="bn1-odometer d-flex align-items-center gap-xxl-11 gap-xl-8 gap-lg-6 gap-5">
-                        <div class="odometer__items" data-aos="zoom-in-down" data-aos-duration="1000">
-                            <div class="cont d-flex align-items-center">
-                                <span class="odometer display-four nw1-clr fw_800">
-                                1750
-                                </span>
-                                <span class="plus__icon display-four nw1-clr fw_800">
-                                +
-                                </span>
-                            </div>
-                            <p>Verified Users</p>
-                        </div>
-                        <div class="odometer__items" data-aos="zoom-in-up" data-aos-duration="1000">
-                            <div class="cont d-flex align-items-center">
-                                <span class="odometer display-four nw1-clr fw_800">
-                                    15
-                                </span>
-                            </div>
-                            <p>Years on the market</p>
-                        </div>
-                    </div> --}}
                 </div>
             </div>
-            
         </div>
     </div>
     <!--Banner Content -->
@@ -368,7 +322,12 @@
             localStorage.removeItem('savedNumbers');
             localStorage.removeItem('lottery_id');
             localStorage.removeItem('timmer');
-            Swal.fire('Excelente', 'Compra exitosa', 'success')
+            Swal.fire({
+                title: 'Excelente',
+                text: 'Gracias por su compra',
+                icon: 'success',
+                confirmButtonColor: '#109856' // Cambia '#3085d6' por el color deseado
+            })
         </script>
     @endif
 @endsection

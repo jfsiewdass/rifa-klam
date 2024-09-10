@@ -19,7 +19,7 @@
 
         <!--begin::Mobile logo-->
         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
-            <a href="https://preview.keenthemes.com/keen/demo1/index.html" class="d-lg-none">
+            <a href="{{ route('lotteries.index') }}" class="d-lg-none">
                 {{-- <img alt="Logo" src="./Keen_files/default-small.svg" class="theme-light-show h-30px">
                 <img alt="Logo" src="./Keen_files/default-small-dark.svg" class="theme-dark-show h-30px"> --}}
                 {{-- <img class="h-40px d-none d-sm-block" src="{{ asset('assets/images/logo-with-name.png') }}" alt="logo"> --}}

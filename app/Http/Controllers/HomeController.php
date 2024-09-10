@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bank;
+use App\Models\Banner;
 use App\Models\DayRate;
 use App\Models\Lottery;
 use App\Models\LotteryNumber;
@@ -37,8 +39,8 @@ class HomeController extends Controller
             $lottery->images = $images;
             return $lottery;
         });
-        
-        return view('landing.home', compact('lotteries'));
+        $banner = Banner::get()->first();
+        return view('landing.home', compact('lotteries', 'banner'));
     }
 
     public function detail($id)
@@ -52,8 +54,9 @@ class HomeController extends Controller
         $rate = DayRate::get()->last();
 
         $getNumbers = LotteryNumber::where('lottery_id', $lottery->id)->whereIn('status_number_id', [1, 2, 3])->select('number')->get()->toArray();
+        //dd($getNumbers);
         $occupiedNumbers = array_column($getNumbers, 'number');
-        // dd($occupiedNumbers);
+        //dd($occupiedNumbers);
         $range = array_values($this->generateAndSubtractNumbers($lottery->number_range, $occupiedNumbers));
 
         // dd($range);
@@ -67,18 +70,19 @@ class HomeController extends Controller
            return redirect()->route('home');
         }
         $rate = DayRate::get()->last();
+        $banks = Bank::get();
         $lottery->images = $images = Storage::disk('public')->allFiles('images/' . $lottery->id);
         //dd($range);
-        return view('landing.lottery-payment', compact('id', 'lottery', 'rate'));
+        return view('landing.lottery-payment', compact('id', 'lottery', 'rate', 'banks'));
     }
 
     public function store(Request $request) {
         
+        //dd($request->all());
         $lottery = Lottery::find($request->lottery_id);
         if ($lottery == null) {
-           return redirect()->route('home');
+            return redirect()->route('home');
         }
-        // dd($request->all());
         try {
             DB::beginTransaction();
             $voucher = Voucher::create([
@@ -90,7 +94,7 @@ class HomeController extends Controller
                 'document' => $request->document,
                 'phone'=>$request->phone,
                 'payment_type'=>$request->payment_type,
-                'bank_code'=>$request->bank_code,
+                'bank_id'=>$request->bank,
                 'reference_number'=>$request->reference_number,
                 'bank_code'=>$request->bank_code,
                 'capture' => $this->saveImage('captures/' . $request->lottery_id . '/' . $request->document, $request->file('capture')),
@@ -99,14 +103,21 @@ class HomeController extends Controller
             //Storage::disk('public')->put('captures/' . $request->lottery_id . '/' . $request->document, $request->file('capture'));
             
             $numbers = json_decode($request->numbers);
-            //dd($numbers);
+            // dd($numbers);
             foreach ($numbers as $number) {
                 $lotteryNumber = LotteryNumber::find($number->id);
+                if ($lotteryNumber) $lotteryNumber->delete();
+                
+                $lotteryNumber = new LotteryNumber();
+                $lotteryNumber->number = $number->number;
+                $lotteryNumber->lottery_id = $request->lottery_id;
+                
                 $lotteryNumber->voucher_id = $voucher->id;
                 $lotteryNumber->status_number_id = 2;
                 $lotteryNumber->save();
                 //dd($number->id);
             }
+            // dd($lotteryNumber, $voucher);
             DB::commit();
         } catch (\Throwable $th) {
             dd($th);
@@ -120,28 +131,35 @@ class HomeController extends Controller
         //dd($request->savedNumbers);
         try {
             DB::beginTransaction();
+            $savedNumbers = json_decode($request->savedNumbers);
+            // dd($savedNumbers);
             $numbers = [];
             $allNumbers = json_decode($request->numbers);
-            $savedNumbers = json_decode($request->savedNumbers);
             $toSave = [];
-            //dd(array_column($savedNumbers, 'number'), $allNumbers);
-            if (count($savedNumbers) > 0) {
-                
-                foreach ($allNumbers as $n) {
-                    //dd(!in_array($n, array_column($savedNumbers, 'number')));
-                    if (!in_array($n, array_column($savedNumbers, 'number'))) {
-                        $toSave[] = $n;
-                    }
+
+            if ($request->reserveAgain) {
+                foreach ($savedNumbers as $value) {
+                    LotteryNumber::create(['number' => $value->number, 'lottery_id' => $request->lottery_id]);
                 }
             } else {
-                $toSave = $allNumbers;
+
+                
+                if (count($savedNumbers) > 0) {
+                    
+                    foreach ($allNumbers as $n) {
+                        if (!in_array($n, array_column($savedNumbers, 'number'))) {
+                            $toSave[] = $n;
+                        }
+                    }
+                } else {
+                    $toSave = $allNumbers;
+                }
+                foreach ($toSave as $value) {
+                    $number = LotteryNumber::create(['number' => $value, 'lottery_id' => $request->lottery_id]);
+                    $numbers[] = $number;
+                }
             }
-            //dd($toSave);
-            foreach ($toSave as $value) {
-                //dd($value);
-                $number = LotteryNumber::create(['number' => $value, 'lottery_id' => $request->lottery_id]);
-                $numbers[] = $number;
-            }
+
             $response = ['code' => 200, 'message' => 'Números reservados', 'numbers' => $numbers];
              DB::commit();
             return response()->json($response);
@@ -184,10 +202,15 @@ class HomeController extends Controller
         $savedNumbers = json_decode($request->savedNumbers);
         try {
             foreach ($savedNumbers as $number) {
-                LotteryNumber::find($number->id)->delete();
+                // dd($number->number);
+                LotteryNumber::where('number', $number->number)->where('status_number_id', 1)->first()->delete();
             }
+            $response = ['code' => 200, 'message' => 'Números eliminados'];
+            return response()->json($response);
         } catch (\Throwable $th) {
             //throw $th;
+            $response = ['code' => 401, 'message' => 'Número(s) eliminados', 'error' => $th->getMessage()];
+            return response()->json($response);
         }
     }
 
