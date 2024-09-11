@@ -9,6 +9,7 @@ use App\Models\Lottery;
 use App\Models\LotteryNumber;
 use App\Models\Voucher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -45,6 +46,7 @@ class HomeController extends Controller
 
     public function detail($id)
     {
+        $id = Crypt::decryptString($id);
         $lottery = Lottery::find($id);
         if ($lottery == null || $lottery->status_lottery_id == 2) {
            return redirect()->route('home');
@@ -65,6 +67,7 @@ class HomeController extends Controller
 
     public function payment($id)
     {
+        $id = Crypt::decryptString($id);
         $lottery = Lottery::find($id);
         if ($lottery == null || $lottery->status_lottery_id == 2) {
            return redirect()->route('home');

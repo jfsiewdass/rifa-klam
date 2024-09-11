@@ -43,7 +43,7 @@
                                 </a>
                             </li>
                             <li class="menu-item itembg__1 position-relative">
-                                <a href="contact.html" class="fw_500 {{ \Route::current()->getName() == 'actual' ? 'active' : '' }}">
+                                <a href="{{ \Route::current()->getName() != 'home' ? route('home').'#down-scroll' : '#down-scroll' }}" class="fw_500 {{ \Route::current()->getName() == 'actual' ? 'active' : '' }}">
                                     Rifas actuales
                                 </a>
                             </li>
@@ -52,11 +52,11 @@
                                     Ganadores
                                 </a>
                             </li>
-                            <li class="menu-item itembg__1 position-relative">
+                            {{-- <li class="menu-item itembg__1 position-relative">
                                 <a href="contact.html" class="fw_500 {{ \Route::current()->getName() == 'contact' ? 'active' : '' }}">
                                     Contacto
                                 </a>
-                            </li>
+                            </li> --}}
                             @guest
                             @else
                             <li class="menu-item itembg__1 position-relative">

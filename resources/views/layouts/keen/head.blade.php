@@ -1,6 +1,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Keen - Multi-demo Bootstrap 5 HTML Admin Dashboard Template by KeenThemes</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Bootstrap Market trusted by over 4,000 beginners and professionals. Multi-demo, Dark Mode, RTL support. Grab your copy now and get life-time updates for free.">
@@ -13,7 +13,7 @@
     <meta property="og:url" content="https://keenthemes.com/keen">
     <meta property="og:site_name" content="Keen by Keenthemes">
     <link rel="canonical" href="https://preview.keenthemes.com/keen/demo1/index.html">
-    <link rel="shortcut icon" href="https://preview.keenthemes.com/keen/demo1/assets/media/logos/favicon.ico">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}" type="image/x-icon">
 
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="/Keen_files/css">
@@ -37,8 +37,8 @@
     <link href="{{ asset('assets/fontawesome/css/solid.css') }}" rel="stylesheet" />
     <style>
         .numero {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             background-color: #fff;
             border: 1px solid #ccc;
@@ -61,6 +61,15 @@
         }
         .btn-check:active+[data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle .svg-icon, .btn-check:active+[data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle i, .btn-check:checked+[data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle .svg-icon, .btn-check:checked+[data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle i, .show>[data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle .svg-icon, .show>[data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle i, [data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle.active .svg-icon, [data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle.active i, [data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle.show .svg-icon, [data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle.show i, [data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle:active:not(.btn-active) .svg-icon, [data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle:active:not(.btn-active) i, [data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle:focus:not(.btn-active) .svg-icon, [data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle:focus:not(.btn-active) i, [data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle:hover:not(.btn-active) .svg-icon, [data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-toggle:hover:not(.btn-active) i {
             color: #00A261;
+        }
+        .scrolltop {
+            background-color: #00A261;
+        }
+        .scrolltop:hover {
+            background-color: #00A261;
+        }
+        .active>.page-link, .page-link.active {
+            background-color: #00A261;
         }
     </style>
 </head>

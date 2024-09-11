@@ -480,7 +480,7 @@
                             localStorage.setItem('savedNumbers', JSON.stringify(savedNumbers));
                             localStorage.setItem('lottery_id', JSON.stringify(
                                 '{{ $id }}'));
-                            window.location.href = '{{ route('payment', $id) }}';
+                            window.location.href = "{{ route('payment', Crypt::encryptString($lottery->id)) }}";
 
                         }
                         closeModal()

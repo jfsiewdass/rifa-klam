@@ -292,7 +292,7 @@
                                                 <span class="pr">${{ number_format($lottery->amount, 2, ',', '.') }}</span> <span class="fs-six text-uppercase">POR NÚMERO</span>
                                             </h3>
                                             @if ($lottery->status_lottery_id == 1)
-                                            <a href="{{ route('detail', $lottery->id) }}" class="cmn-40 radius-circle btn btn-success">
+                                            <a href="{{ route('detail', Crypt::encryptString($lottery->id)) }}" class="cmn-40 radius-circle btn btn-success">
                                                 <span>
                                                     <i class="ph-bold ph-arrow-up-right n0-clr lh"></i>
                                                 </span>

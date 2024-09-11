@@ -80,11 +80,11 @@
                         @csrf
                         @method('DELETE')
                         
-                        @can('lottery-delete')
+                        {{-- @can('lottery-delete')
                             <button type="submit" class="btn btn-danger btn-sm mt-1" title="Inhabilitar la rifa">
                                 <i class="fa-solid fa-ban"></i>
                             </button>
-                        @endcan
+                        @endcan --}}
                     @endif
                 </form>
             </td>

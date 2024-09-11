@@ -83,7 +83,7 @@
         </div>
         <div class="contact">
             <p>{{ $voucher->name.' '.$voucher->surname.' CI:'.$voucher->document }}</p>
-            <p>N° de compra: {{ $voucher->id }}</p>
+            <p>N° de compra: {{ $voucher->unique_id }}</p>
         </div>
     </div>
 </body>

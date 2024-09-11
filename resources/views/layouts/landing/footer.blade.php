@@ -6,7 +6,7 @@
     </div> --}}
 
     <!--Text Animation -->
-    <div class="banner-textanimation2">
+    {{-- <div class="banner-textanimation2">
         <div class="textcircle2">
             <div class="text2">
                 <p>
@@ -19,7 +19,7 @@
                 <i class="ph-bold ph-arrow-up-right"></i>
             </span>
         </a>
-    </div>
+    </div> --}}
     <!--Text Animation -->
 
   
@@ -28,13 +28,9 @@
         <div class="container">
             <div class="row g-xl-10 g-lg-10 g-4 align-items-center justify-content-lg-between justify-content-center">
                 <div class="col-xl-4 col-lg-4">
-                    {{-- <div class="section__title text-lg-start text-center">
-                        <div class="subtitle-head" data-aos="zoom-in-down" data-aos-duration="1200">
-                            <h2 class="n4-clr fw_700">
-                                Subscribe Now Our Newsletter
-                            </h2>
-                        </div>
-                    </div> --}}
+                    <div class="section__title text-lg-start text-center">
+                        <img src="{{  asset('assets/images/ChanceEnLinea.png') }}" alt="" style="width: 150px">
+                    </div>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-8">
                     {{-- <form action="#" class="news-form d-flex align-items-center">
@@ -54,13 +50,13 @@
                 <div class="col-xl-4 col-lg-4">
                     <ul class="pri-link d-flex align-items-center justify-content-lg-end justify-content-center gap-xxl-6 gap-sm-6 gap-3">
                         <li>
-                            <a href="#0" class="n4-clr hover-act4">
+                            <a href="#" class="n4-clr hover-act4" onclick="termsAndCondition()">
                                 Términos y condiciones
                             </a>
                         </li>
                         {{-- <li>
                             <a href="#0" class="n4-clr hover-act4">
-                                Politicas de privacidad
+                                <img src="{{  asset('assets/images/ChanceEnLinea.png') }}" alt="" style="width: 150px">
                             </a>
                         </li> --}}
                         {{-- <li>
@@ -89,7 +85,48 @@
         </div>
     </div>
 </footer>
+<div class="modal fade" id="termModalFooter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Términos y Condiciones</h5>
+                    {{-- <button type="button" class="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button> --}}
+                </div>
+                <div class="modal-body">
+                    <p>
+                        1.- Los números disponibles para la compra en cada una de nuestros sorteos se especificarán en la página de detalles correspondientes a cada sorteo.
+                    </p>
 
+                    <p>
+                        2.- Solo podrán participar en nuestros sorteos personas naturales mayores de 18 años con nacionalidad venezolana o extranjeros que residan legalmente en Venezuela.
+                    </p>
+
+                    <p>
+                        3.- Los premios deberán ser retirados en persona en la ubicación designada para cada Sorteo. Solo se realizará entregas personales en la dirección indicada por el ganado del primer premio o premio mayor.
+                    </p>
+
+                    <p>
+                        4.- La compra mínima requerida para participar en nuestros sorteos en de dos tickets. Los ticket serán asignado de manera aleatoria y los recibirás a través del correo electrónico proporcionado.
+                    </p>
+
+                    <p>
+                        5.- Para reclamar tu premio tienes un lapso de 72 horas.
+                    </p>
+
+                    <p>
+                        6.- Los ganadores aceptan aparecer en el contenido audio visual de el sorteo mostrando su presencia en las redes y entrega de los premios. Esto es OBLIGATORIO.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closetermsAndCondition()">Cerrar</a>
+                    {{-- <button type="button" class="btn btn-success" id="cancelNumbers" data-dismiss="modal" onclick="closeTermModal()">Continuar</button> --}}
+                </div>
+            </div>
+        </div>
+    </div>
 <a href="https://wa.me/584120936698" class="whatsapp" target="_blank" style="text-decoration: none;"> 
     <img src="{{ asset('assets/images/whatsapp.png') }}" style="width: 60px">
 </a>

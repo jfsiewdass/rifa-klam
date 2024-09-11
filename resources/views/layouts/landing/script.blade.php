@@ -22,9 +22,31 @@
 {{-- <script s{rc="{ asset('assets/js/plugins/matter-custom.js"></') }}script> --}}
 <!-- ==== js Mian start ==== -->
 <script src="{{ asset('assets/js/main.js') }}"></script>
-
+@php $key = env('APP_NAME'); @endphp
 
 <script>
+    const CryptoJS = require('crypto-js');
+
+    const key = '{{ $key }}';
+    function encrypt(data, key) {
+        const iv = CryptoJS.lib.WordArray.random(16); // Vector de inicialización aleatorio
+        const encrypted = CryptoJS.AES.encrypt(data, key, { iv });
+        const ciphertext = encrypted.toString();
+        return { ciphertext, iv };
+    }
+
+    // Función para descifrar datos
+    function decrypt(ciphertext, key, iv) {
+        const decrypted = CryptoJS.AES.decrypt(ciphertext, key, { iv });
+        const originalData = decrypted.toString(CryptoJS.enc.Utf8);
+        return originalData;
+    }
+    function termsAndCondition() {
+        $('#termModalFooter').modal('show');
+    }
+    function closetermsAndCondition() {
+        $("#termModalFooter").modal('toggle');
+    }
 const savedNumbers = JSON.parse(localStorage.getItem('savedNumbers')) || [];
 let lottery_id = JSON.parse(localStorage.getItem('lottery_id')) || 0;
 const whatsapp = document.querySelector('.whatsapp');

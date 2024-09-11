@@ -11,7 +11,7 @@
     <!-- ==== #Title ==== -->
     <title>{{ config('app.name', 'Laravel') }}</title>
     <!-- ==== #Favicon ==== -->
-    <link rel="shortcut icon" href="assets/images/logo/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}" type="image/x-icon">
 
 
     <!-- ==== Tabler Icon ==== -->
