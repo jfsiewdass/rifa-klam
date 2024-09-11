@@ -76,7 +76,7 @@
             @endforeach
         </div>
         <div class="total">
-            <p>Total Pagado ${{ $voucher->amount }}</p>
+            <p>Total Pagado {{ number_format($voucher->amount, 2, ',', '.') }} <strong>Bs.</strong> </p>
         </div>
         <div class="header" class="background-color: #041d5b">
             <h3>!Guarda este comprobante y te contactaremos el día del sorteo si eres uno de los afortunados¡</h3>

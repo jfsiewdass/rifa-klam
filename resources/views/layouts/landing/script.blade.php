@@ -36,7 +36,7 @@ function adjustWhatsappPosition() {
         console.log(lottery_id, savedNumbers.length);
         if (currentRoute == 'payment') whatsapp.style.bottom = '140px';
         
-        if (savedNumbers.length > 0 && lottery_id !== 0) {
+        if (savedNumbers.length > 0 && lottery_id !== 0 && currentRoute != 'payment') {
             const formData = new FormData();
             formData.append('savedNumbers', JSON.stringify(savedNumbers));
             formData.append('_token', '{{ csrf_token() }}');

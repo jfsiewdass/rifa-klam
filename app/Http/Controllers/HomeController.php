@@ -92,6 +92,7 @@ class HomeController extends Controller
                 'name'=>$request->name,
                 'surname'=>$request->surname,
                 'document' => $request->document,
+                'email' => $request->email,
                 'phone'=>$request->phone,
                 'payment_type'=>$request->payment_type,
                 'bank_id'=>$request->bank,
@@ -120,8 +121,8 @@ class HomeController extends Controller
             // dd($lotteryNumber, $voucher);
             DB::commit();
         } catch (\Throwable $th) {
-            dd($th);
             DB::rollBack();
+            dd($th);
         }
 
         return redirect()->route('home')->with('success', 'Compra exitosa');

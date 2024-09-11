@@ -152,6 +152,12 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
                     <div class="form-group">
+                        <strong>Correo electrónico:</strong>
+                        <input type="text" name="email" class="form-control" placeholder="Correo electrónico" id="email">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
+                    <div class="form-group">
                         <strong>Tipo de pago:</strong>
                         <select name="payment_type" class="form-control" placeholder="Tipo de pago" id="payment_type">
                             <option value="1">TRANSFERENCIA</option>
@@ -312,11 +318,13 @@
             contentType: false,
             processData: false,
             success: function(response) {
-                response.numbers.map(n => savedNumbers.push(n))
-                localStorage.setItem('savedNumbers', JSON.stringify(savedNumbers));
+                if (response.code == 200) {
+                    response.numbers.map(n => savedNumbers.push(n))
+                    localStorage.setItem('savedNumbers', JSON.stringify(savedNumbers));
+                }
             },
             error: function(error) {
-                console.error(error);
+                // console.error(error);
             }
         });
     }

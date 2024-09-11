@@ -28,6 +28,7 @@ class PaymentRequest extends FormRequest
             'surname' => 'required',
             'document' => 'required|numeric|digits_between:6,9',
             'phone' => 'required',
+            'email' => 'required|email',
             'amount' => 'required',
             // 'document' => 'required',
             'payment_type' => 'required',
@@ -46,6 +47,7 @@ class PaymentRequest extends FormRequest
             'phone.digits' => 'Mínimo 11 números',
             'document.numeric' => 'Debe ser numerico',
             'document.digits_between' => 'Mínimo 6 a 9 números ',
+            'email.email' => 'Debe ser un correo válido',
         ];
     }
 }

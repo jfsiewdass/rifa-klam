@@ -229,35 +229,35 @@ class LotteryController extends Controller
     }
 
     public function lotteries_voucher_accept(Request $request) {
-        // try {
-        //     DB::beginTransaction();
+        try {
+            DB::beginTransaction();
             $type = 'success';
             $response = 'Comprobante aceptado con exito';
 
             $voucher = Voucher::find($request->voucherId);
             // dd($voucher);
-            Mail::to('israel.sdass@gmail.com')
+            Mail::to($voucher->email)
                 ->send(
                     new ConfirmedPurchaseMail($voucher)
                 );
-        //     if($voucher->status_voucher_id != 1) {
-        //         $type = 'error';
-        //         $response = 'El comprobante ya esta actualizado';
-        //     } 
+            if($voucher->status_voucher_id != 1) {
+                $type = 'error';
+                $response = 'El comprobante ya esta actualizado';
+            } 
 
-        //     $voucher->update([
-        //         'status_voucher_id' => 2, 
-        //         'user_id' =>Auth::id()
-        //     ]);
+            $voucher->update([
+                'status_voucher_id' => 2, 
+                'user_id' =>Auth::id()
+            ]);
 
-        //     LotteryNumber::where('voucher_id', $request->voucherId)->update(['status_number_id' => 3]);
+            LotteryNumber::where('voucher_id', $request->voucherId)->update(['status_number_id' => 3]);
             
-        //     DB::commit();
-        // } catch (\Throwable $th) {
-        //     DB::rollBack();
-        //     $type = 'error';
-        //     $response = 'El comprobante no se actualizó, por favor intente mas tarde';
-        // }
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            $type = 'error';
+            $response = 'El comprobante no se actualizó, por favor intente mas tarde';
+        }
         return redirect()->route('lotteries.show', $voucher->lottery_id)->with($type, $response);
     }
     public function lotteries_voucher_reject(Request $request) {

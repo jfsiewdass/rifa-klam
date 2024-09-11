@@ -29,6 +29,7 @@ return new class extends Migration
             $table->unsignedBigInteger('day_rate_id');
             $table->string('name');
             $table->string('surname');
+            $table->string('email');
             $table->string('phone');
             $table->double('amount');
             $table->string('document');
