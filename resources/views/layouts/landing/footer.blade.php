@@ -29,7 +29,7 @@
             <div class="row g-xl-10 g-lg-10 g-4 align-items-center justify-content-lg-between justify-content-center">
                 <div class="col-xl-4 col-lg-4">
                     <div class="section__title text-lg-start text-center">
-                        <img src="{{  asset('assets/images/ChanceEnLinea.png') }}" alt="" style="width: 150px">
+                        <img src="{{  asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/images/ChanceEnLinea.png') }}" alt="" style="width: 150px">
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-8">
@@ -56,7 +56,7 @@
                         </li>
                         {{-- <li>
                             <a href="#0" class="n4-clr hover-act4">
-                                <img src="{{  asset('assets/images/ChanceEnLinea.png') }}" alt="" style="width: 150px">
+                                <img src="{{  asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/images/ChanceEnLinea.png') }}" alt="" style="width: 150px">
                             </a>
                         </li> --}}
                         {{-- <li>
@@ -128,5 +128,5 @@
         </div>
     </div>
 <a href="https://wa.me/584120936698" class="whatsapp" target="_blank" style="text-decoration: none;"> 
-    <img src="{{ asset('assets/images/whatsapp.png') }}" style="width: 60px">
+    <img src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/images/whatsapp.png') }}" style="width: 60px">
 </a>

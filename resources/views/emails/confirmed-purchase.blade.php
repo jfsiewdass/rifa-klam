@@ -63,7 +63,7 @@
             <br>
             <h1>!Gracias por comprar con Rifas KLAM¡</h1>
             {{-- <h1>{{ $name }}</h1> --}}
-            <img src="{{ asset('assets/images/logo-with-name.png') }}" style="width: 90%;">
+            <img src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/images/logo-with-name.png') }}" style="width: 90%;">
         </div>
         <div class="content">
              {{-- {{ dd($voucher->name) }} --}}
@@ -71,7 +71,7 @@
                 <div style="text-align: center;position: relative;">
 
                     <span class="number">{{ $item->number }}</span>
-                    <img src="{{ asset('assets/images/ticket-icon.png') }}" alt="Descripción de la imagen" style="width: 50%;">
+                    <img src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/images/ticket-icon.png') }}" alt="Descripción de la imagen" style="width: 50%;">
                 </div>
             @endforeach
         </div>

@@ -95,7 +95,7 @@
             @foreach ($lottery->images as $key => $image)
                 <div class="col-lg-3 mt-3" id="imageContainer_{{ $key }}">
                     <div class="position-relative">
-                        <img src="{{ asset('storage/'.$image) }}" alt="" class="img-thumbnail">
+                        <img src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'storage/'.$image) }}" alt="" class="img-thumbnail">
                         <button type="button" class="btn btn-default btn-sm position-absolute top-0 end-0 delete-image" data-image="{{ $image }}" data-key="{{ $key }}">
                             <i class="fas fa-trash" style="color: red"></i>
                         </button>
@@ -132,7 +132,7 @@
 <p class="text-center text-primary"><small></small></p>
 @endsection
 @section('scripts')
-<script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+<script type="text/javascript" src="{{ url((env('APP_ENV') === 'production' ? 'public/' : '') .'vendor/jsvalidation/js/jsvalidation.js') }}"></script>
     {!! JsValidator::formRequest('App\Http\Requests\Lottery\UpdateLotteryRequest', '#lottery-form') !!}
 {{-- <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script> --}}
 <script type="text/javascript">

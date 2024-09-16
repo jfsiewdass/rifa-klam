@@ -71,6 +71,6 @@
 <p class="text-center text-primary"><small></small></p>
 @endsection
 @section('scripts')
-<script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+<script type="text/javascript" src="{{ url((env('APP_ENV') === 'production' ? 'public/' : '') .'vendor/jsvalidation/js/jsvalidation.js') }}"></script>
 {!! JsValidator::formRequest('App\Http\Requests\User\CreateUserRequest', '#user-form') !!}
 @endsection

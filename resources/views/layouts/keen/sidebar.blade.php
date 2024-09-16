@@ -7,9 +7,9 @@
                     <!--begin::Logo-->
                     <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
                         <!--begin::Logo image-->
-                        <a href="https://preview.keenthemes.com/keen/demo1/index.html">
+                        <a href="{{ route('lotteries.index') }}">
                             {{-- <img alt="Logo" src="./Keen_files/default-dark.svg" class="h-30px app-sidebar-logo-default"> --}}
-                            <img class="h-50px app-sidebar-logo-default" src="{{ asset('assets/images/logo-with-name.png') }}" alt="logo">
+                            <img class="h-50px app-sidebar-logo-default" src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/images/logo-with-name.png') }}" alt="logo">
                         </a>
                         <!--end::Logo image-->
 
@@ -103,7 +103,7 @@
                                         </div><!--end:Menu sub-->
                                     </div><!--end:Menu item--> --}}
                                     <!--begin:Menu item-->
-                                    <div class="menu-item">
+                                    {{-- <div class="menu-item">
                                         <!--begin:Menu link-->
                                         <a class="menu-link " href="#">
                                             <span class="menu-icon">
@@ -112,7 +112,7 @@
                                             <span class="menu-title">Dashboard</span>
                                         </a>
                                         <!--end:Menu link-->
-                                    </div>
+                                    </div> --}}
                                     <div class="menu-item">
                                         <!--begin:Menu link-->
                                         <a class="menu-link " href="{{ route('home') }}">

@@ -25,7 +25,7 @@ class CreateLotteryRequest extends FormRequest
         return [
             'name' => 'required|min:3',
             'detail' => 'required|min:3',
-            'amount' => 'required',
+            'amount' => 'required|numeric',
             'qty_numbers' => 'required',
             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];

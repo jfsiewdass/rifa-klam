@@ -12,6 +12,7 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -167,7 +168,8 @@ class LotteryController extends Controller
             $lottery->update($inputs);
             if ($request->deletedImages != '' && $request->deletedImages != null) {
                 foreach (json_decode($request->deletedImages, true) as $image) {
-                    Storage::delete('public/' . $image);
+                    // Storage::delete('public/' . $image);
+                    File::delete(public_path('storage/'.$image));
                 }
             }
             
@@ -255,6 +257,7 @@ class LotteryController extends Controller
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
+            Log::error('LotteryController.lotteries_voucher_accept -> '.$th->getMessage());
             $type = 'error';
             $response = 'El comprobante no se actualizó, por favor intente mas tarde';
         }

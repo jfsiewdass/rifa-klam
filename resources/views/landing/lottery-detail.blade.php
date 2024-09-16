@@ -28,10 +28,10 @@
             </div>
         </div>
         <!--Banner Shape Images-->
-        <img src="{{ asset('assets/images/global/ball-shape19-1.png') }}" alt="img"
+        <img src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/images/global/ball-shape19-1.png') }}" alt="img"
             class="ball-shape-breadcrumb aos-init aos-animate" data-aos="zoom-in-right" data-aos-duration="2200">
-        <img src="{{ asset('assets/images/global/ball-breadcrumbs.png') }}" alt="img" class="ball-circle-breadcrumb">
-        <img src="{{ asset('assets/images/global/shape-breadcrum-right.png') }}" alt="img"
+        <img src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/images/global/ball-breadcrumbs.png') }}" alt="img" class="ball-circle-breadcrumb">
+        <img src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/images/global/shape-breadcrum-right.png') }}" alt="img"
             class="shape-breadcrumbright">
         <!--Banner Shape Images-->
     </div>
@@ -244,7 +244,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('assets/js/plugins/bootstrap.js') }}"></script>
+    <script src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/js/plugins/bootstrap.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js"></script>
     <script>
         $(document).ready(function() {

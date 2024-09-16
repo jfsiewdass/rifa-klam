@@ -13,10 +13,10 @@
     <meta property="og:url" content="https://keenthemes.com/keen">
     <meta property="og:site_name" content="Keen by Keenthemes">
     <link rel="canonical" href="https://preview.keenthemes.com/keen/demo1/index.html">
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/images/logo.png') }}" type="image/x-icon">
 
     <!--begin::Fonts(mandatory for all pages)-->
-    <link rel="stylesheet" href="/Keen_files/css">
+    {{-- <link rel="stylesheet" href="/Keen_files/css"> --}}
     <!--end::Fonts-->
 
     <!--begin::Vendor Stylesheets(used for this page only)-->
@@ -26,15 +26,15 @@
 
 
     <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
-    <link href="/Keen_files/plugins.bundle.css" rel="stylesheet" type="text/css">
-    <link href="/Keen_files/style.bundle.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'Keen_files/plugins.bundle.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'Keen_files/style.bundle.css') }}" rel="stylesheet" type="text/css">
     <!--end::Global Stylesheets Bundle-->
     {{-- <link href="/Keen_files/apexcharts.css" rel="stylesheet" type="text/css"> --}}
     <!--begin::Google tag-->
     <!-- our project just needs Font Awesome Solid + Brands -->
-    <link href="{{ asset('assets/fontawesome/css/fontawesome.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/fontawesome/css/brands.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/fontawesome/css/solid.css') }}" rel="stylesheet" />
+    <link href="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/fontawesome/css/fontawesome.css') }}" rel="stylesheet" />
+    <link href="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/fontawesome/css/brands.css') }}" rel="stylesheet" />
+    <link href="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/fontawesome/css/solid.css') }}" rel="stylesheet" />
     <style>
         .numero {
             width: 50px;

@@ -4,8 +4,8 @@
             <!-- <div class="main-navbar-black"></div> -->
             <nav class="navbar-custom">
                 <div class="d-flex align-items-center justify-content-between">
-                    <a href="index.html" class="nav-brand d-xl-none">
-                        <img class="w-100" src="{{ asset('assets/images/logo-with-name.png') }}" alt="logo">
+                    <a href="/" class="nav-brand d-xl-none">
+                        <img class="w-100" src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/images/logo-with-name.png') }}" alt="logo">
                     </a>
                     <div class="d-flex gap-6">
                         <button class="navbar-toggle-btn d-block d-xl-none" type="button">
@@ -18,8 +18,8 @@
                 </div>
                 <div class="navbar-toggle-item">
                     <div class="d-flex gap-5 flex-column flex-lg-row align-items-start align-items-xl-center justify-content-between mt-2 mt-xl-0">
-                        <a href="index.html" class="nav-brand d-none d-xl-block">
-                            <img class="w-100" src="{{ asset('assets/images/logo-with-name.png') }}" alt="logo">
+                        <a href="/" class="nav-brand d-none d-xl-block">
+                            <img class="w-100" src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/images/logo-with-name.png') }}" alt="logo">
                         </a>
                         <ul class="custom-nav d-xl-flex d-grid gap-4 gap-xl-5 gap-xxl-10">
                            

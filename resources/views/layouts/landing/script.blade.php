@@ -1,46 +1,46 @@
-<script src="{{ asset('assets/js/plugins/jquery.js') }}"></script>
+<script src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/js/plugins/jquery.js') }}"></script>
 <!-- ==== js Viewport js start ==== -->
-<script src="{{ asset('assets/js/plugins/viewpot.js') }}"></script>
+<script src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/js/plugins/viewpot.js') }}"></script>
 <!-- ==== js Aos Animation start ==== -->
-<script src="{{ asset('assets/js/plugins/aos.js') }}"></script>
+<script src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/js/plugins/aos.js') }}"></script>
 <!-- ==== js Bootstrap start ==== -->
-<script src="{{ asset('assets/js/plugins/bootstrap.js') }}"></script>
+<script src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/js/plugins/bootstrap.js') }}"></script>
 <!-- ==== js Magnific start ==== -->
-<script src="{{ asset('assets/js/plugins/magnific-popup.js') }}"></script>
+<script src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/js/plugins/magnific-popup.js') }}"></script>
 <!-- ==== js Swiper start ==== -->
-<script src="{{ asset('assets/js/plugins/swiper.js') }}"></script>
+<script src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/js/plugins/swiper.js') }}"></script>
 <!-- ==== js Odometer start ==== -->
-<script src="{{ asset('assets/js/plugins/odometer.js') }}"></script>
+<script src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/js/plugins/odometer.js') }}"></script>
 <!-- ==== js Nice Select start ==== -->
-{{-- <script src="{{ asset('assets/js/plugins/jquery.nice-select.min.js') }}"></script> --}}
-<script src="{{ asset('assets/fontawesome/js/all.min.js') }}"></script>
+{{-- <script src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/js/plugins/jquery.nice-select.min.js') }}"></script> --}}
+<script src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/fontawesome/js/all.min.js') }}"></script>
 <!-- ==== js Phosphor Icon start ==== -->
 <script src="{{ asset('https://unpkg.com/@phosphor-icons/web') }}"></script>
 <!-- ==== js Matter Js start ==== -->
 <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.18.0/matter.min.js') }}"></script>
 <!-- ==== js Matter Js Custom start ==== -->
-{{-- <script s{rc="{ asset('assets/js/plugins/matter-custom.js"></') }}script> --}}
+{{-- <script s{rc="{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/js/plugins/matter-custom.js"></') }}script> --}}
 <!-- ==== js Mian start ==== -->
-<script src="{{ asset('assets/js/main.js') }}"></script>
+<script src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/js/main.js') }}"></script>
 @php $key = env('APP_NAME'); @endphp
 
 <script>
-    const CryptoJS = require('crypto-js');
+    // const CryptoJS = require('crypto-js');
 
-    const key = '{{ $key }}';
-    function encrypt(data, key) {
-        const iv = CryptoJS.lib.WordArray.random(16); // Vector de inicialización aleatorio
-        const encrypted = CryptoJS.AES.encrypt(data, key, { iv });
-        const ciphertext = encrypted.toString();
-        return { ciphertext, iv };
-    }
+    // const key = '{{ $key }}';
+    // function encrypt(data, key) {
+    //     const iv = CryptoJS.lib.WordArray.random(16); // Vector de inicialización aleatorio
+    //     const encrypted = CryptoJS.AES.encrypt(data, key, { iv });
+    //     const ciphertext = encrypted.toString();
+    //     return { ciphertext, iv };
+    // }
 
-    // Función para descifrar datos
-    function decrypt(ciphertext, key, iv) {
-        const decrypted = CryptoJS.AES.decrypt(ciphertext, key, { iv });
-        const originalData = decrypted.toString(CryptoJS.enc.Utf8);
-        return originalData;
-    }
+    // // Función para descifrar datos
+    // function decrypt(ciphertext, key, iv) {
+    //     const decrypted = CryptoJS.AES.decrypt(ciphertext, key, { iv });
+    //     const originalData = decrypted.toString(CryptoJS.enc.Utf8);
+    //     return originalData;
+    // }
     function termsAndCondition() {
         $('#termModalFooter').modal('show');
     }
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
    window.addEventListener('beforeunload', sendBeforeUnloadData);
 });
 
-const worker = new Worker("{{ asset('assets/js/worker.js') }}");
+const worker = new Worker("{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/js/worker.js') }}");
 
 // Enviar el valor inicial del contador al worker
 var countdown = (localStorage.getItem('timer') != "undefined" ? JSON.parse(localStorage.getItem('timer')) : 180) || 180;
