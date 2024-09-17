@@ -281,8 +281,13 @@ class LotteryController extends Controller
                 'user_id' =>Auth::id()
             ]);
 
-            LotteryNumber::where('voucher_id', $request->voucherId)->update(['status_number_id' => 4]);
-
+            $numbers = LotteryNumber::where('voucher_id', $request->voucherId);
+            $voucher->update([
+                'status_voucher_id' => 3, 
+                'user_id' => Auth::id(),
+                'reject_numbers' => json_encode($numbers->pluck('number')->toArray())
+            ]);
+            $numbers->delete();
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();

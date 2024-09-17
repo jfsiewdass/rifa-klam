@@ -97,11 +97,18 @@
 
                         <div class="{{ count($number->lotteryNumbers()->get()) > 6 ? 'movil-width' : '' }}">
                             @foreach ($number->lotteryNumbers()->get() as $item)
-                                <button class="numero {{ $item->number == $lottery->winner ? 'seleccionado' : '' }}">
+                                <button class="numero">
                                     {{ $item->number }}
                                 </button>
                             @endforeach
                         </div>
+                        @if ($number->reject_numbers)
+                        @foreach (json_decode($number->reject_numbers, true) as $item)
+                            <button class="numero">
+                                {{ $item }}
+                            </button>
+                        @endforeach
+                        @endif
                     </td>
                     <td>{{ $number->reference_number }}</td>
                     <td>{{ number_format($number->amount, 2, ',', '.') }} <strong>Bs.</strong></td>

@@ -37,8 +37,8 @@
     <link href="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/fontawesome/css/solid.css') }}" rel="stylesheet" />
     <style>
         .numero {
-            width: 50px;
-            height: 50px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             background-color: #fff;
             border: 1px solid #ccc;

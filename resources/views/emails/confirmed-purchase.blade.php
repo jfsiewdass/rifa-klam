@@ -88,7 +88,7 @@
                             <table cellpadding="0" cellspacing="0" border="0" width="100%">
                                 <tr>
                                     <td>
-                                        <h1 style="color: white">¡Gracias por comprar con Rifas KLAM!</h1>
+                                        <h1 style="color: white;text-align:center">¡Gracias por comprar con Rifas KLAM!</h1>
                                     </td>
                                 </tr>
                                 <tr>
@@ -118,14 +118,14 @@
                                                     <td align="center">
                                                         <table cellpadding="0" cellspacing="0" border="0" width="100%">
                                                             <tr>
-                                                                <td>
-                                                                    <div style="text-align: center; position: relative;">
-                                                                        <img src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') . 'assets/images/ticket-icon.png') }}" alt="Billete de lotería" style="max-width: 100%; height: auto; display: inline-block;">
-                                                                        <span class="number" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 32px; color: white; padding: 5px 10px; border-radius: 5px; z-index: 1;">{{ $item->number }}</span>
+                                                                <td style="text-align: center; padding: 10px;margin:40px;">
+                                                                    <div style="padding: 150px 250px;display: inline-block; background-image: url('{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') . 'assets/images/ticket-icon.png') }}'); background-repeat: no-repeat; background-position: center; background-size: cover;">
+                                                                        <span class="number" style="font-size: 32px; color: white; padding: 5px 10px; border-radius: 5px;">{{ $item->number }}</span>
                                                                     </div>
                                                                 </td>
                                                             </tr>
                                                         </table>
+                                                        
                                                     </td>
                                                 </tr>
                                             </table>
