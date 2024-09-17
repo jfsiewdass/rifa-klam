@@ -9,6 +9,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LotteryController;
 use App\Models\DayRate;
+use App\Models\Voucher;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,7 @@ use App\Models\DayRate;
 Route::get('/admin', function () {
     if(Auth::guest())
         return redirect()->route('login');
-    return view('welcome');
+    return view('confirmed-purchase');
 });
   
 Auth::routes();
@@ -36,6 +37,10 @@ Route::get('/winners', [HomeController::class, 'winners'])->name('winners');
 Route::post('/payment/store', [HomeController::class, 'store'])->name('payment.store');
 Route::post('/numbers/check', [HomeController::class, 'numbers_check'])->name('numbers.check');
 Route::post('/numbers/remove', [HomeController::class, 'numbers_remove'])->name('numbers.remove');
+Route::get('/confirmed-purchase', function () {
+    $voucher = Voucher::find(1);
+    return view('emails.confirmed-purchase', compact('voucher'));
+})->name('confirmed.purchase');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);

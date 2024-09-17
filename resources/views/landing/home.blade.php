@@ -194,7 +194,7 @@
                         @forelse ($lotteries as $lottery)
                             @php
                                 $total = $lottery->number_range;
-                                $numbers = $lottery->lotteryNumbers()->where('status_number_id', '<>', '1')->count();
+                                $numbers = $lottery->lotteryNumbers()->where('status_number_id', '<>', '1')->where('status_number_id', '<>', '4')->count();
                                 $percent = $numbers * 100 / $total;
                             @endphp
                             <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-duration="1000">

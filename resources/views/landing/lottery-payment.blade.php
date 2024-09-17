@@ -258,7 +258,7 @@
     }
 
 
-    let amount = parseInt("{{ $lottery->amount }}");
+    let amount = parseFloat("{{ $lottery->amount }}");
 
     let dollar = @json($rate);
 

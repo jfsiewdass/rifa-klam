@@ -1,90 +1,188 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
+
 <head>
-    <meta charset="utf-8">
-    <title>Asunto del correo</title>
-    <style>
-        /* Aquí puedes agregar tus estilos CSS para personalizar el correo */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprobante de Rifa KLAM</title>
+    <style type="text/css">
         body {
             font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            /* padding: 20px; */
-            width: 100%;
-        }
-        .container {
+            line-height: 1.6;
+            color: #333;
             margin: 0 auto;
+        }
+
+        .container {
             background-color: #0F1014;
-            width: 100%;
-            /* padding: 20px; */
-            color: white;
-        }
-        .header {
-            text-align: center;
-            background-color: #15171C;
-            /* padding: 20px; */
-            width: 100%;
-        }
-        .image {
-            text-align: center;
-            padding: 50px;
-        }
-        .content {
-            
-            width: 100%;
-            margin-top: 30px;
-            text-align: center;
-            position: relative;
-        }
-        .contact {
-            text-align: center;
-            width: 100%;
             padding: 20px;
-            /* background-color: #C0C0C0; */
         }
+
+        .header {
+            background-color: #0F1014;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .content {
+            background-color: #0F1014;
+            padding: 20px;
+        }
+
+        .footer {
+            background-color: #0F1014;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
         .number {
             font-size: 32px;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .total,
+        .contact {
+            margin: 0 auto;
+            text-align: center;
+            color: #C0C0C0;
+        }
+
+        .ticket-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .ticket-container span.number {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            /* background-color: rgba(0, 0, 0, 0.5); */
+            font-size: 32px;
             color: white;
             padding: 5px 10px;
             border-radius: 5px;
-        }
-        .total {
-            text-align: center;
+            z-index: 1;
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <br>
-            <h1>!Gracias por comprar con Rifas KLAM¡</h1>
-            {{-- <h1>{{ $name }}</h1> --}}
-            <img src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/images/logo-with-name.png') }}" style="width: 90%;">
-        </div>
-        <div class="content">
-             {{-- {{ dd($voucher->name) }} --}}
-            @foreach ($voucher->lotteryNumbers()->get() as $item)
-                <div style="text-align: center;position: relative;">
 
-                    <span class="number">{{ $item->number }}</span>
-                    <img src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/images/ticket-icon.png') }}" alt="Descripción de la imagen" style="width: 50%;">
-                </div>
-            @endforeach
-        </div>
-        <div class="total">
-            <p>Total Pagado {{ number_format($voucher->amount, 2, ',', '.') }} <strong>Bs.</strong> </p>
-        </div>
-        <div class="header" class="background-color: #041d5b">
-            <h3>!Guarda este comprobante y te contactaremos el día del sorteo si eres uno de los afortunados¡</h3>
-        </div>
-        <div class="contact">
-            <p>{{ $voucher->name.' '.$voucher->surname.' CI:'.$voucher->document }}</p>
-            <p>N° de compra: {{ $voucher->unique_id }}</p>
-        </div>
-    </div>
+<body>
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#0F1014">
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" border="0" width="600">
+                    <tr>
+                        <td>
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <tr>
+                                    <td>
+                                        <h1 style="color: white">¡Gracias por comprar con Rifas KLAM!</h1>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') . 'assets/images/logo-with-name.png') }}"
+                                            alt="Logo de Rifas KLAM" style="width: 90%;margin: 0 auto">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td>
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <tr>
+                                    <td>
+                                        <div class="content">
+                                            @foreach ($voucher->lotteryNumbers()->get() as $item)
+                                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                                <tr>
+                                                    <td align="center">
+                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                                            <tr>
+                                                                <td>
+                                                                    <div style="text-align: center; position: relative;">
+                                                                        <img src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') . 'assets/images/ticket-icon.png') }}" alt="Billete de lotería" style="max-width: 100%; height: auto; display: inline-block;">
+                                                                        <span class="number" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 32px; color: white; padding: 5px 10px; border-radius: 5px; z-index: 1;">{{ $item->number }}</span>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            
+                                            @endforeach
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td>
+                            <div class="total">
+                                <p>Total Pagado {{ number_format($voucher->amount, 2, ',', '.') }} <strong>Bs.</strong>
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td>
+                            <div class="header">
+                                <h3>¡Guarda este comprobante y te contactaremos el día del sorteo si eres uno de los
+                                    afortunados!</h3>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td>
+                            <div class="contact">
+                                <p>{{ $voucher->name . ' ' . $voucher->surname . ' CI:' . $voucher->document }}</p>
+                                <p>N° de compra: {{ $voucher->unique_id }}</p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
+
 </html>

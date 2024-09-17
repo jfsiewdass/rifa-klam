@@ -92,7 +92,7 @@
             <h1 class="text-center my-10 mb-15">{{ $lottery->name }}</h1>
             @php
                 $total = $lottery->number_range;
-                $numbers = $lottery->lotteryNumbers()->where('status_number_id', '<>', '1')->count();
+                $numbers = $lottery->lotteryNumbers()->where('status_number_id', '<>', '1')->where('status_number_id', '<>', '4')->count();
                 $percent = ($numbers * 100) / $total;
             @endphp
 
@@ -254,7 +254,9 @@
             }).modal('show');
             
             // countdown()
-            let amount = parseInt("{{ $lottery->amount }}");
+            let amount = parseFloat("{{ $lottery->amount }}");
+            console.log(amount, 'amount');
+            
 
             let dollar = @json($rate);
 
@@ -330,6 +332,8 @@
                         if (numerosSeleccionados.length > 0) {
                             $('#btnNext').prop('disabled', false)
                             $('#btnCancel').prop('disabled', false)
+                            console.log(parseFloat(dollar.rate, amount));
+                            
                             $('#quantity').html(
                                 `Números seleccionados ${numerosSeleccionados.length} total a pagar ${(parseFloat(dollar.rate) * (numerosSeleccionados.length * amount))?.toFixed(2)} Bs.`
                                 )
