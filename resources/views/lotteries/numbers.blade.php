@@ -152,11 +152,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Captura de pantalla</h4>
-                    <button type="button" class="close" data-dismiss="modal"
+                    <button type="button" class="close btn btn-default" data-dismiss="modal"
                         onclick="closeModal('#imagePopup')">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <img id="largeImage" src="" alt="Imagen grande">
+                    <img id="largeImage" src="" alt="Imagen grande" style="width: 100%;height:100%">
                 </div>
             </div>
         </div>
@@ -167,7 +167,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Desea aprobar el comprobante</h4>
-                    <button type="button" class="close" data-dismiss="modal"
+                    <button type="button" class="close btn btn-default" data-dismiss="modal"
                         onclick="closeModal('#acceptModal')">&times;</button>
                 </div>
                 <div class="modal-footer">
@@ -192,7 +192,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Desea rechazar el comprobante</h4>
-                    <button type="button" class="close" data-dismiss="modal"
+                    <button type="button" class="close btn btn-default" data-dismiss="modal"
                         onclick="closeModal('#rejectModal')">&times;</button>
                 </div>
                 <form action="{{ route('lotteries.voucher.reject') }}" method="POST">

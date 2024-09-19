@@ -205,13 +205,15 @@
                                                 # {{ $lottery->unique_id }}
                                             </span>
                                         </span>
-                                        {{-- <span class="cmn-40 n0-bg radius-circle n0-hover">
-                                            <i class="ph ph-bold ph-shopping-cart n4-clr fs-six"></i>
-                                        </span> --}}
+                                        @if ($lottery->status_lottery_id == 2)
+                                            <div class="image-with-number">
+                                                <img src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/images/winner.png') }}" alt="img" style="width: 200px">
+                                                <span class="winner-number">{{ $lottery->winner }}</span>
+                                            </div>
+                                        @endif
                                     </div>
                                     <div class="thumb cus-z1 position-relative px-3 mb-xxl-10 mb-xl-8 mb-lg-6 mb-4">
-                                        {{-- <img src="assets/images/lottery/lc1.png" alt="img"> --}}
-                                        <img src="{{ Storage::url($lottery->images[0]) }}" alt="img">
+                                        <img src="{{ Storage::url($lottery->images[0]) }}" alt="img" >
                                     </div>
                                     <div class="content-middle">
                                         <div class="cmn-prrice-range px-xxl-6 px-xl-5 px-lg-4 px-3 d-flex align-items-center gap-2">
@@ -292,9 +294,9 @@
                                                 <span class="pr">${{ number_format($lottery->amount, 2, ',', '.') }}</span> <span class="fs-six text-uppercase">POR NÚMERO</span>
                                             </h3>
                                             @if ($lottery->status_lottery_id == 1)
-                                            <a href="{{ route('detail', Crypt::encryptString($lottery->id)) }}" class="cmn-40 radius-circle btn btn-success">
+                                            <a href="{{ route('detail', Crypt::encryptString($lottery->id)) }}" class="cmn-40 radius-circle btn btn-danger">
                                                 <span>
-                                                    <i class="ph-bold ph-arrow-up-right n0-clr lh"></i>
+                                                    <i class="ph-bold ph-shopping-cart n0-clr lh"></i>
                                                 </span>
                                             </a>
                                             @endif

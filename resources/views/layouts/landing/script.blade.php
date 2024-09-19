@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const worker = new Worker("{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/js/worker.js') }}");
 
 // Enviar el valor inicial del contador al worker
-var countdown = (localStorage.getItem('timer') != "undefined" ? JSON.parse(localStorage.getItem('timer')) : 180) || 180;
+var countdown = (localStorage.getItem('timer') != "undefined" ? JSON.parse(localStorage.getItem('timer')) : 300) || 300;
 
 
 let sendDataExecuted = false;

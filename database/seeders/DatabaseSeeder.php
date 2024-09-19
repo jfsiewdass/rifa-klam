@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CreateStatusNumberSeeder::class);
         $this->call(CreateBankSeeder::class);
         $this->call(CreateBannerSeeder::class);
+        $this->call(PaymentSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

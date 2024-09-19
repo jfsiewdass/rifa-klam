@@ -7,6 +7,7 @@ use App\Models\Banner;
 use App\Models\DayRate;
 use App\Models\Lottery;
 use App\Models\LotteryNumber;
+use App\Models\PaymentType;
 use App\Models\Voucher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -74,9 +75,10 @@ class HomeController extends Controller
         }
         $rate = DayRate::get()->last();
         $banks = Bank::get();
+        $paymentsType = PaymentType::get();
         $lottery->images = $images = Storage::disk('public')->allFiles('images/' . $lottery->id);
         //dd($range);
-        return view('landing.lottery-payment', compact('id', 'lottery', 'rate', 'banks'));
+        return view('landing.lottery-payment', compact('id', 'lottery', 'rate', 'banks', 'paymentsType'));
     }
 
     public function store(Request $request) {

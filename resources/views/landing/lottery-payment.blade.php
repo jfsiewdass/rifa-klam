@@ -112,8 +112,6 @@
                     <h3 class="text-left">Números seleccionados</h3>
                     <div class="text-left" id="numeros"></div>
                 </div>
-                
-          
         </div>
        
         <div class="col-md-6">
@@ -158,15 +156,6 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
                     <div class="form-group">
-                        <strong>Tipo de pago:</strong>
-                        <select name="payment_type" class="form-control" placeholder="Tipo de pago" id="payment_type">
-                            <option value="1">TRANSFERENCIA</option>
-                            <option value="2">PAGO MÓVIL</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
-                    <div class="form-group">
                         <strong>Banco:</strong>
                         <select name="bank" class="form-control" id="bank">
                             <option value="">Seleccione</option>
@@ -175,6 +164,33 @@
                             @endforeach
                             
                         </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
+                    <div class="form-group">
+                        <strong>Tipo de pago:</strong>
+                        
+                        <select name="payment_type" class="form-control" placeholder="Tipo de pago" id="payment_type">
+                            <option value="">Seleccione</option>
+                            @foreach ($paymentsType as $payment)
+                                <option value="{{ $payment->id }}">{{ $payment->type }}</option>
+                            @endforeach
+                        
+                        </select>
+                    </div>
+                    <div class="card m-5" id="card" style="display: none">
+                        <div class="card-body">
+                            <p style="display: none" id="cuentaContent">
+                                <strong>Cuenta: </strong> 
+                                <span id="cuentaPayment"></span>
+                            </p>
+                            <p style="display: none" id="nombreContent"><strong>Nombre: </strong> <span id="nombrePayment"></span></p>
+                            <p style="display: none" id="bancoContent"><strong>Banco: </strong> <span id="bancoPayment"></span></p>
+                            <p style="display: none" id="cedulaContent"><strong>CI: </strong> <span id="cedulaPayment"></span></p>
+                            {{-- <p style="display: none" id="numeroContent"><strong>Número: </strong> <span id="numeroPayment"></span></p> --}}
+                            <p style="display: none" id="telefonoContent"><strong>Teléfono: </strong> <span id="numeroPayment"></span></p>
+                            <p style="display: none" id="correoContent"><strong>Correo: </strong> <span id="correoPayment"></span></p>
+                        </div>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
@@ -190,6 +206,7 @@
                         <img id="preview" src="" alt="Vista previa del capture" style="display: none; height: 200px" class="m-5">
                     </div>
                 </div>
+                
                 <div class="col-xs-12 row row justify-content-center mt-5">
     
                     <div class="col-md-4">
@@ -211,21 +228,19 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">¿Desea continuar?</h5>
+              <h5 class="modal-title" id="exampleModalLabel">¿Elegir metodo de pago?</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
-              <p>Si continúa tendrá 3 minutos para procesar el pago</p>
-            </div>
+            
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()">Cancelar</button>
               <button type="button" class="btn btn-success" id="paymentProcess">Continuar</button>
             </div>
           </div>
         </div>
-      </div>
+    </div>
 </div>
 </section>
 <div class="countdown-body justify-content-center" style="display: none" id="countdown-body">
@@ -245,7 +260,65 @@
 <script type="text/javascript" src="{{ url((env('APP_ENV') === 'production' ? 'public/' : '') .'vendor/jsvalidation/js/jsvalidation.js') }}"></script>
 {!! JsValidator::formRequest('App\Http\Requests\PaymentRequest', '#paymentForm') !!}
 <script>
+    var paymentsType = @json($paymentsType);
    $(document).ready(function() {
+    // $('#btnNext').on('click', function() {
+    //     $('#paymentModal').modal({
+    //         backdrop: 'static',
+    //         keyboard: false
+    //     }).modal('show');
+    // })
+
+    $('#payment_type').on('change', function() {
+        let id = $(this).val();
+        let payment = paymentsType.find(f => f.id == id);
+        console.log(payment);
+        $('#card').css("display", "");
+        hideElement('cedula');
+        hideElement('cuenta');
+        hideElement('nombre');
+        hideElement('banco');
+        hideElement('telefono');
+        hideElement('numero');
+        hideElement('correo');
+        if (payment.account != null) {
+            $('#cuentaPayment').html(payment.account)
+            console.log(payment.account);
+            
+            $('#cuentaContent').css("display", "");
+        }
+
+        if (payment.name != null) {
+            $('#nombrePayment').html(payment.name)
+            $('#nombreContent').css("display", "");
+        }
+
+        if (payment.bank != null) {
+            $('#bancoPayment').html(payment.bank)
+            $('#bancoContent').css("display", "");
+        }
+
+        if (payment.document != null) {
+            $('#cedulaPayment').html(payment.document)
+            $('#cedulaContent').css("display", "");
+        }
+        if (payment.phone != null) {
+            $('#telefonoPayment').html(payment.phone)
+            $('#telefonoContent').css("display", "");
+        }
+
+        if (payment.email != null) {
+            $('#correoPayment').html(payment.email)
+            $('#correoContent').css("display", "");
+        }
+        if (payment.phone != null) {
+            $('#numeroPayment').html(payment.phone)
+            $('#numeroContent').css("display", "");
+        }
+        $('#referencePayment').css("display", "")
+    })
+   
+    
     $('#phone').mask("(0000) 000-0000");
     const savedNumbers = JSON.parse(localStorage.getItem('savedNumbers')) || [];
     const numerosSeleccionados = JSON.parse(localStorage.getItem('numerosSeleccionados')) || [];
@@ -300,6 +373,22 @@
 
     function closeModal() {
         $("#exampleModal").modal('toggle');
+    }
+    function hideElement(element) {
+        $('#'+element+'Content').css("display", "none");
+        $('#'+element+'Payment').val('');
+    }
+    function closePaymentModal() {
+        $('#payment_type').val('')
+        $("#paymentModal").modal('toggle');
+        hideElement('cedula');
+        hideElement('cuenta');
+        hideElement('nombre');
+        hideElement('banco');
+        hideElement('telefono');
+        hideElement('numero');
+        hideElement('correo');
+        $('#card').css("display", "none");
     }
     function reserveNumbers() {
         var formData = new FormData();

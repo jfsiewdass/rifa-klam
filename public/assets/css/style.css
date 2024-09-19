@@ -10113,3 +10113,25 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
   color: #fff;
   font-size: 1em;
 }
+
+.image-with-number {
+  position: relative;
+}
+
+.image-with-number img {
+  width: 100%; /* Ajusta el ancho de la imagen al contenedor */
+  height: auto; /* Mantiene la proporción de la imagen */
+}
+
+.winner-number {
+  
+  position: absolute; /* Posiciona el número de forma absoluta dentro del contenedor */
+  top: 44px;
+  left: 50%;
+  transform: translateX(-50%);
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  color: black;
+  font-weight: bolder;
+  padding: 3px;
+  border-radius: 5px;
+}
