@@ -37,7 +37,7 @@
                     <ul class="pri-link d-flex align-items-center justify-content-lg-center justify-content-center gap-xxl-6 gap-sm-6 gap-3">
                         <li>
                             <a href="https://www.instagram.com/dondeeltongo?igsh=b25uazZsbHphNmEw" class="n4-clr hover-act4" style="font-size: 18px" target="_blank">
-                                <img src="{{  asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/images/Instagram.png') }}" alt="" style="width: 50px">
+                                <img src="{{  asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/images/instagram.png') }}" alt="" style="width: 50px">
                                 {{-- @dondeeltongo --}}
                             </a>
                         </li>
