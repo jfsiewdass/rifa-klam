@@ -165,7 +165,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>Si continúa tendrá 3 minutos para procesar el pago</p>
+                            <p>Si continúa tendrá 5 minutos para procesar el pago</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal"
@@ -203,7 +203,7 @@
     aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header d-flex align-items-center justify-content-center">
                     <h5 class="modal-title" id="exampleModalLabel">Términos y Condiciones</h5>
                     {{-- <button type="button" class="close">
                         <span aria-hidden="true">&times;</span>

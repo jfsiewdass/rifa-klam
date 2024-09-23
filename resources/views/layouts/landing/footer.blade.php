@@ -50,15 +50,17 @@
                 <div class="col-xl-4 col-lg-4">
                     <ul class="pri-link d-flex align-items-center justify-content-lg-end justify-content-center gap-xxl-6 gap-sm-6 gap-3">
                         <li>
+                            <a href="https://www.instagram.com/dondeeltongo?igsh=b25uazZsbHphNmEw" class="n4-clr hover-act4" style="font-size: 18px" target="_blank">
+                                <img src="{{  asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/images/instagram.png') }}" alt="" style="width: 50px">
+                                {{-- @dondeeltongo --}}
+                            </a>
+                        </li>
+                        <li>
                             <a href="#" class="n4-clr hover-act4" onclick="termsAndCondition()">
                                 Términos y condiciones
                             </a>
                         </li>
-                        {{-- <li>
-                            <a href="#0" class="n4-clr hover-act4">
-                                <img src="{{  asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/images/ChanceEnLinea.png') }}" alt="" style="width: 150px">
-                            </a>
-                        </li> --}}
+                        
                         {{-- <li>
                             <a href="https://wa.me/+584143007221" class="n4-clr hover-act4 d-flex align-items-center" target="_blank"><i class="ph ph-whatsapp-logo fs-five"></i> Contactanos</a>
                         </li> --}}
@@ -89,7 +91,7 @@
     aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header d-flex align-items-center justify-content-center">
                     <h5 class="modal-title" id="exampleModalLabel">Términos y Condiciones</h5>
                     {{-- <button type="button" class="close">
                         <span aria-hidden="true">&times;</span>
