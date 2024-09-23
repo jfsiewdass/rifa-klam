@@ -33,6 +33,21 @@
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-8">
+                    <div class="d-flex align-items-center justify-content-lg-center justify-content-center"><h5>Síganos:</h5></div>
+                    <ul class="pri-link d-flex align-items-center justify-content-lg-center justify-content-center gap-xxl-6 gap-sm-6 gap-3">
+                        <li>
+                            <a href="https://www.instagram.com/dondeeltongo?igsh=b25uazZsbHphNmEw" class="n4-clr hover-act4" style="font-size: 18px" target="_blank">
+                                <img src="{{  asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/images/Instagram.png') }}" alt="" style="width: 50px">
+                                {{-- @dondeeltongo --}}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://wa.me/584120936698" target="_blank" class="n4-clr hover-act4" style="font-size: 18px"> 
+                                <img src="{{ asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/images/whatsapp.png') }}" style="width: 60px">
+                            </a>
+                        </li>
+                       
+                    </ul>
                     {{-- <form action="#" class="news-form d-flex align-items-center">
                         <input type="text" placeholder="Enter Your Email Address...">
                         <button type="submit" class="kewta-btn kewta-alt d-inline-flex align-items-center">
@@ -49,12 +64,7 @@
                 </div>
                 <div class="col-xl-4 col-lg-4">
                     <ul class="pri-link d-flex align-items-center justify-content-lg-end justify-content-center gap-xxl-6 gap-sm-6 gap-3">
-                        <li>
-                            <a href="https://www.instagram.com/dondeeltongo?igsh=b25uazZsbHphNmEw" class="n4-clr hover-act4" style="font-size: 18px" target="_blank">
-                                <img src="{{  asset((env('APP_ENV') === 'production' ? 'public/' : '') .'assets/images/instagram.png') }}" alt="" style="width: 50px">
-                                {{-- @dondeeltongo --}}
-                            </a>
-                        </li>
+                        
                         <li>
                             <a href="#" class="n4-clr hover-act4" onclick="termsAndCondition()">
                                 Términos y condiciones
