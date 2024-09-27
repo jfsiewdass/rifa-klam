@@ -10,4 +10,9 @@ class LotteryNumber extends Model
     use HasFactory;
     
     protected $fillable = ['number', 'lottery_id', 'voucher_id', 'status_number_id', 'is_winner'];
+
+    public function lottery()
+    {
+       return $this->belongsTo(Lottery::class);
+    }
 }

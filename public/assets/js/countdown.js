@@ -1,10 +1,7 @@
 
+var minutes = 10;
 
-
-// Enviar el valor inicial del contador al worker
-var countdown = (localStorage.getItem('timer') != "undefined" ? JSON.parse(localStorage.getItem('timer')) : 180) || 180;
-
-console.log(countdown);
+var countdown = (localStorage.getItem('timer') != "undefined" ? JSON.parse(localStorage.getItem('timer')) : minutes * 60) || minutes * 60;
 
 let sendDataExecuted = false;
 

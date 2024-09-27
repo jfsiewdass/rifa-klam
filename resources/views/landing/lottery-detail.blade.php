@@ -130,9 +130,9 @@
                     <div class="row justify-content-center">
                         <div class="col-md-4 my-3 d-flex">
                             <input type="text" class="form-control me-5" placeholder="Buscar número" id="findNumber">
-                            <button class="btn btn-danger border d-flex align-items-center" disabled id="btnCancel">
+                            <button class="btn btn-danger border d-flex align-items-center" disabled id="btnCancel" style="min-width: 150px">
                                 {{-- <i class="ph-bold ph-empty act4-clr"></i> --}}
-                                Cancelar
+                                Limpiar números
                             </button>
                         </div>
 
@@ -165,7 +165,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>Si continúa tendrá 5 minutos para procesar el pago</p>
+                            <p>Si continúa tendrá {{ env('MINUTES') }} minutos para procesar el pago</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal"
