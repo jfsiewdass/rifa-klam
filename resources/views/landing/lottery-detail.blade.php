@@ -130,7 +130,7 @@
                     <div class="row justify-content-center">
                         <div class="col-md-4 my-3 d-flex">
                             <input type="text" class="form-control me-5" placeholder="Buscar número" id="findNumber">
-                            <button class="btn btn-danger border d-flex align-items-center" disabled id="btnCancel" style="min-width: 150px">
+                            <button class="btn btn-danger border d-flex align-items-center" disabled id="btnCancel" style="min-width: 145px">
                                 {{-- <i class="ph-bold ph-empty act4-clr"></i> --}}
                                 Limpiar números
                             </button>
