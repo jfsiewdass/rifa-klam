@@ -9,9 +9,11 @@ use App\Models\Lottery;
 use App\Models\LotteryNumber;
 use App\Models\PaymentType;
 use App\Models\Voucher;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
@@ -112,7 +114,13 @@ class HomeController extends Controller
             // dd($numbers);
             foreach ($numbers as $number) {
                 $lotteryNumber = LotteryNumber::find($number->id);
-                if ($lotteryNumber) $lotteryNumber->delete();
+                if ($lotteryNumber) {
+                    if (!$lotteryNumber->voucher_id) {
+                        $lotteryNumber->delete();
+                    } else {
+                        throw new Exception("Número comprado");
+                    }
+                }
                 
                 $lotteryNumber = new LotteryNumber();
                 $lotteryNumber->number = $number->number;
@@ -127,7 +135,10 @@ class HomeController extends Controller
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
-            dd($th);
+            Log::error('HomeController.store -> '.$th->getMessage());
+            return redirect()->route('home')->with('error', 'Hubo un problema al realizar la compra, por favor contacte al administrador');
+           // ->with('error', 'Hubo un problema al actualizar la rifa');
+            // dd($th);
         }
 
         return redirect()->route('home')->with('success', 'Compra exitosa');
@@ -149,7 +160,7 @@ class HomeController extends Controller
                 }
             } else {
 
-                
+                ;
                 if (count($savedNumbers) > 0) {
                     
                     foreach ($allNumbers as $n) {

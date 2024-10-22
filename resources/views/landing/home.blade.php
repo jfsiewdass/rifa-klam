@@ -317,17 +317,30 @@
 </section>
 @endsection
 @section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js"></script>
+<script>
+    localStorage.removeItem('numerosSeleccionados');
+    localStorage.removeItem('savedNumbers');
+    localStorage.removeItem('lottery_id');
+    localStorage.removeItem('timmer');
+</script>
     @if (session('success'))
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js"></script>
         <script>
-            localStorage.removeItem('numerosSeleccionados');
-            localStorage.removeItem('savedNumbers');
-            localStorage.removeItem('lottery_id');
-            localStorage.removeItem('timmer');
+            
             Swal.fire({
                 title: 'Excelente',
                 text: 'Gracias por su compra',
                 icon: 'success',
+                confirmButtonColor: '#109856' // Cambia '#3085d6' por el color deseado
+            })
+        </script>
+    @endif
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                title: 'Error',
+                text: '{{session("error")}}',
+                icon: 'error',
                 confirmButtonColor: '#109856' // Cambia '#3085d6' por el color deseado
             })
         </script>

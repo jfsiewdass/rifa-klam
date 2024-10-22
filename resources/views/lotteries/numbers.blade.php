@@ -70,6 +70,7 @@
                 <th>Capture</th>
                 <th>#</th>
                 <th>Nombres</th>
+                <th>Teléfono</th>
                 <th>Documento</th>
                 <th>Cantidad de números</th>
                 <th>Referencia</th>
@@ -92,6 +93,11 @@
                     </td>
                     <td>{{ ++$i }}</td>
                     <td>{{ $number->name . ' ' . $number->surname }}</td>
+                    <td>
+                        <a href="tel:{{ preg_replace('/[^0-9]/', '', $number->phone) }}">{{ $number->phone }}</a>
+                        <a class="copy-button" data-phone="{{ preg_replace('/[^0-9]/', '', $number->phone) }}"><i class="fas fa-clone"></i></a>
+                        <div id="message" style="display: none;">Copiado!</div>
+                    </td>
                     <td>{{ $number->document }}</td>
                     <td>
 
@@ -266,5 +272,44 @@
                 }
             });
         });
+        document.addEventListener('DOMContentLoaded', function() {
+    const copyButtons = document.querySelectorAll('.copy-button');
+    const messageElement = document.getElementById('message');
+
+    copyButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const phone = this.getAttribute('data-phone');
+            
+            navigator.clipboard.writeText(phone).then(
+                () => {
+                    showSuccessMessage(messageElement);
+                },
+                err => {
+                    console.error('Error al intentar copiar:', err);
+                    showMessage(messageElement, 'Error al copiar. Por favor, inténtalo nuevamente.');
+                }
+            );
+        });
+    });
+
+    function showMessage(element, text) {
+        element.textContent = text;
+        element.style.display = 'block';
+    }
+
+    function showSuccessMessage(element) {
+        showMessage(element, 'Copiado!');
+        setTimeout(() => {
+            hideMessage(element);
+        }, 3000); // Muestra el mensaje durante 3 segundos antes de ocultarlo
+    }
+
+    function hideMessage(element) {
+        element.style.display = 'none';
+    }
+});
+
+
     </script>
 @endsection
