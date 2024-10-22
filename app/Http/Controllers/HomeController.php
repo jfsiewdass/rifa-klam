@@ -159,10 +159,7 @@ class HomeController extends Controller
                     LotteryNumber::create(['number' => $value->number, 'lottery_id' => $request->lottery_id]);
                 }
             } else {
-
-                ;
                 if (count($savedNumbers) > 0) {
-                    
                     foreach ($allNumbers as $n) {
                         if (!in_array($n, array_column($savedNumbers, 'number'))) {
                             $toSave[] = $n;
